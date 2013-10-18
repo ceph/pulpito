@@ -1,22 +1,34 @@
-from pecan import expose, redirect
-from webob.exc import status_map
+from pecan import expose
+import requests
 
 
 class RootController(object):
 
-    @expose(generic=True, template='index.html')
+    @expose('index.html')
     def index(self):
-        return dict()
+        latest_runs = requests.get('http://sentry.front.sepia.ceph.com:8080/runs/').json()['latest_runs']
+        runs = {}
+        for run in latest_runs:
+            runs[run['name']] = self.get_run_metadata(run['name'])
+        return dict(runs=self.set_status_class(runs))
 
-    @index.when(method='POST')
-    def index_post(self, q):
-        redirect('http://pecan.readthedocs.org/en/latest/search.html?q=%s' % q)
+    def get_run_metadata(self, run_name):
+        metadata = requests.get('http://sentry.front.sepia.ceph.com:8080/runs/%s' % run_name).json()
+        return metadata
 
-    @expose('error.html')
-    def error(self, status):
-        try:
-            status = int(status)
-        except ValueError:  # pragma: no cover
-            status = 500
-        message = getattr(status_map.get(status), 'explanation', '')
-        return dict(status=status, message=message)
+    def set_status_class(self, runs):
+        for run in runs:
+            run = runs[run]
+            fail = run['results']['fail']
+            running = run['results']['running']
+            passing = run['results']['pass']
+
+            if fail:
+                run['status_class'] = 'danger'
+            elif not running and passing:
+                run['status_class'] = 'success'
+            elif running and passing:
+                run['status_class'] = 'warning'
+            else:
+                run['status_class'] = 'warning'
+        return runs
