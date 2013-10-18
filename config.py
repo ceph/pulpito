@@ -10,6 +10,7 @@ app = {
     'modules': ['pulpito'],
     'static_root': '%(confdir)s/public',
     'template_path': '%(confdir)s/pulpito/templates',
+    'default_renderer': 'jinja',
     'debug': True,
     'errors': {
         404: '/error/404',
