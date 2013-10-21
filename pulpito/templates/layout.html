@@ -6,7 +6,14 @@
       <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
       {% endblock %}
       {% block javascript %}
-      <script language="text/javascript" src="/js/bootstrap.js"></script>
+      <script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
+      <script type="text/javascript" src="/js/bootstrap.js"></script>
+      <script type="text/javascript" src="/js/stupidtable.min.js"></script>
+      <script>
+        $( document ).ready(function() {
+             $("table").stupidtable();
+        });
+        </script>
       {% endblock %}
     </head>
     <body>
