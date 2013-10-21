@@ -12,25 +12,33 @@
               <table class="table table-striped table-bordered table-hover link-bare">
                 <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Total Jobs</th>
-                    <th>Pass</th>
-                    <th>Fail</th>
-                    <th>Running</th>
+                    <th>Job ID</th>
+                    <th>Duration</th>
+                    <th>Machine</th>
+                    <th>Teuthology Branch</th>
+                    <th>OS Type</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {% for run in runs %}
-                    <tr class="{{ runs[run]['status_class'] }}">
+                  {% for job in run['jobs'] %}
+                    <tr class="{{ job['status_class'] }}">
                       <td>
-                        <a href="/{{ runs[run]['name'] }}">
-                          {{ runs[run]['name'] }}
+                          <a href="/{{ run['name']}}/{{ job['job_id'] }}">
+                          {{ job['job_id'] }}
                         </a>
                       </td>
-                      <td>{{ runs[run]['jobs_count'] }}</td>
-                      <td>{{ runs[run]['results']['pass'] }}</td>
-                      <td>{{ runs[run]['results']['fail'] }}</td>
-                      <td>{{ runs[run]['results']['running'] }}</td>
+                      <td>
+                          {{ job['duration'] }}
+                      </td>
+                      <td>
+                          {{ job['machine_type'] }}
+                      </td>
+                      <td>
+                          {{ job['teuthology_branch'] }}
+                      </td>
+                      <td>
+                          {{ job['os_type'] }}
+                      </td>
                     </tr>
                   {% endfor %}
                 </tbody>
