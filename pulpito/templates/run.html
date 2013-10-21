@@ -5,7 +5,7 @@
       <div class="row">
           <div class="col-lg-12">
             <div class="page-header">
-              <h1 id="tables">Latest Test Run Results</h1>
+              <h1 id="tables">{{ run['name'] }} Results</h1>
             </div>
 
             <div class="bs-example">
@@ -21,16 +21,16 @@
                 </thead>
                 <tbody>
                   {% for run in runs %}
-                    <tr class="{{ run['status_class'] }}">
+                    <tr class="{{ runs[run]['status_class'] }}">
                       <td>
-                        <a href="/{{ run['name'] }}">
-                          {{ run['name'] }}
+                        <a href="/{{ runs[run]['name'] }}">
+                          {{ runs[run]['name'] }}
                         </a>
                       </td>
-                      <td>{{ run['jobs_count'] }}</td>
-                      <td>{{ run['results']['pass'] }}</td>
-                      <td>{{ run['results']['fail'] }}</td>
-                      <td>{{ run['results']['running'] }}</td>
+                      <td>{{ runs[run]['jobs_count'] }}</td>
+                      <td>{{ runs[run]['results']['pass'] }}</td>
+                      <td>{{ runs[run]['results']['fail'] }}</td>
+                      <td>{{ runs[run]['results']['running'] }}</td>
                     </tr>
                   {% endfor %}
                 </tbody>
@@ -39,4 +39,5 @@
           </div>
         </div>
 {% endblock %}
+
 
