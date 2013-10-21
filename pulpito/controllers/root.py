@@ -7,28 +7,38 @@ class RootController(object):
     @expose('index.html')
     def index(self):
         latest_runs = requests.get('http://sentry.front.sepia.ceph.com:8080/runs/').json()['latest_runs']
-        runs = {}
         for run in latest_runs:
-            runs[run['name']] = self.get_run_metadata(run['name'])
-        return dict(runs=self.set_status_class(runs))
+            run['status_class'] = self.set_status_class(run)
+        return dict(runs=latest_runs)
 
-    def get_run_metadata(self, run_name):
-        metadata = requests.get('http://sentry.front.sepia.ceph.com:8080/runs/%s' % run_name).json()
-        return metadata
+    def set_status_class(self, run):
+        fail = run['results']['fail']
+        running = run['results']['running']
+        passing = run['results']['pass']
+        status_class = 'warning'
+        if fail:
+            status_class = 'danger'
+        elif not running and passing:
+            status_class = 'success'
+        elif running and passing:
+            status_class = 'warning'
+        else:
+            status_class = 'warning'
+        return status_class
 
-    def set_status_class(self, runs):
-        for run in runs:
-            run = runs[run]
-            fail = run['results']['fail']
-            running = run['results']['running']
-            passing = run['results']['pass']
+    @expose()
+    def _lookup(self, name, *remainder):
+        return RunController(name), remainder
 
-            if fail:
-                run['status_class'] = 'danger'
-            elif not running and passing:
-                run['status_class'] = 'success'
-            elif running and passing:
-                run['status_class'] = 'warning'
-            else:
-                run['status_class'] = 'warning'
-        return runs
+
+class RunController(object):
+
+    def __init__(self, name):
+        self.name = name
+
+    @expose('run.html')
+    def index(self):
+        metadata = requests.get('http://sentry.front.sepia.ceph.com:8080/runs/%s' % self.name).json()
+        return dict(
+            run=metadata
+        )
