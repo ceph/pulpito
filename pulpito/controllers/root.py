@@ -6,7 +6,7 @@ class RootController(object):
 
     @expose('index.html')
     def index(self):
-        latest_runs = requests.get('http://sentry.front.sepia.ceph.com:8080/runs/').json()['latest_runs']
+        latest_runs = requests.get('http://sentry.front.sepia.ceph.com:8080/runs/').json()
         for run in latest_runs:
             run['status_class'] = self.set_status_class(run)
         return dict(runs=latest_runs)
