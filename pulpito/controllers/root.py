@@ -29,6 +29,51 @@ class RootController(object):
             status_class = 'warning'
         return status_class
 
+    @expose('compare.html')
+    def compare(self, suite, branch):
+        """
+        Ask paddles for a list of runs of ``suite`` on ``branch``, then build a
+        dict that looks like:
+            {'runs': [
+                {'name': run_name,
+                    'jobs': [
+                        job_description: {
+                            'job_id': job_id,
+                            'success': success }
+                    ]}
+                ]
+             'descriptions': [
+                 job_description,
+                ]
+            }
+        """
+        runs = requests.get(
+            '{base}/runs/branch/{branch}/suite/{suite}/'.format(
+                base=base_url, branch=branch, suite=suite)).json()
+        full_info = dict(
+            branch=branch,
+            suite=suite,
+            runs=list(),
+        )
+        descriptions = set()
+        #FIXME limit the count on the paddles side
+        for run in runs[:5]:
+            run_info = dict()
+            jobs = requests.get(
+                '{base}/runs/{run_name}/jobs/?fields=job_id,description,success'.format(  # noqa
+                    base=base_url,
+                    run_name=run['name'])).json()
+            run_info['name'] = run['name']
+            run_info['jobs'] = dict()
+            for job in jobs:
+                description = job.pop('description')
+                descriptions.add(description)
+                run_info['jobs'][description] = job
+            full_info['runs'].append(run_info)
+        full_info['runs'].reverse()
+        full_info['descriptions'] = sorted(list(descriptions))
+        return full_info
+
     @expose()
     def _lookup(self, name, *remainder):
         return RunController(name), remainder
