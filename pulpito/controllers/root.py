@@ -1,6 +1,7 @@
 from pecan import expose
 from pecan import conf
 import requests
+from job import JobController
 
 base_url = conf.paddles_address
 
@@ -111,3 +112,7 @@ class RunController(object):
         return dict(
             run=metadata
         )
+
+    @expose('json')
+    def _lookup(self, job_id, *remainder):
+        return JobController(self.name, job_id), remainder
