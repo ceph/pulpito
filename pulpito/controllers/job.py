@@ -12,6 +12,6 @@ class JobController(object):
         self.job = requests.get("{base}/runs/{run}/jobs/{job}".format(
             base=base_url, run=run_name, job=job_id)).json()
 
-    @expose('json')
+    @expose('job.html')
     def index(self):
-        return self.job
+        return dict(job=self.job)

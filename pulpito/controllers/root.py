@@ -77,7 +77,7 @@ class RootController(object):
         for run in runs:
             run_info = dict()
             jobs = requests.get(
-                '{base}/runs/{run_name}/jobs/?fields=job_id,description,success'.format(  # noqa
+                '{base}/runs/{run_name}/jobs/?fields=job_id,description,success,log_href'.format(  # noqa
                     base=base_url,
                     run_name=run['name'])).json()
             run_info['name'] = run['name']
