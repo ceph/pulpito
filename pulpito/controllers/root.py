@@ -44,7 +44,7 @@ class RootController(object):
         return status_class
 
     @expose('compare.html')
-    def compare(self, suite, branch):
+    def compare(self, suite, branch, count=3):
         """
         Ask paddles for a list of runs of ``suite`` on ``branch``, then build a
         dict that looks like:
@@ -62,16 +62,18 @@ class RootController(object):
             }
         """
         runs = requests.get(
-            '{base}/runs/branch/{branch}/suite/{suite}/'.format(
-                base=base_url, branch=branch, suite=suite)).json()
+            '{base}/runs/branch/{branch}/suite/{suite}/?count={count}'.format(
+                base=base_url,
+                branch=branch,
+                suite=suite,
+                count=str(count))).json()
         full_info = dict(
             branch=branch,
             suite=suite,
             runs=list(),
         )
         descriptions = set()
-        #FIXME limit the count on the paddles side
-        for run in runs[:5]:
+        for run in runs:
             run_info = dict()
             jobs = requests.get(
                 '{base}/runs/{run_name}/jobs/?fields=job_id,description,success'.format(  # noqa
