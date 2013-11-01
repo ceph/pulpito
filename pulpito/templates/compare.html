@@ -17,7 +17,9 @@
                     </th>
                     {% for run in runs %}
                        <th data-sort="string">
+                         <a href="/{{run['name']}}/">
                            {{ run['name'] }}
+                         </a>
                        </th>
                     {% endfor %}
                   </tr>
