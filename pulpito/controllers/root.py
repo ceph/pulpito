@@ -1,12 +1,15 @@
 from pecan import expose
+from pecan import conf
 import requests
+
+base_url = conf.paddles_address
 
 
 class RootController(object):
 
     @expose('index.html')
     def index(self):
-        latest_runs = requests.get('http://sentry.front.sepia.ceph.com:8080/runs/').json()
+        latest_runs = requests.get('{base}/runs/'.format(base=base_url)).json()
         for run in latest_runs:
             run['status_class'] = self.set_status_class(run)
         return dict(runs=latest_runs)
@@ -38,7 +41,9 @@ class RunController(object):
 
     @expose('run.html')
     def index(self):
-        metadata = requests.get('http://sentry.front.sepia.ceph.com:8080/runs/%s' % self.name).json()
+        metadata = requests.get(
+            '{base}/runs/{name}'.format(base=base_url,
+                                        name=self.name)).json()
         for job in metadata['jobs']:
             job['status_class'] = self.set_status_class(job)
         return dict(
