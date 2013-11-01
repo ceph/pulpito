@@ -5,6 +5,20 @@ import requests
 base_url = conf.paddles_address
 
 
+def get_job_status_info(job):
+    success = job['success']
+    if success is False:
+        status_class = 'danger'
+        status = 'fail'
+    elif success is True:
+        status_class = 'success'
+        status = 'pass'
+    else:
+        status_class = 'warning'
+        status = '?'
+    return status, status_class
+
+
 class RootController(object):
 
     @expose('index.html')
@@ -67,6 +81,7 @@ class RootController(object):
             run_info['jobs'] = dict()
             for job in jobs:
                 description = job.pop('description')
+                job['status'], job['status_class'] = get_job_status_info(job)
                 descriptions.add(description)
                 run_info['jobs'][description] = job
             full_info['runs'].append(run_info)
@@ -90,19 +105,7 @@ class RunController(object):
             '{base}/runs/{name}'.format(base=base_url,
                                         name=self.name)).json()
         for job in metadata['jobs']:
-            job['status_class'] = self.set_status_class(job)
+            job['status_class'] = get_job_status_info(job)[1]
         return dict(
             run=metadata
         )
-
-    def set_status_class(self, job):
-        success = job['success']
-        if success is False:
-            status_class = 'danger'
-        elif success:
-            status_class = 'success'
-        elif success is None:
-            status_class = 'warning'
-        else:
-            status_class = 'warning'
-        return status_class
