@@ -48,11 +48,14 @@
                   {{ job['log_href'] }}
                 </a>
               </p>
-              <p>
-                Sentry event:
-                <a href="{{ job['sentry_event'] }}" target="_blank">
-                    {{ job['sentry_event'] }}
-                </a>
+              {% if job['sentry_event'] %}
+                <p>
+                    Sentry event:
+                    <a href="{{ job['sentry_event'] }}" target="_blank">
+                        {{ job['sentry_event'] }}
+                    </a>
+                </p>
+              {% endif %}
             </div><!-- /example -->
           </div>
         </div>
