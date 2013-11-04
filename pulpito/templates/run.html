@@ -24,7 +24,7 @@
                   {% for job in run['jobs'] %}
                     <tr class="{{ job['status_class'] }}">
                       <td>
-                          {#  <a href="/{{ run['name']}}/{{ job['job_id'] }}"> #}
+                        <a href="/{{ run['name']}}/{{ job['job_id'] }}" target="_blank">
                           {{ job['job_id'] }}
                         </a>
                       </td>
