@@ -39,9 +39,11 @@
                     </tr>
                 </tbody>
               </table>
-              <p>
-                Failure reason: {{ job['failure_reason'] }}
-              </p>
+              {% if job['failure_reason'] %}
+                <p>
+                    Failure reason: {{ job['failure_reason'] }}
+                </p>
+              {% endif %}
               <p>
                 Log:
                 <a href="{{ job['log_href'] }}" target="_blank">
