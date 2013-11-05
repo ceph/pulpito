@@ -4,6 +4,8 @@ server = {
     'host': '0.0.0.0'
 }
 
+paddles_address = 'http://sentry.front.sepia.ceph.com:8080'
+
 # Pecan Application Configurations
 app = {
     'root': 'pulpito.controllers.root.RootController',

@@ -17,14 +17,14 @@
                     <th data-sort="string">Machine</th>
                     <th data-sort="string">Teuthology Branch</th>
                     <th data-sort="string">OS Type</th>
-                    <th data-sort="string">Success</th>
+                    <th data-sort="string">Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {% for job in run['jobs'] %}
                     <tr class="{{ job['status_class'] }}">
                       <td>
-                          {#  <a href="/{{ run['name']}}/{{ job['job_id'] }}"> #}
+                        <a href="/{{ run['name']}}/{{ job['job_id'] }}" target="_blank">
                           {{ job['job_id'] }}
                         </a>
                       </td>
@@ -41,7 +41,7 @@
                           {{ job['os_type'] }}
                       </td>
                       <td>
-                          {{ job['success'] }}
+                          {{ job['status'] }}
                       </td>
                     </tr>
                   {% endfor %}
