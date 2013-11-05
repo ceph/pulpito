@@ -13,6 +13,16 @@ table.link-bare td a:hover {
     text-decoration: none;
 }
 
+@font-face {
+    font-family: 'UbuntuMono';
+    src: url('/fonts/UbuntuMono-R.ttf')  format('truetype')
+}
+
+.code-text {
+    font-family: 'UbuntuMono';
+    background-color: #eee;
+    padding-left: 25px;
+}
 
 /* Progress meter */
 
