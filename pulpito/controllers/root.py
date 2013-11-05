@@ -31,6 +31,22 @@ class RootController(object):
             status_class = 'warning'
         return status_class
 
+    @expose('index.html')
+    def date(self, date_str):
+        # FIXME needs an error message
+        response = requests.get('{base}/runs/date/{date}'.format(
+            base=base_url, date=date_str)).json()
+
+        # If there are no results from paddles
+        if isinstance(response, dict):
+            runs = []
+        else:
+            runs = response
+
+        for run in runs:
+            run['status_class'] = self.set_status_class(run)
+        return dict(runs=runs)
+
     @expose('compare.html')
     def compare(self, suite, branch, count=3):
         """
