@@ -17,7 +17,7 @@
                     <th data-sort="string">Machine</th>
                     <th data-sort="string">Teuthology Branch</th>
                     <th data-sort="string">OS Type</th>
-                    <th data-sort="string">Success</th>
+                    <th data-sort="string">Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -41,7 +41,7 @@
                           {{ job['os_type'] }}
                       </td>
                       <td>
-                          {{ job['success'] }}
+                          {{ job['status'] }}
                       </td>
                     </tr>
                   {% endfor %}

@@ -95,7 +95,7 @@ class RunController(object):
             '{base}/runs/{name}'.format(base=base_url,
                                         name=self.name)).json()
         for job in metadata['jobs']:
-            job['status_class'] = get_job_status_info(job)[1]
+            job['status'], job['status_class'] = get_job_status_info(job)
         return dict(
             run=metadata
         )
