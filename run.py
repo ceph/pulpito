@@ -4,6 +4,8 @@ from cherrypy import wsgiserver
 
 from pecan.deploy import deploy
 
+import prod
+
 prod_config = os.path.abspath(os.path.join(os.path.dirname(__file__), 'prod.py'))
 simpleapp_wsgi_app = deploy(prod_config)
 
@@ -38,7 +40,7 @@ application = wsgiserver.WSGIPathInfoDispatcher({
     }
 )
 
-server = wsgiserver.CherryPyWSGIServer(('0.0.0.0', 8181), application,
+server = wsgiserver.CherryPyWSGIServer((prod.server['host'], prod.server['port']), application,
 server_name='simpleapp')
 
 try:
