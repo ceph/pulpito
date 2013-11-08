@@ -40,19 +40,9 @@ table.link-bare td a:hover {
     padding-left: 25px;
 }
 
-/* Progress meter */
+/* Result Boxes */
 
-.progress-meter .background {
-  fill: #ccc;
+.result-box p {
+    font-size: 150%;
+    margin-top: -6px;
 }
-
-.progress-meter .foreground {
-  fill: #000;
-}
-
-.progress-meter text {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 24px;
-  font-weight: bold;
-}
-
