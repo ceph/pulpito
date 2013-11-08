@@ -34,25 +34,25 @@
 
     <div class="row">
       <div class="col-lg-3">
-        <div class="alert alert-success">
+        <div class="alert alert-success result-box">
           Passed
           <p class='pull-right'>{{ run['results']['pass'] or 0}}</p>
         </div>
       </div>
       <div class="col-lg-3">
-        <div class="alert alert-warning">
+        <div class="alert alert-warning result-box">
             Running
           <p class='pull-right'>{{ run['results']['running'] or 0}}</p>
         </div>
       </div>
       <div class="col-lg-3">
-        <div class="alert alert-danger">
+        <div class="alert alert-danger result-box">
           Failed
           <p class='pull-right'>{{ run['results']['fail'] or 0}}</p>
         </div>
       </div>
       <div class="col-lg-3">
-        <div class="alert alert-info">
+        <div class="alert alert-info result-box">
           Total
           <p class='pull-right'>{{ run['results']['total'] or 0}}</p>
         </div>
