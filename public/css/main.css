@@ -6,6 +6,11 @@ table {
     font-size: 1em;
 }
 
+table th {
+    /* for headers in compare view */
+    width: 7em;
+}
+
 table.link-bare td a {
     display: block;
     width: 100%;
