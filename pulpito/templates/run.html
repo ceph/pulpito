@@ -2,80 +2,107 @@
 
 {% block body %}
 
-      <div class="row">
-          <div class="col-lg-12">
-            <div class="page-header">
-              <h1 id="tables">{{ run['name'] }} Results</h1>
-              <h2>
-                {% if run['results']['fail'] %}
-                  {{ run['results']['fail'] }} failed,
-                {% endif %}
-                {% if run['results']['running'] %}
-                  {{ run['results']['running'] }} running,
-                {% endif %}
-                {% if run['results']['pass'] %}
-                  {{ run['results']['pass'] }} passed
-                {% endif %}
-                ({{ run['results']['total'] }} total)
-              </h2>
-              {% if run.branch and run.suite %}
-                <h2>
-                  <a href="/compare?branch={{ run.branch }}&suite={{ run.suite }}" target="_blank">
-                      See other runs of suite '{{ run.suite }}' on branch '{{ run.branch }}'?
-                  </a>
-                </h2>
-              {% endif %}
-              {% if run.scheduled %}
-                <h2>
-                  <a href="/date/{{ run.scheduled_day }}/" target="_blank">
-                    See other runs scheduled on {{ run.scheduled_day }}?
-                  </a>
-                </h2>
-              {% endif %}
-            </div>
+    <div class="page-header">
+      <h1 id="tables">{{ run['name'] }} Results</h1>
+      <h2>
+        {% if run['results']['fail'] %}
+          {{ run['results']['fail'] }} failed,
+        {% endif %}
+        {% if run['results']['running'] %}
+          {{ run['results']['running'] }} running,
+        {% endif %}
+        {% if run['results']['pass'] %}
+          {{ run['results']['pass'] }} passed
+        {% endif %}
+        ({{ run['results']['total'] }} total)
+      </h2>
+      {% if run.branch and run.suite %}
+        <h2>
+          <a href="/compare?branch={{ run.branch }}&suite={{ run.suite }}" target="_blank">
+              See other runs of suite '{{ run.suite }}' on branch '{{ run.branch }}'?
+          </a>
+        </h2>
+      {% endif %}
+      {% if run.scheduled %}
+        <h2>
+          <a href="/date/{{ run.scheduled_day }}/" target="_blank">
+            See other runs scheduled on {{ run.scheduled_day }}?
+          </a>
+        </h2>
+      {% endif %}
+    </div>
 
-            <div class="bs-example">
-              <table class="table table-striped table-bordered table-hover link-bare">
-                <thead>
-                  <tr>
-                    <th data-sort="int">Job ID</th>
-                    <th data-sort="int">Duration</th>
-                    <th data-sort="string">Machine</th>
-                    <th data-sort="string">Teuthology Branch</th>
-                    <th data-sort="string">OS Type</th>
-                    <th data-sort="string">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for job in run['jobs'] %}
-                    <tr class="{{ job['status_class'] }}">
-                      <td>
-                        <a href="/{{ run['name']}}/{{ job['job_id'] }}" target="_blank">
-                          {{ job['job_id'] }}
-                        </a>
-                      </td>
-                      <td>
-                          {{ job['duration'] }}
-                      </td>
-                      <td>
-                          {{ job['machine_type'] }}
-                      </td>
-                      <td>
-                          {{ job['teuthology_branch'] }}
-                      </td>
-                      <td>
-                          {{ job['os_type'] }}
-                      </td>
-                      <td>
-                          {{ job['status'] }}
-                      </td>
-                    </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div><!-- /example -->
-          </div>
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="alert alert-success">
+          Passed
+          <p class='pull-right'>{{ run['results']['pass'] or 0}}</p>
         </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="alert alert-warning">
+            Running
+          <p class='pull-right'>{{ run['results']['running'] or 0}}</p>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="alert alert-danger">
+          Failed
+          <p class='pull-right'>{{ run['results']['fail'] or 0}}</p>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="alert alert-info">
+          Total
+          <p class='pull-right'>{{ run['results']['total'] or 0}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="bs-example">
+          <table class="table table-striped table-bordered table-hover link-bare">
+            <thead>
+              <tr>
+                <th data-sort="int">Job ID</th>
+                <th data-sort="int">Duration</th>
+                <th data-sort="string">Machine</th>
+                <th data-sort="string">Teuthology Branch</th>
+                <th data-sort="string">OS Type</th>
+                <th data-sort="string">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for job in run['jobs'] %}
+                <tr class="{{ job['status_class'] }}">
+                  <td>
+                    <a href="/{{ run['name']}}/{{ job['job_id'] }}" target="_blank">
+                      {{ job['job_id'] }}
+                    </a>
+                  </td>
+                  <td>
+                      {{ job['duration'] }}
+                  </td>
+                  <td>
+                      {{ job['machine_type'] }}
+                  </td>
+                  <td>
+                      {{ job['teuthology_branch'] }}
+                  </td>
+                  <td>
+                      {{ job['os_type'] }}
+                  </td>
+                  <td>
+                      {{ job['status'] }}
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div><!-- /example -->
+      </div>
+    </div>
 {% endblock %}
 
 
