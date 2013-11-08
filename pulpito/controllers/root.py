@@ -84,6 +84,7 @@ class RootController(object):
                     base=base_url,
                     run_name=run['name'])).json()
             run_info['name'] = run['name']
+            run_info['scheduled'] = run['scheduled']
             run_info['jobs'] = dict()
             for job in jobs:
                 description = job.pop('description')
