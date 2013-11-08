@@ -18,12 +18,20 @@
                 {% endif %}
                 ({{ run['results']['total'] }} total)
               </h2>
-              <h2>
-                {% if run.branch and run.suite %}
+              {% if run.branch and run.suite %}
+                <h2>
                   <a href="/compare?branch={{ run.branch }}&suite={{ run.suite }}" target="_blank">
-                      See other runs of suite {{ run.suite }} on branch {{ run.branch }} ?
+                      See other runs of suite '{{ run.suite }}' on branch '{{ run.branch }}'?
                   </a>
-                {% endif %}
+                </h2>
+              {% endif %}
+              {% if run.scheduled %}
+                <h2>
+                  <a href="/date/{{ run.scheduled_day }}/" target="_blank">
+                    See other runs scheduled on {{ run.scheduled_day }}?
+                  </a>
+                </h2>
+              {% endif %}
             </div>
 
             <div class="bs-example">

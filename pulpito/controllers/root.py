@@ -1,6 +1,7 @@
 from pecan import expose
 from pecan import conf
 import requests
+
 from job import JobController
 from util import get_job_status_info
 
@@ -34,7 +35,7 @@ class RootController(object):
     @expose('index.html')
     def date(self, date_str):
         # FIXME needs an error message
-        response = requests.get('{base}/runs/date/{date}'.format(
+        response = requests.get('{base}/runs/date/{date}/'.format(
             base=base_url, date=date_str)).json()
 
         # If there are no results from paddles
@@ -105,16 +106,26 @@ class RunController(object):
 
     def __init__(self, name):
         self.name = name
+        self.run = None
+
+    def get_run(self):
+        run = requests.get(
+            '{base}/runs/{name}'.format(base=base_url,
+                                        name=self.name)).json()
+        if 'scheduled' in run:
+            run['scheduled_day'] = run['scheduled'].split()[0]
+
+        for job in run['jobs']:
+            job['status'], job['status_class'] = get_job_status_info(job)
+
+        self.run = run
+        return self.run
 
     @expose('run.html')
     def index(self):
-        metadata = requests.get(
-            '{base}/runs/{name}'.format(base=base_url,
-                                        name=self.name)).json()
-        for job in metadata['jobs']:
-            job['status'], job['status_class'] = get_job_status_info(job)
+        run = self.run or self.get_run()
         return dict(
-            run=metadata
+            run=run
         )
 
     @expose('json')
