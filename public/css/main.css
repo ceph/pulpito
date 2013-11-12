@@ -15,6 +15,10 @@ table th {
     width: 7em;
 }
 
+th[data-sort]{
+  cursor:pointer;
+}
+
 table.link-bare td a {
     display: block;
     width: 100%;
