@@ -7,20 +7,18 @@
       {% endblock %}
       {% block javascript %}
       <script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
+      <script type="text/javascript" src="/js/jquery.tablesorter.min.js"></script>
       <script type="text/javascript" src="/js/bootstrap.js"></script>
-      <script type="text/javascript" src="/js/stupidtable.min.js"></script>
       <script>
         $( document ).ready(function() {
-            $("table").stupidtable();
-
-            $("table").bind('aftertablesort', function (event, data) {
-                // data.column - the index of the column sorted after a click
-                // data.direction - the sorting direction (either asc or desc)
-
+            $("table").tablesorter();
+            $("table").bind('sortEnd', function (event) {
                 var th = $(this).find("th");
                 th.find(".arrow").remove();
-                var arrow = data.direction === "asc" ? "↑" : "↓";
-                th.eq(data.column).append('<span class="arrow">' + arrow +'</span>');
+                var downArrow = '<span class="arrow">↓</span>';
+                var upArrow = '<span class="arrow">↑</span>';
+                $(this).find(".headerSortDown").append(downArrow);
+                $(this).find(".headerSortUp").append(upArrow);
             });
         });
         </script>

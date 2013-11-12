@@ -38,12 +38,12 @@
               <table class="table table-condensed table-striped table-bordered table-hover link-bare" style="border-collapse:collapse;">
                 <thead>
                   <tr>
-                    <th data-sort="int">Job ID</th>
-                    <th data-sort="string">Status</th>
-                    <th data-sort="int">Duration</th>
-                    <th data-sort="string">Machine</th>
-                    <th data-sort="string">Teuthology Branch</th>
-                    <th data-sort="string">OS Type</th>
+                    <th>Job ID</th>
+                    <th>Status</th>
+                    <th>Duration</th>
+                    <th>Machine</th>
+                    <th>Teuthology Branch</th>
+                    <th>OS Type</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -70,7 +70,7 @@
                           {{ job['os_type'] }}
                       </td>
                     </tr>
-                    <tr>
+                    <tr class="expand-child">
                       <td colspan="6" class="hiddenRow"><div class="accordian-body collapse" id="{{ job.job_id }}">
                         Failure Reason:
                         <p class="code-text">
