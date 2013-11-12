@@ -28,13 +28,11 @@ table.link-bare td a {
     width: 100%;
     height: 100%;
     color: #666;
-    text-decoration: none;
 }
 
 table.link-bare td a:hover {
     display: block;
     color: #111;
-    text-decoration: none;
 }
 
 @font-face {

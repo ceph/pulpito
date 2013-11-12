@@ -34,6 +34,7 @@
               {% endif %}
             </div>
 
+            <div align=right><button type="button" class="btn" id="toggle-btn"></button></div>
             <div class="bs-example">
               <table class="table table-condensed table-striped table-bordered table-hover link-bare" style="border-collapse:collapse;">
                 <thead>
@@ -48,7 +49,7 @@
                 </thead>
                 <tbody>
                   {% for job in run['jobs'] %}
-                    <tr class="{{ job['status_class'] }}" data-toggle="collapse" class="accordion-toggle" data-target="#{{ job.job_id }}">
+                    <tr class="{{ job['status_class'] }}" data-toggle="collapse" data-target="#{{ job.job_id }}">
                       <td>
                         <a href="/{{ run['name']}}/{{ job['job_id'] }}" target="_blank">
                           {{ job['job_id'] }}
@@ -70,14 +71,16 @@
                           {{ job['os_type'] }}
                       </td>
                     </tr>
-                    <tr class="expand-child">
-                      <td colspan="6" class="hiddenRow"><div class="accordian-body collapse" id="{{ job.job_id }}">
-                        Failure Reason:
-                        <p class="code-text">
-                            {{ job['failure_reason'] }}
-                        </p>
-                      </div></td>
-                    </tr>
+                    {% if job.failure_reason %}
+                      <tr class="expand-child">
+                        <td colspan="6" class="hiddenRow"><div class="collapse" id="{{ job.job_id }}">
+                          Failure Reason:
+                          <p class="code-text">
+                            {{ job.failure_reason }}
+                          </p>
+                        </div></td>
+                      </tr>
+                    {% endif %}
 
                   {% endfor %}
                 </tbody>

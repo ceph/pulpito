@@ -20,6 +20,27 @@
                 $(this).find(".headerSortDown").append(downArrow);
                 $(this).find(".headerSortUp").append(upArrow);
             });
+
+            open_panel_count = 0;
+            function update_toggle_button() {
+                $('#toggle-btn').text((open_panel_count ? "Collapse" : "Expand") + " All")
+            }
+            update_toggle_button(); // Run once on page load to text #toggle-btn
+
+            $('#toggle-btn').click(function() {
+                $(open_panel_count ? '.in': '.collapse').collapse(open_panel_count ? 'hide' : 'show');
+            });
+
+            $('.collapse').on('shown.bs.collapse', function () {
+                open_panel_count++;
+                update_toggle_button();
+            });
+
+            $('.collapse').on('hidden.bs.collapse', function () {
+                open_panel_count--;
+                update_toggle_button();
+            });
+
         });
         </script>
       {% endblock %}
