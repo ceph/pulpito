@@ -70,14 +70,16 @@
                           {{ job['os_type'] }}
                       </td>
                     </tr>
-                    <tr class="expand-child">
+                    {% if job.failure_reason %}
+                      <tr class="expand-child">
                       <td colspan="6" class="hiddenRow"><div class="accordian-body collapse" id="{{ job.job_id }}">
                         Failure Reason:
                         <p class="code-text">
-                            {{ job['failure_reason'] }}
+                          {{ job.failure_reason }}
                         </p>
                       </div></td>
-                    </tr>
+                      </tr>
+                    {% endif %}
 
                   {% endfor %}
                 </tbody>
