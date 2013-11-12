@@ -39,11 +39,11 @@
                 <thead>
                   <tr>
                     <th data-sort="int">Job ID</th>
+                    <th data-sort="string">Status</th>
                     <th data-sort="int">Duration</th>
                     <th data-sort="string">Machine</th>
                     <th data-sort="string">Teuthology Branch</th>
                     <th data-sort="string">OS Type</th>
-                    <th data-sort="string">Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -53,6 +53,9 @@
                         <a href="/{{ run['name']}}/{{ job['job_id'] }}" target="_blank">
                           {{ job['job_id'] }}
                         </a>
+                      </td>
+                      <td>
+                          {{ job['status'] }}
                       </td>
                       <td>
                           {{ job['duration'] }}
@@ -65,9 +68,6 @@
                       </td>
                       <td>
                           {{ job['os_type'] }}
-                      </td>
-                      <td>
-                          {{ job['status'] }}
                       </td>
                     </tr>
                   {% endfor %}
