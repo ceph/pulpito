@@ -12,11 +12,11 @@
               <table class="table table-striped table-bordered table-hover link-bare">
                 <thead>
                   <tr>
-                    <th data-sort="string">
+                    <th>
                       Test description
                     </th>
                     {% for run in runs %}
-                       <th data-sort="string">
+                       <th>
                          <a href="/{{run['name']}}/">
                            {{ run['scheduled'] }}
                          </a>
