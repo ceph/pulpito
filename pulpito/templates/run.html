@@ -35,7 +35,7 @@
             </div>
 
             <div class="bs-example">
-              <table class="table table-striped table-bordered table-hover link-bare">
+              <table class="table table-condensed table-striped table-bordered table-hover link-bare" style="border-collapse:collapse;">
                 <thead>
                   <tr>
                     <th data-sort="int">Job ID</th>
@@ -48,7 +48,7 @@
                 </thead>
                 <tbody>
                   {% for job in run['jobs'] %}
-                    <tr class="{{ job['status_class'] }}">
+                    <tr class="{{ job['status_class'] }}" data-toggle="collapse" class="accordion-toggle" data-target="#{{ job.job_id }}">
                       <td>
                         <a href="/{{ run['name']}}/{{ job['job_id'] }}" target="_blank">
                           {{ job['job_id'] }}
@@ -70,6 +70,15 @@
                           {{ job['os_type'] }}
                       </td>
                     </tr>
+                    <tr>
+                      <td colspan="6" class="hiddenRow"><div class="accordian-body collapse" id="{{ job.job_id }}">
+                        Failure Reason:
+                        <p class="code-text">
+                            {{ job['failure_reason'] }}
+                        </p>
+                      </div></td>
+                    </tr>
+
                   {% endfor %}
                 </tbody>
               </table>

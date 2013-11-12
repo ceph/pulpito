@@ -19,6 +19,10 @@ th[data-sort]{
   cursor:pointer;
 }
 
+.hiddenRow {
+  padding: 0 !important;
+}
+
 table.link-bare td a {
     display: block;
     width: 100%;
