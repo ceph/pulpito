@@ -6,18 +6,6 @@
           <div class="col-lg-12">
             <div class="page-header">
               <h1 id="tables">{{ run['name'] }} Results</h1>
-              <h2>
-                {% if run['results']['fail'] %}
-                  {{ run['results']['fail'] }} failed,
-                {% endif %}
-                {% if run['results']['running'] %}
-                  {{ run['results']['running'] }} running,
-                {% endif %}
-                {% if run['results']['pass'] %}
-                  {{ run['results']['pass'] }} passed
-                {% endif %}
-                ({{ run['results']['total'] }} total)
-              </h2>
               {% if run.branch and run.suite %}
                 <h2>
                   <a href="/compare?branch={{ run.branch }}&suite={{ run.suite }}" target="_blank">
@@ -34,7 +22,19 @@
               {% endif %}
             </div>
 
-            <div align=right><button type="button" class="btn btn-info" id="toggle-btn"></button></div>
+            <div class="btn-group">
+              {% if run.results.fail %}
+              <button type="button" class="btn btn-danger" id='fail-job-btn'>{{ run.results.fail }} Failed</button>
+              {% endif %}
+              {% if run.results.running %}
+                <button type="button" class="btn btn-warning" id='running-job-btn'>{{ run.results.running }} Running</button>
+              {% endif %}
+              {% if run.results.pass %}
+                <button type="button" class="btn btn-success" id='pass-job-btn'>{{ run.results.pass }} Passed</button>
+              {% endif %}
+                <button type="button" class="btn btn-primary active" id='all-job-btn'>{{ run.results.total }} Total</button>
+            </div>
+            <button type="button" class="btn btn-info" id="expand-fail-btn"></button>
             <div class="bs-example">
               <table class="table table-condensed table-striped table-bordered table-hover link-bare" style="border-collapse:collapse;">
                 <thead>
@@ -49,9 +49,9 @@
                 </thead>
                 <tbody>
                   {% for job in run['jobs'] %}
-                    <tr class="{{ job['status_class'] }}" data-toggle="collapse" data-target="#{{ job.job_id }}">
+                  <tr class="{{ job.status_class }} job job_{{job.status}}" data-toggle="collapse" data-target="#{{ job.job_id }}">
                       <td>
-                          {{ job['status'] }}
+                          {{ job.status }}
                       </td>
                       <td>
                         <a href="/{{ run['name']}}/{{ job['job_id'] }}" target="_blank">
@@ -72,7 +72,7 @@
                       </td>
                     </tr>
                     {% if job.failure_reason %}
-                      <tr class="expand-child">
+                      <tr class="expand-child job_fail_extra">
                         <td colspan="6" class="hiddenRow"><div class="collapse" id="{{ job.job_id }}">
                           Failure Reason:
                           <p class="code-text">

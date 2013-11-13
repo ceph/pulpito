@@ -25,11 +25,11 @@
 
             open_panel_count = 0;
             function update_toggle_button() {
-                $('#toggle-btn').text((open_panel_count ? "Collapse" : "Expand") + " All")
+                $('#expand-fail-btn').text((open_panel_count ? "Collapse" : "Expand") + " All")
             }
-            update_toggle_button(); // Run once on page load to text #toggle-btn
+            update_toggle_button(); // Run once on page load to text #expand-fail-btn
 
-            $('#toggle-btn').click(function() {
+            $('#expand-fail-btn').click(function() {
                 $(open_panel_count ? '.in': '.collapse').collapse(open_panel_count ? 'hide' : 'show');
             });
 
@@ -41,6 +41,39 @@
             $('.collapse').on('hidden.bs.collapse', function () {
                 open_panel_count--;
                 update_toggle_button();
+            });
+
+            // bootstrap's radio buttons don't play nicely with jquery for some
+            // reason. this gives all btn-groups the radio effect.
+            $(".btn-group button").click(function() {
+                $(this).addClass('active').siblings('.btn').not(this).removeClass('active');
+            });
+
+            $('#fail-job-btn').click(function() {
+                $('.job').hide();
+                $('.job_fail_extra').show();
+                $('.job_fail').show();
+                $('#expand-fail-btn').prop('disabled', false);
+            });
+
+            $('#running-job-btn').click(function() {
+                $('.job').hide();
+                $('.job_fail_extra').hide();
+                $('.job_running').show();
+                $('#expand-fail-btn').prop('disabled', true);
+            });
+
+            $('#pass-job-btn').click(function() {
+                $('.job').hide();
+                $('.job_fail_extra').hide();
+                $('.job_pass').show();
+                $('#expand-fail-btn').prop('disabled', true);
+            });
+
+            $('#all-job-btn').click(function() {
+                $('.job_fail_extra').show();
+                $('.job').show();
+                $('#expand-fail-btn').prop('disabled', false);
             });
 
         });

@@ -11,7 +11,7 @@ def get_job_status_info(job):
         status = 'pass'
     else:
         status_class = 'warning'
-        status = 'running?'
+        status = 'running'
     return status, status_class
 
 
