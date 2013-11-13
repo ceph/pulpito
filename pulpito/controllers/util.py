@@ -8,5 +8,5 @@ def get_job_status_info(job):
         status = 'pass'
     else:
         status_class = 'warning'
-        status = '?'
+        status = 'running?'
     return status, status_class
