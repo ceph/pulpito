@@ -3,7 +3,7 @@ from pecan import conf
 import requests
 
 from job import JobController
-from util import get_job_status_info
+from util import get_job_status_info, get_job_time_info
 
 base_url = conf.paddles_address
 
@@ -90,6 +90,7 @@ class RootController(object):
             for job in jobs:
                 description = job.pop('description')
                 job['status'], job['status_class'] = get_job_status_info(job)
+                job['duration_pretty'] = get_job_time_info(job)
                 descriptions.add(description)
                 run_info['jobs'][description] = job
             full_info['runs'].append(run_info)
@@ -117,6 +118,7 @@ class RunController(object):
 
         for job in run['jobs']:
             job['status'], job['status_class'] = get_job_status_info(job)
+            job['duration_pretty'] = get_job_time_info(job)
 
         self.run = run
         return self.run

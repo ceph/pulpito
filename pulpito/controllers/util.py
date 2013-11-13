@@ -1,3 +1,6 @@
+from datetime import timedelta
+
+
 def get_job_status_info(job):
     success = job['success']
     if success is False:
@@ -10,3 +13,10 @@ def get_job_status_info(job):
         status_class = 'warning'
         status = 'running?'
     return status, status_class
+
+
+def get_job_time_info(job):
+    duration = job.get('duration')
+    if duration:
+        duration_pretty = str(timedelta(seconds=job['duration']))
+        return duration_pretty
