@@ -39,8 +39,8 @@
               <table class="table table-condensed table-striped table-bordered table-hover link-bare" style="border-collapse:collapse;">
                 <thead>
                   <tr>
-                    <th>Job ID</th>
                     <th>Status</th>
+                    <th>Job ID</th>
                     <th>Duration</th>
                     <th>Machine</th>
                     <th>Teuthology Branch</th>
@@ -51,12 +51,12 @@
                   {% for job in run['jobs'] %}
                     <tr class="{{ job['status_class'] }}" data-toggle="collapse" data-target="#{{ job.job_id }}">
                       <td>
+                          {{ job['status'] }}
+                      </td>
+                      <td>
                         <a href="/{{ run['name']}}/{{ job['job_id'] }}" target="_blank">
                           {{ job['job_id'] }}
                         </a>
-                      </td>
-                      <td>
-                          {{ job['status'] }}
                       </td>
                       <td>
                           {{ job['duration'] }}
