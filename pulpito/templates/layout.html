@@ -11,7 +11,9 @@
       <script type="text/javascript" src="/js/bootstrap.js"></script>
       <script>
         $( document ).ready(function() {
-            $("table").tablesorter();
+            $("table").tablesorter({
+                sortList: [[0,0]]
+            });
             $("table").bind('sortEnd', function (event) {
                 var th = $(this).find("th");
                 th.find(".arrow").remove();
