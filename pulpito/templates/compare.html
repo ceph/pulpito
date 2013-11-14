@@ -33,9 +33,12 @@
                       {% for run in runs %}
                         {% if desc in run['jobs'] %}
                           <td class="{{ run['jobs'][desc]['status_class'] }}">
-                          <a href="/{{ run['name']}}/{{ run['jobs'][desc]['job_id'] }}" target="_blank">
-                          {# <a href="{{ run['jobs'][desc]['log_href'] }}" target="_blank"> #}
-                          {{ run['jobs'][desc]['status'] }}
+                          <a href="/{{ run['name']}}/{{ run['jobs'][desc]['job_id'] }}" target="_blank"
+                            {% if run.jobs[desc].failure_reason %}
+                              class="tip" data-toggle="tooltip" title="{{ run.jobs[desc].failure_reason }}" data-placement="left"
+                            {% endif %}
+                            >
+                            {{ run['jobs'][desc]['status'] }}
                           </a>
                         {% else %}
                         <td>

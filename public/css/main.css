@@ -62,3 +62,6 @@ table.link-bare td a:hover {
   font-weight: bold;
 }
 
+div[class="tooltip-inner"] {
+  max-width: 350px;
+}

@@ -23,6 +23,8 @@
                 $(this).find(".headerSortUp").append(upArrow);
             });
 
+            $('.tip').tooltip();
+
             open_panel_count = 0;
             function update_toggle_button() {
                 $('#expand-fail-btn').text((open_panel_count ? "Collapse" : "Expand") + " All")
