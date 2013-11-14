@@ -36,11 +36,12 @@
             </div>
             <button type="button" class="btn btn-info" id="expand-fail-btn"></button>
             <div class="bs-example">
-              <table class="table table-condensed table-striped table-bordered table-hover link-bare" style="border-collapse:collapse;">
+              <table class="table table-condensed table-striped table-bordered table-hover" style="border-collapse:collapse;">
                 <thead>
                   <tr>
                     <th>Status</th>
                     <th>Job ID</th>
+                    <th>Links</th>
                     <th>Duration</th>
                     <th>Machine</th>
                     <th>Teuthology Branch</th>
@@ -57,6 +58,14 @@
                         <a href="/{{ run['name']}}/{{ job['job_id'] }}" target="_blank">
                           {{ job['job_id'] }}
                         </a>
+                      </td>
+                      <td>
+                          {% if job.log_href %}
+                            <a href="{{ job.log_href }}" target="_blank"><img src="/images/log.png" width="24px"></a>
+                          {% endif %}
+                          {% if job.sentry_event %}
+                            <a href="{{ job.sentry_event }}" target="_blank"><img src="/images/sentry.png" width="24px"></a>
+                          {% endif %}
                       </td>
                       <td>
                           {{ job['duration_pretty'] }}
