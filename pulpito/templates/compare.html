@@ -17,10 +17,18 @@
                     </th>
                     {% for run in runs %}
                        <th>
-                         <a href="/{{run['name']}}/">
+                           Status
+                       </th>
+                    {% endfor %}
+                  </tr>
+                  <tr>
+                    <td></td>
+                    {% for run in runs %}
+                       <td>
+                         <a href="/{{run['name']}}/" target="_blank">
                            {{ run['scheduled'] }}
                          </a>
-                       </th>
+                       </td>
                     {% endfor %}
                   </tr>
                 </thead>
