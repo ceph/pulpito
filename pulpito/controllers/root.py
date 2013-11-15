@@ -116,9 +116,10 @@ class RunController(object):
         if 'scheduled' in run:
             run['scheduled_day'] = run['scheduled'].split()[0]
 
-        for job in run['jobs']:
-            job['status'], job['status_class'] = get_job_status_info(job)
-            job['duration_pretty'] = get_job_time_info(job)
+        if 'jobs' in run:
+            for job in run['jobs']:
+                job['status'], job['status_class'] = get_job_status_info(job)
+                job['duration_pretty'] = get_job_time_info(job)
 
         self.run = run
         return self.run
