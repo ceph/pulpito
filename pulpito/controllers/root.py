@@ -1,14 +1,17 @@
-from pecan import expose
-from pecan import conf
+from pecan import conf, expose
 import requests
 
 from job import JobController
 from util import get_job_status_info, get_job_time_info
+from pulpito.controllers import error
+from pulpito.controllers.errors import ErrorsController
 
 base_url = conf.paddles_address
 
 
 class RootController(object):
+
+    errors = ErrorsController()
 
     @expose('index.html')
     def index(self):
@@ -35,14 +38,17 @@ class RootController(object):
     @expose('index.html')
     def date(self, date_str):
         # FIXME needs an error message
-        response = requests.get('{base}/runs/date/{date}/'.format(
-            base=base_url, date=date_str)).json()
+        resp = requests.get('{base}/runs/date/{date}/'.format(
+            base=base_url, date=date_str))
 
-        # If there are no results from paddles
-        if isinstance(response, dict):
-            runs = []
+        if resp.status_code == 400:
+            error('/errors/invalid/',
+                  resp.json().get('message'))
+        elif resp.status_code == 404:
+            error('/errors/not_found/',
+                  resp.json().get('message'))
         else:
-            runs = response
+            runs = resp.json()
 
         for run in runs:
             run['status_class'] = self.set_status_class(run)
@@ -80,10 +86,16 @@ class RootController(object):
         descriptions = set()
         for run in runs:
             run_info = dict()
-            jobs = requests.get(
+            resp = requests.get(
                 '{base}/runs/{run_name}/jobs/?fields=job_id,description,success,log_href,failure_reason'.format(  # noqa
                     base=base_url,
-                    run_name=run['name'])).json()
+                    run_name=run['name']))
+
+            if resp.status_code == 404:
+                error('/errors/not_found/')
+            else:
+                jobs = resp.json()
+
             run_info['name'] = run['name']
             run_info['scheduled'] = run['scheduled']
             run_info['jobs'] = dict()
@@ -110,9 +122,15 @@ class RunController(object):
         self.run = None
 
     def get_run(self):
-        run = requests.get(
+        resp = requests.get(
             '{base}/runs/{name}'.format(base=base_url,
-                                        name=self.name)).json()
+                                        name=self.name))
+        if resp.status_code == 404:
+            error('/errors/not_found/',
+                  'requested run does not exist')
+        else:
+            run = resp.json()
+
         if 'scheduled' in run:
             run['scheduled_day'] = run['scheduled'].split()[0]
 
