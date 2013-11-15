@@ -49,49 +49,54 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for job in run['jobs'] %}
-                  <tr class="{{ job.status_class }} job job_{{job.status}}" data-toggle="collapse" data-target="#{{ job.job_id }}">
+                {% if not run.jobs|length %}
+                  <tr>
+                    <td colspan=7>No jobs!</td>
+                  </tr>
+                {% else %}
+                  {% for job in run.jobs %}
+                    <tr class="{{ job.status_class }} job job_{{job.status}}" data-toggle="collapse" data-target="#{{ job.job_id }}">
                       <td>
-                          {{ job.status }}
+                        {{ job.status }}
                       </td>
-                      <td>
-                        <a href="/{{ run['name']}}/{{ job['job_id'] }}" target="_blank">
-                          {{ job['job_id'] }}
-                        </a>
-                      </td>
-                      <td>
+                        <td>
+                          <a href="/{{ run['name']}}/{{ job['job_id'] }}" target="_blank">
+                            {{ job['job_id'] }}
+                          </a>
+                        </td>
+                        <td>
                           {% if job.log_href %}
                             <a href="{{ job.log_href }}" target="_blank"><img src="/images/log.png" width="24px"></a>
                           {% endif %}
                           {% if job.sentry_event %}
                             <a href="{{ job.sentry_event }}" target="_blank"><img src="/images/sentry.png" width="24px"></a>
                           {% endif %}
-                      </td>
-                      <td>
+                        </td>
+                        <td>
                           {{ job['duration_pretty'] }}
-                      </td>
-                      <td>
+                        </td>
+                        <td>
                           {{ job['machine_type'] }}
-                      </td>
-                      <td>
+                        </td>
+                        <td>
                           {{ job['teuthology_branch'] }}
-                      </td>
-                      <td>
+                        </td>
+                        <td>
                           {{ job['os_type'] }}
-                      </td>
-                    </tr>
-                    {% if job.failure_reason %}
-                      <tr class="tablesorter-childRow job_fail_extra">
-                        <td colspan="7" class="hiddenRow"><div class="collapse" id="{{ job.job_id }}">
-                          Failure Reason:
-                          <p class="code-text">
-                            {{ job.failure_reason }}
-                          </p>
-                        </div></td>
+                        </td>
                       </tr>
-                    {% endif %}
-
-                  {% endfor %}
+                      {% if job.failure_reason %}
+                        <tr class="tablesorter-childRow job_fail_extra">
+                          <td colspan="7" class="hiddenRow"><div class="collapse" id="{{ job.job_id }}">
+                            Failure Reason:
+                            <p class="code-text">
+                              {{ job.failure_reason }}
+                            </p>
+                          </div></td>
+                        </tr>
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
                 </tbody>
               </table>
             </div><!-- /example -->
