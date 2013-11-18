@@ -4,6 +4,7 @@
       {% block css %}
       <link rel="stylesheet" type="text/css" media="screen" href="/css/bootstrap.css" />
       <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+      <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
       {% endblock %}
       {% block javascript %}
       <script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
@@ -18,11 +19,12 @@
                 })
                 .bind('sortEnd', function (event) {
                     var th = $(this).find("th");
-                    th.find(".arrow").remove();
-                    var downArrow = '<span class="arrow">↓</span>';
-                    var upArrow = '<span class="arrow">↑</span>';
-                    $(this).find(".tablesorter-headerDesc").children().append(downArrow);
-                    $(this).find(".tablesorter-headerAsc").children().append(upArrow);
+                    th.find(".fa-sort-desc").remove();
+                    th.find(".fa-sort-asc").remove();
+                    var sortDesc = '<span class="fa fa-sort-desc"></span>';
+                    var sortAsc = '<span class="fa fa-sort-asc"></span>';
+                    $(this).find(".tablesorter-headerDesc").children().append(sortDesc);
+                    $(this).find(".tablesorter-headerAsc").children().append(sortAsc);
                 });
 
             $('.tip').tooltip();
