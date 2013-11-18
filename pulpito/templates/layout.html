@@ -11,17 +11,18 @@
       <script type="text/javascript" src="/js/bootstrap.js"></script>
       <script>
         $( document ).ready(function() {
-            $("table").tablesorter({
-                sortList: [[0,0]]
-            });
-            $("table").bind('sortEnd', function (event) {
-                var th = $(this).find("th");
-                th.find(".arrow").remove();
-                var downArrow = '<span class="arrow">↓</span>';
-                var upArrow = '<span class="arrow">↑</span>';
-                $(this).find(".headerSortDown").append(downArrow);
-                $(this).find(".headerSortUp").append(upArrow);
-            });
+            $("table")
+                .tablesorter({
+                    sortList: [[0,0]]
+                })
+                .bind('sortEnd', function (event) {
+                    var th = $(this).find("th");
+                    th.find(".arrow").remove();
+                    var downArrow = '<span class="arrow">↓</span>';
+                    var upArrow = '<span class="arrow">↑</span>';
+                    $(this).find(".tablesorter-headerDesc").children().append(downArrow);
+                    $(this).find(".tablesorter-headerAsc").children().append(upArrow);
+                });
 
             $('.tip').tooltip();
 
