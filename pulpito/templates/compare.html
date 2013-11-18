@@ -24,7 +24,7 @@
                   <tr>
                     <td></td>
                     {% for run in runs %}
-                       <td>
+                       <td unselectable="off">
                          <a href="/{{run['name']}}/" target="_blank">
                            {{ run['scheduled'] }}
                          </a>
