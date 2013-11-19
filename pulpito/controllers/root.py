@@ -36,10 +36,14 @@ class RootController(object):
         return status_class
 
     @expose('index.html')
-    def date(self, date_str):
-        # FIXME needs an error message
-        resp = requests.get('{base}/runs/date/{date}/'.format(
-            base=base_url, date=date_str))
+    def date(self, from_date_str, to=None, to_date_str=None):
+        if to:
+            resp = requests.get(
+                '{base}/runs/date/from/{from_}/to/{to}'.format(
+                    base=base_url, from_=from_date_str, to=to_date_str))
+        else:
+            resp = requests.get('{base}/runs/date/{date}/'.format(
+                base=base_url, date=from_date_str))
 
         if resp.status_code == 400:
             error('/errors/invalid/',
