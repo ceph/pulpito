@@ -24,7 +24,7 @@
 
             <div class="btn-group">
               {% if run.results.fail %}
-              <button type="button" class="btn btn-danger" id='fail-job-btn'>{{ run.results.fail }} Failed</button>
+                <button type="button" class="btn btn-danger" id='fail-job-btn'>{{ run.results.fail }} Failed</button>
               {% endif %}
               {% if run.results.running %}
                 <button type="button" class="btn btn-warning" id='running-job-btn'>{{ run.results.running }} Running</button>
@@ -34,7 +34,7 @@
               {% endif %}
                 <button type="button" class="btn btn-primary active" id='all-job-btn'>{{ run.results.total }} Total</button>
             </div>
-            <button type="button" class="btn btn-info" id="expand-fail-btn"></button>
+            <button type="button" class="btn btn-info {{ '' if run.results.fail else 'disabled'}}" id="expand-fail-btn"></button>
             <div class="bs-example">
               <table class="table table-condensed table-striped table-bordered table-hover" style="border-collapse:collapse;">
                 <thead>
