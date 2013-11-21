@@ -15,8 +15,13 @@ class RootController(object):
     errors = ErrorsController()
 
     @expose('index.html')
-    def index(self):
-        latest_runs = requests.get('{base}/runs/'.format(base=base_url)).json()
+    def index(self, branch='', suite=''):
+        uri = '{base}/runs/'.format(base=base_url)
+        if branch:
+            uri += 'branch/%s/' % branch
+        if suite:
+            uri += 'suite/%s/' % suite
+        latest_runs = requests.get(uri).json()
         for run in latest_runs:
             run['status_class'] = self.set_status_class(run)
         return dict(runs=latest_runs)
