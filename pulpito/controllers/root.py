@@ -24,7 +24,10 @@ class RootController(object):
         latest_runs = requests.get(uri).json()
         for run in latest_runs:
             run['status_class'] = self.set_status_class(run)
-        return dict(runs=latest_runs)
+        return dict(runs=latest_runs,
+                    branch=branch,
+                    suite=suite,
+                    )
 
     def set_status_class(self, run):
         fail = run['results']['fail']
