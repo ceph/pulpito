@@ -15,18 +15,24 @@ class RootController(object):
     errors = ErrorsController()
 
     @expose('index.html')
-    def index(self, branch='', suite=''):
+    def index(self, branch='', suite='', date='', to_date=''):
         uri = '{base}/runs/'.format(base=base_url)
         if branch:
             uri += 'branch/%s/' % branch
         if suite:
             uri += 'suite/%s/' % suite
+        if to_date and date:
+            uri += 'date/from/{from_}/to/{to}/'.format(from_=date, to=to_date)
+        elif date:
+            uri += 'date/%s/' % date
+
         latest_runs = requests.get(uri).json()
         for run in latest_runs:
             run['status_class'] = self.set_status_class(run)
         return dict(runs=latest_runs,
                     branch=branch,
                     suite=suite,
+                    dates=[date, to_date],
                     )
 
     def set_status_class(self, run):
@@ -45,7 +51,7 @@ class RootController(object):
         return status_class
 
     @expose('index.html')
-    def date(self, from_date_str, to=None, to_date_str=None):
+    def date(self, from_date_str, to='', to_date_str=''):
         if to:
             resp = requests.get(
                 '{base}/runs/date/from/{from_}/to/{to}'.format(
@@ -65,7 +71,9 @@ class RootController(object):
 
         for run in runs:
             run['status_class'] = self.set_status_class(run)
-        return dict(runs=runs)
+        return dict(runs=runs,
+                    dates=[from_date_str, to_date_str]
+                    )
 
     compare = RunCompareController()
 
