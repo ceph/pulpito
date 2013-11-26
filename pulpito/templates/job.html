@@ -53,10 +53,10 @@
                     </a>
                 </p>
               {% endif %}
-              {% if job['failure_reason'] %}
+              {% if job.failure_reason %}
                 <h4> Failure Reason:</h4>
                 <p class="code-text">
-                    {{ job['failure_reason'] }}
+                    {{ job.failure_reason|e }}
                 </p>
               {% endif %}
 
