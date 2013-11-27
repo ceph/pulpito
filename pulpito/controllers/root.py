@@ -1,5 +1,6 @@
 from pecan import conf, expose
 import requests
+from urllib import urlencode
 
 from job import JobController
 from util import get_job_status_info, get_job_time_info
@@ -13,6 +14,17 @@ base_url = conf.paddles_address
 class RootController(object):
 
     errors = ErrorsController()
+
+    @expose('json')
+    def query(self, *args, **kwargs):
+        uri = "{base}/{path}/".format(
+            base=base_url,
+            path='/'.join([item for item in args if item]),
+        )
+        if kwargs:
+            uri += '?' + urlencode(kwargs)
+        response = requests.get(uri)
+        return response.json()
 
     @expose('index.html')
     def index(self, branch='', suite='', date='', to_date=''):
