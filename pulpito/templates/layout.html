@@ -24,6 +24,33 @@
         </div><!-- /.container -->
       </div>
       <div class="container">
+            <ul class="nav nav-pills">
+                <li><a href="/">Latest Runs</a></li>
+                <li><a href="/date/today/">Today's Runs</a></li>
+                <li><a href="/date/yesterday/">Yesterday's Runs</a></li>
+                <li class="dropdown branches">
+                    <a href="#" class="dropdown-toggle" id="menu-branches" data-toggle="dropdown">Branches
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        {% for branch in ['master', 'next', 'emperor', 'dumpling', 'cuttlefish', 'bobtail'] %}
+                        <li><a href="/?branch={{ branch }}">{{ branch }}</a></li>
+                        {% endfor %}
+                        <li>
+                            <form class="navbar-form pull-left">
+                                <input id="search-branches" class='typeahead' type="text" placeholder='search...'>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" id="menu-suites" data-toggle="dropdown">Suites
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                    </ul>
+                </li>
+            </ul>
       {% block body %}{% endblock %}
       </div>
     </body>

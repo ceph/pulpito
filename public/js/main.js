@@ -69,4 +69,31 @@ $( document ).ready(function() {
         $('#expand-fail-btn').prop('disabled', false);
     });
 
-});
+    $('#menu-suites').click(function() {
+        var suite_list = $(this).parent().find('ul');
+        if (suite_list.children().length == 0) {
+            $.getJSON('/query/runs/suite/', function(suites) {
+                var items = [];
+                $.each(suites, function(i) {
+                    var suite = suites[i];
+                    items.push('<li><a href="/?suite=' + suite + '">' + suite + '</a></li>');
+                });
+                suite_list.append(items);
+            });
+        };
+    });
+
+    $('#search-branches').typeahead({
+        name: 'branches',
+        prefetch: '/query/runs/branch/',
+        ttl: 30000,
+    });
+
+    $('#search-branches').keypress(function(e) {
+        // Enter pressed?
+        if(e.which == 10 || e.which == 13) {
+            branch = $(this).prop('value');
+            window.location.href = '/?branch=' + branch;
+        }
+    });
+})
