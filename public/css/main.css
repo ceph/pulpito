@@ -69,3 +69,8 @@ div[class="tooltip-inner"] {
 .navbar-form input {
   border: 1px inset;
 }
+
+.navbar .nav > li > a {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}

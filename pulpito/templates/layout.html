@@ -19,15 +19,13 @@
       {% endblock %}
     </head>
     <body>
-      <div class="navbar navbar-inverse">
-        <div class="container">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
           <div class="navbar-header">
             <a class="navbar-brand" href="/"> <img src="/images/pulpito-white.png" width="40px">Pulpito</a>
           </div>
-        </div><!-- /.container -->
-      </div>
-      <div class="container">
-            <ul class="nav nav-pills">
+          <div>
+            <ul class="nav navbar-nav">
                 <li><a href="/">Latest Runs</a></li>
                 <li><a href="/date/today/">Today's Runs</a></li>
                 <li><a href="/date/yesterday/">Yesterday's Runs</a></li>
@@ -40,7 +38,7 @@
                         <li><a href="/?branch={{ branch }}">{{ branch }}</a></li>
                         {% endfor %}
                         <li>
-                            <form class="navbar-form pull-left">
+                            <form class="navbar-form">
                                 <input id="search-branches" class='typeahead' type="text" placeholder='search...'>
                             </form>
                         </li>
@@ -54,6 +52,9 @@
                     </ul>
                 </li>
             </ul>
+            </div>
+          </div>
+      </div>
       {% block body %}{% endblock %}
       </div>
     </body>
