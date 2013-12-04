@@ -1,3 +1,7 @@
+function set_paddles_address(address) {
+    window.paddles_address = address;
+}
+
 $( document ).ready(function() {
     $("table")
         .tablesorter({
@@ -72,7 +76,7 @@ $( document ).ready(function() {
     $('#menu-suites').click(function() {
         var suite_list = $(this).parent().find('ul');
         if (suite_list.children().length == 0) {
-            $.getJSON('/query/runs/suite/', function(suites) {
+            $.getJSON(paddles_address + '/runs/suite/', function(suites) {
                 var items = [];
                 $.each(suites, function(i) {
                     var suite = suites[i];
@@ -85,7 +89,7 @@ $( document ).ready(function() {
 
     $('#search-branches').typeahead({
         name: 'branches',
-        prefetch: '/query/runs/branch/',
+        prefetch: paddles_address + '/runs/branch/',
         ttl: 30000,
     });
 
