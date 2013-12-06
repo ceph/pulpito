@@ -2,7 +2,7 @@ from pecan import conf, expose
 import requests
 
 from job import JobController
-from util import get_job_status_info, get_job_time_info
+from util import get_job_status_class, get_job_time_info
 from pulpito.controllers import error
 from pulpito.controllers.errors import ErrorsController
 from pulpito.controllers.compare import RunCompareController
@@ -103,7 +103,7 @@ class RunController(object):
 
         if 'jobs' in run:
             for job in run['jobs']:
-                job['status'], job['status_class'] = get_job_status_info(job)
+                job['status_class'] = get_job_status_class(job)
                 job['duration_pretty'] = get_job_time_info(job)
 
         self.run = run

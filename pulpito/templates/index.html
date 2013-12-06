@@ -12,10 +12,26 @@
                 </h1>
               <h2>
                 Job stats:
-                {{ runs|map(attribute='results')|sum(attribute='fail') }} failed,
-                {{ runs|map(attribute='results')|sum(attribute='running') }} running,
-                {{ runs|map(attribute='results')|sum(attribute='pass') }} passed
-                ({{ runs|map(attribute='results')|sum(attribute='total') }} total)
+                {% macro total(attr) %}
+                  {{ runs|map(attribute='results')|sum(attribute=attr) }}
+                {% endmacro %}
+                {% set num_fail = total('fail') %}
+                {% if num_fail|int > 0 %} {{ num_fail }} failed, {% endif %}
+
+                {% set num_running = total('running') %}
+                {% if num_running|int > 0 %} {{ num_running }} running, {% endif %}
+
+                {% set num_dead = total('dead') %}
+                {% if num_dead|int > 0 %} {{ num_dead }} dead, {% endif %}
+
+                {% set num_unknown = total('unknown') %}
+                {% if num_unknown|int > 0 %} {{ num_unknown }} unknown, {% endif %}
+
+                {% set num_pass = total('pass') %}
+                {% if num_pass|int > 0 %} {{ num_pass }} passed, {% endif %}
+
+                {% set num_total = total('total') %}
+                ({{ num_total|int }} total)
               </h2>
             </div>
 
@@ -24,9 +40,11 @@
                 <thead>
                   <tr>
                     <th>Name</th>
-                    <th>Pass</th>
-                    <th>Fail</th>
-                    <th>Running</th>
+                    {% if num_pass|int > 0 %}<th>Pass</th>{% endif %}
+                    {% if num_fail|int > 0 %}<th>Fail</th>{% endif %}
+                    {% if num_dead|int > 0 %}<th>Dead</th>{% endif %}
+                    {% if num_unknown|int > 0 %}<th>Unknown</th>{% endif %}
+                    {% if num_running|int > 0 %}<th>Running</th>{% endif %}
                   </tr>
                 </thead>
                 <tbody>
@@ -37,9 +55,11 @@
                           {{ run['name'] }}
                         </a>
                       </td>
-                      <td>{{ run['results']['pass'] }}</td>
-                      <td>{{ run['results']['fail'] }}</td>
-                      <td>{{ run['results']['running'] }}</td>
+                      {% if num_pass|int > 0 %}<td>{{ run['results']['pass'] }}</td>{% endif %}
+                      {% if num_fail|int > 0 %}<td>{{ run['results']['fail'] }}</td>{% endif %}
+                      {% if num_dead|int > 0 %}<td>{{ run['results']['dead'] }}</td>{% endif %}
+                      {% if num_unknown|int > 0 %}<td>{{ run['results']['unknown'] }}</td>{% endif %}
+                      {% if num_running|int > 0 %}<td>{{ run['results']['running'] }}</td>{% endif %}
                     </tr>
                   {% endfor %}
                </tbody>

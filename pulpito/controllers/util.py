@@ -1,18 +1,15 @@
 from datetime import timedelta
 
 
-def get_job_status_info(job):
-    success = job['success']
-    if success is False:
+def get_job_status_class(job):
+    status = job['status'] or 'dead'
+    if status == 'fail':
         status_class = 'danger'
-        status = 'fail'
-    elif success is True:
+    elif status == 'pass':
         status_class = 'success'
-        status = 'pass'
     else:
         status_class = 'warning'
-        status = 'running'
-    return status, status_class
+    return status_class
 
 
 def get_job_time_info(job):

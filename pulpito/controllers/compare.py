@@ -1,4 +1,4 @@
-from util import get_job_status_info, get_job_time_info
+from util import get_job_status_class, get_job_time_info
 from pecan import conf, expose
 import requests
 
@@ -18,7 +18,7 @@ class RunCompareController(object):
                     'jobs': [
                         job_description: {
                             'job_id': job_id,
-                            'success': success }
+                            'status': status }
                     ]}
                 ]
              'descriptions': [
@@ -45,7 +45,7 @@ class RunCompareController(object):
         for run in runs:
             run_info = dict()
             resp = requests.get(
-                '{base}/runs/{run_name}/jobs/?fields=job_id,description,success,log_href,failure_reason'.format(  # noqa
+                '{base}/runs/{run_name}/jobs/?fields=job_id,description,status,log_href,failure_reason'.format(  # noqa
                     base=base_url,
                     run_name=run['name']))
 
@@ -59,7 +59,7 @@ class RunCompareController(object):
             run_info['jobs'] = dict()
             for job in jobs:
                 description = job.pop('description')
-                job['status'], job['status_class'] = get_job_status_info(job)
+                job['status_class'] = get_job_status_class(job)
                 job['duration_pretty'] = get_job_time_info(job)
                 descriptions.add(description)
                 run_info['jobs'][description] = job
