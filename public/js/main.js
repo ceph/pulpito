@@ -53,10 +53,24 @@ $( document ).ready(function() {
         $('#expand-fail-btn').prop('disabled', false);
     });
 
+    $('#dead-job-btn').click(function() {
+        $('.job').hide();
+        $('.job_dead_extra').show();
+        $('.job_dead').show();
+        $('#expand-dead-btn').prop('disabled', false);
+    });
+
     $('#running-job-btn').click(function() {
         $('.job').hide();
         $('.job_fail_extra').hide();
         $('.job_running').show();
+        $('#expand-fail-btn').prop('disabled', true);
+    });
+
+    $('#unknown-job-btn').click(function() {
+        $('.job').hide();
+        $('.job_fail_extra').hide();
+        $('.job_unknown').show();
         $('#expand-fail-btn').prop('disabled', true);
     });
 
