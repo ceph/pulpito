@@ -39,7 +39,12 @@
               <table class="table table-striped table-bordered table-hover link-bare">
                 <thead>
                   <tr>
-                    <th>Name</th>
+                    <th>User</th>
+                    <th>Scheduled</th>
+                    <th>Posted (Started)</th>
+                    <th>Branch</th>
+                    <th>Suite</th>
+                    <th>Machine Type</th>
                     {% if num_pass|int > 0 %}<th>Pass</th>{% endif %}
                     {% if num_fail|int > 0 %}<th>Fail</th>{% endif %}
                     {% if num_dead|int > 0 %}<th>Dead</th>{% endif %}
@@ -50,11 +55,11 @@
                 <tbody>
                   {% for run in runs %}
                     <tr class="{{ run['status_class'] }}">
+                      {% for field in ['user', 'scheduled', 'posted', 'branch', 'suite', 'machine_type'] %}
                       <td>
-                        <a href="/{{ run['name'] }}">
-                          {{ run['name'] }}
-                        </a>
+                          <a href="/{{ run.name }}">{{ run[field] }}</a>
                       </td>
+                      {% endfor %}
                       {% if num_pass|int > 0 %}<td>{{ run['results']['pass'] }}</td>{% endif %}
                       {% if num_fail|int > 0 %}<td>{{ run['results']['fail'] }}</td>{% endif %}
                       {% if num_dead|int > 0 %}<td>{{ run['results']['dead'] }}</td>{% endif %}

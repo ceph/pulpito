@@ -5,7 +5,6 @@ function set_paddles_address(address) {
 $( document ).ready(function() {
     $("table")
         .tablesorter({
-            sortList: [[0,0]],
             selectorHeaders: "> thead th"
         })
         .bind('sortEnd', function (event) {
