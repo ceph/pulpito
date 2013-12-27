@@ -15,10 +15,12 @@ class RootController(object):
     errors = ErrorsController()
 
     @expose('index.html')
-    def index(self, branch='', suite='', date='', to_date=''):
+    def index(self, branch='', status='', suite='', date='', to_date=''):
         uri = '{base}/runs/'.format(base=base_url)
         if branch:
             uri += 'branch/%s/' % branch
+        if status:
+            uri += 'status/%s/' % status
         if suite:
             uri += 'suite/%s/' % suite
         if to_date and date:

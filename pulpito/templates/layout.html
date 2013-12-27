@@ -35,6 +35,16 @@
                     <li><a href="/date/today/">Today's Runs</a></li>
                     <li><a href="/date/yesterday/">Yesterday's Runs</a></li>
                 </ul>
+                <li class="dropdown statuses">
+                    <a href="#" class="dropdown-toggle" id="menu-suites" data-toggle="dropdown">By Status
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        {% for status in ['running', 'finished pass', 'finished fail', 'finished dead', 'unknown'] %}
+                        <li><a href="/?status={{ status }}">{{ status }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
                 <li class="dropdown branches">
                     <a href="#" class="dropdown-toggle" id="menu-branches" data-toggle="dropdown">By Branch
                         <b class="caret"></b>
