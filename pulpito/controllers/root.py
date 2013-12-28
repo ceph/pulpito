@@ -30,6 +30,7 @@ class RootController(object):
 
         latest_runs = requests.get(uri).json()
         for run in latest_runs:
+            run['posted'] = run['posted'].split('.')[0]
             run['status_class'] = self.set_status_class(run)
         return dict(runs=latest_runs,
                     branch=branch,
