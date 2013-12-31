@@ -2,20 +2,22 @@ function set_paddles_address(address) {
     window.paddles_address = address;
 }
 
+function table_sortend_callback(event) {
+    var th = $(this).find("th");
+    th.find(".fa-sort-desc").remove();
+    th.find(".fa-sort-asc").remove();
+    var sortDesc = '<span class="fa fa-sort-desc"></span>';
+    var sortAsc = '<span class="fa fa-sort-asc"></span>';
+    $(this).find(".tablesorter-headerDesc").children().append(sortDesc);
+    $(this).find(".tablesorter-headerAsc").children().append(sortAsc);
+}
+
 $( document ).ready(function() {
     $("table")
         .tablesorter({
             selectorHeaders: "> thead th"
         })
-        .bind('sortEnd', function (event) {
-            var th = $(this).find("th");
-            th.find(".fa-sort-desc").remove();
-            th.find(".fa-sort-asc").remove();
-            var sortDesc = '<span class="fa fa-sort-desc"></span>';
-            var sortAsc = '<span class="fa fa-sort-asc"></span>';
-            $(this).find(".tablesorter-headerDesc").children().append(sortDesc);
-            $(this).find(".tablesorter-headerAsc").children().append(sortAsc);
-        });
+        .bind('sortEnd', table_sortend_callback);
 
     $('.tip').tooltip();
 
