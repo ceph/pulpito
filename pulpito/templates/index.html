@@ -42,8 +42,8 @@
                     <th>User</th>
                     <th>Scheduled</th>
                     <th data-sortinitialorder="desc">Posted (Started)<span class="fa fa-sort-desc"></span></th>
-                    <th>Branch</th>
                     <th>Suite</th>
+                    <th>Branch</th>
                     <th>Machine Type</th>
                     {% if num_pass|int > 0 %}<th>Pass</th>{% endif %}
                     {% if num_fail|int > 0 %}<th>Fail</th>{% endif %}
@@ -55,7 +55,7 @@
                 <tbody>
                   {% for run in runs %}
                     <tr class="{{ run['status_class'] }}">
-                      {% for field in ['user', 'scheduled', 'posted', 'branch', 'suite', 'machine_type'] %}
+                      {% for field in ['user', 'scheduled', 'posted', 'suite', 'branch', 'machine_type'] %}
                       <td>
                           <a href="/{{ run.name }}">{{ run[field] }}</a>
                       </td>
