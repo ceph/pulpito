@@ -1,4 +1,4 @@
-from pecan import conf, expose
+from pecan import conf, expose, redirect
 import requests
 
 from job import JobController
@@ -15,8 +15,12 @@ class RootController(object):
     errors = ErrorsController()
 
     @expose('index.html')
-    def index(self, branch='', machine_type='', status='', suite='', date='',
-              to_date=''):
+    def index(self, latest=False, branch='', machine_type='', status='',
+              suite='', date='', to_date=''):
+        args_specified = (latest or branch or machine_type or status or suite
+                          or date)
+        if not args_specified:
+                redirect('/?status=running')
         uri = '{base}/runs/'.format(base=base_url)
         if branch:
             uri += 'branch/%s/' % branch
@@ -43,6 +47,10 @@ class RootController(object):
                     suite=suite,
                     dates=[date, to_date],
                     )
+
+    @expose('index.html')
+    def latest(self, **kwargs):
+        return self.index(latest=True, **kwargs)
 
     def set_status_class(self, run):
         fail = run['results']['fail']
