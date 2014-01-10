@@ -21,6 +21,8 @@ class RootController(object):
             uri += 'branch/%s/' % branch
         if status:
             uri += 'status/%s/' % status
+            if status == 'running':
+                uri += '?count=9999'
         if suite:
             uri += 'suite/%s/' % suite
         if to_date and date:
