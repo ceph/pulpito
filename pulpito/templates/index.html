@@ -7,6 +7,7 @@
                 <h1 id="tables">Latest {{ runs|length }} test runs
                     {{ 'of suite ' + suite if suite|length else '' }}
                     {{ 'on branch ' + branch if branch|length else '' }}
+                    {{ 'on machine_type ' + machine_type if machine_type|length else '' }}
                     {{ 'from ' + dates[0] if dates[0] else '' }}
                     {{ 'to ' + dates[1] if dates[1] else '' }}
                 </h1>

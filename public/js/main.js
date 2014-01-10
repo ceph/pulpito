@@ -88,6 +88,20 @@ $( document ).ready(function() {
         $('#expand-fail-btn').prop('disabled', false);
     });
 
+    $('#menu-machine-type').click(function() {
+        var machine_type_list = $(this).parent().find('ul');
+        if (machine_type_list.children().length == 0) {
+            $.getJSON(paddles_address + '/runs/machine_type/', function(machine_types) {
+                var items = [];
+                $.each(machine_types, function(i) {
+                    var machine_type = machine_types[i];
+                    items.push('<li><a href="/?machine_type=' + machine_type + '">' + machine_type + '</a></li>');
+                });
+                machine_type_list.append(items);
+            });
+        };
+    });
+
     $('#menu-suites').click(function() {
         var suite_list = $(this).parent().find('ul');
         if (suite_list.children().length == 0) {
