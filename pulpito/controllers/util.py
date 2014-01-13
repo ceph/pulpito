@@ -18,3 +18,15 @@ def get_job_time_info(job):
     if duration:
         duration_pretty = str(timedelta(seconds=job['duration']))
         return duration_pretty
+
+
+def get_run_filters(**kwargs):
+    filters = dict()
+    for (key, value) in kwargs.iteritems():
+        if value == '':
+            continue
+        elif key == 'latest' and value is False:
+            continue
+        else:
+            filters[key] = value
+    return filters

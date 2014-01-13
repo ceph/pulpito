@@ -1,4 +1,4 @@
-from pecan import conf, expose, redirect
+from pecan import conf, expose, redirect, request
 import requests
 
 from job import JobController
@@ -6,6 +6,7 @@ from util import get_job_status_class, get_job_time_info
 from pulpito.controllers import error
 from pulpito.controllers.errors import ErrorsController
 from pulpito.controllers.compare import RunCompareController
+from pulpito.controllers.util import get_run_filters
 
 base_url = conf.paddles_address
 
@@ -17,9 +18,12 @@ class RootController(object):
     @expose('index.html')
     def index(self, latest=False, branch='', machine_type='', status='',
               suite='', date='', to_date=''):
-        args_specified = (latest or branch or machine_type or status or suite
-                          or date)
-        if not args_specified:
+        filters = get_run_filters(latest=latest, branch=branch,
+                                  machine_type=machine_type, status=status,
+                                  suite=suite, date=date, to_date=to_date)
+        request.context['filters'] = filters
+
+        if not request.context.get('filters', dict()).keys():
                 redirect('/?status=running')
         uri = '{base}/runs/'.format(base=base_url)
         if branch:
@@ -42,6 +46,7 @@ class RootController(object):
             run['posted'] = run['posted'].split('.')[0]
             run['status_class'] = self.set_status_class(run)
         return dict(runs=latest_runs,
+                    filters=request.context.get('filters', dict()),
                     branch=branch,
                     machine_type=machine_type,
                     suite=suite,
@@ -69,6 +74,8 @@ class RootController(object):
 
     @expose('index.html')
     def date(self, from_date_str, to='', to_date_str=''):
+        filters = get_run_filters(date=from_date_str, to_date=to_date_str)
+        request.context['filters'] = filters
         if to:
             resp = requests.get(
                 '{base}/runs/date/from/{from_}/to/{to}'.format(
@@ -89,6 +96,7 @@ class RootController(object):
         for run in runs:
             run['status_class'] = self.set_status_class(run)
         return dict(runs=runs,
+                    filters=request.context.get('filters', dict()),
                     dates=[from_date_str, to_date_str]
                     )
 
