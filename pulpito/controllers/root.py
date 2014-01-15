@@ -23,7 +23,7 @@ class RootController(object):
                                   suite=suite, date=date, to_date=to_date)
         request.context['filters'] = filters
 
-        if not request.context.get('filters', dict()).keys():
+        if not request.context.get('filters', dict()).keys() and not latest:
                 redirect('/?status=running')
         uri = '{base}/runs/'.format(base=base_url)
         if branch:
@@ -32,14 +32,14 @@ class RootController(object):
             uri += 'machine_type/%s/' % machine_type
         if status:
             uri += 'status/%s/' % status
-            if status == 'running':
-                uri += '?count=9999'
         if suite:
             uri += 'suite/%s/' % suite
         if to_date and date:
             uri += 'date/from/{from_}/to/{to}/'.format(from_=date, to=to_date)
         elif date:
             uri += 'date/%s/' % date
+        if status == 'running':
+            uri += '?count=9999'
 
         latest_runs = requests.get(uri).json()
         for run in latest_runs:

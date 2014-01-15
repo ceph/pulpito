@@ -25,10 +25,8 @@ def get_run_filters(**kwargs):
     for (key, value) in kwargs.iteritems():
         if value == '':
             continue
-        elif key == 'latest' and value is False:
+        elif key == 'latest':
             continue
-        elif key == 'latest' and value is True:
-            filters[key] = 'true'
         else:
             filters[key] = value
     return filters

@@ -2,6 +2,10 @@ function set_paddles_address(address) {
     window.paddles_address = address;
 }
 
+function set_filters(filters) {
+    window.filters = filters;
+}
+
 function table_sortend_callback(event) {
     var th = $(this).find("th");
     th.find(".fa-sort-desc").remove();
@@ -11,6 +15,16 @@ function table_sortend_callback(event) {
     $(this).find(".tablesorter-headerDesc").children().append(sortDesc);
     $(this).find(".tablesorter-headerAsc").children().append(sortAsc);
 }
+
+function stack_filter(name, value) {
+    /* Given a filter name and value, combine it with existing filters and
+     * navigate the that query's page. */
+    filters = window.filters;
+    filters[name] = value;
+    var query_str = jQuery.param(filters);
+    new_url = '/?' + query_str;
+    window.location.href = new_url;
+};
 
 $( document ).ready(function() {
     $("table")
@@ -95,7 +109,8 @@ $( document ).ready(function() {
                 var items = [];
                 $.each(machine_types, function(i) {
                     var machine_type = machine_types[i];
-                    items.push('<li><a href="/?machine_type=' + machine_type + '">' + machine_type + '</a></li>');
+                    var item = "<li><a onclick='stack_filter(&quot;machine_type&quot;, &quot;" + machine_type + "&quot;)' href='#'>" + machine_type + "</a></li>";
+                    items.push(item);
                 });
                 machine_type_list.append(items);
             });
@@ -109,7 +124,8 @@ $( document ).ready(function() {
                 var items = [];
                 $.each(suites, function(i) {
                     var suite = suites[i];
-                    items.push('<li><a href="/?suite=' + suite + '">' + suite + '</a></li>');
+                    var item = "<li><a onclick='stack_filter(&quot;suite&quot;, &quot;" + suite + "&quot;)' href='#'>" + suite + "</a></li>";
+                    items.push(item);
                 });
                 suite_list.append(items);
             });
@@ -126,7 +142,7 @@ $( document ).ready(function() {
         // Enter pressed?
         if(e.which == 10 || e.which == 13) {
             branch = $(this).prop('value');
-            window.location.href = '/?branch=' + branch;
+            stack_filter('branch', branch);
         }
     });
 })

@@ -15,6 +15,8 @@
       <script type="text/javascript" src="/js/main.js"></script>
       <script type="text/javascript">
         set_paddles_address("{{ paddles_address }}");
+        var filters = JSON.parse('{{ filters|tojson|safe if filters else {}|tojson }}');
+        set_filters(filters);
       </script>
       {% endblock %}
     </head>
@@ -32,8 +34,8 @@
                     </a>
                 <ul class="dropdown-menu">
                     <li><a href="/latest/">Latest Runs</a></li>
-                    <li><a href="/date/today/">Today's Runs</a></li>
-                    <li><a href="/date/yesterday/">Yesterday's Runs</a></li>
+                    <li><a onclick="stack_filter('date', 'today')" href="#">Today's Runs</a></li>
+                    <li><a onclick="stack_filter('date', 'yesterday')" href="#">Yesterday's Runs</a></li>
                 </ul>
                 <li class="dropdown statuses">
                     <a href="#" class="dropdown-toggle" id="menu-statuses" data-toggle="dropdown">By Status
@@ -41,7 +43,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         {% for status in ['running', 'finished pass', 'finished fail', 'finished dead', 'unknown'] %}
-                        <li><a href="/?status={{ status }}">{{ status }}</a></li>
+                        <li><a onclick="stack_filter('status', '{{ status }}')" href="#">{{ status }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
@@ -51,7 +53,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         {% for branch in ['master', 'next', 'emperor', 'dumpling', 'cuttlefish', 'bobtail'] %}
-                        <li><a href="/?branch={{ branch }}">{{ branch }}</a></li>
+                        <li><a onclick="stack_filter('branch', '{{ branch }}')" href="#">{{ branch }}</a></li>
                         {% endfor %}
                         <li>
                             <form class="navbar-form">

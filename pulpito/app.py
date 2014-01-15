@@ -1,9 +1,11 @@
 from pecan import conf, make_app
 from pulpito import model
+from pulpito.filters import setup_filters
 
 
 def setup_app(config):
 
+    setup_filters()
     model.init_model()
     app_conf = dict(config.app)
 
