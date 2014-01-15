@@ -14,14 +14,6 @@
                     </ol>
                 </h2>
                 {% endif %}
-                <h2 id="tables">Latest {{ runs|length }} test runs
-                    {{ 'of suite ' + filters.suite if filters.suite else '' }}
-                    {{ 'on branch ' + filters.branch if filters.branch else '' }}
-                    {{ 'on machine_type ' + filters.machine_type if filters.machine_type else '' }}
-                    {{ 'from ' + filters.date if filters.date else '' }}
-                    {{ 'to ' + filters.to_date if filters.to_date else '' }}
-                    {{ 'with status ' + filters.status if filters.status else '' }}
-                </h2>
               <h2>
                 Job stats:
                 {% macro total(attr) %}
