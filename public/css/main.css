@@ -78,3 +78,25 @@ div[class="tooltip-inner"] {
   padding-top: 25px;
   padding-bottom: 25px;
 }
+
+.modal-static {
+    position: fixed;
+    top: 50% !important;
+    left: 50% !important;
+    margin-top: -75px;
+    margin-left: -75px;
+    overflow: visible !important;
+}
+.modal-static,
+.modal-static .modal-dialog,
+.modal-static .modal-content {
+    width: 150px;
+    height: 150px;
+}
+.modal-static .modal-dialog,
+.modal-static .modal-content {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.modal-static .modal-content .icon {
+}

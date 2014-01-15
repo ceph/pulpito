@@ -109,7 +109,7 @@ $( document ).ready(function() {
                 var items = [];
                 $.each(machine_types, function(i) {
                     var machine_type = machine_types[i];
-                    var item = "<li><a onclick='stack_filter(&quot;machine_type&quot;, &quot;" + machine_type + "&quot;)' href='#'>" + machine_type + "</a></li>";
+                    var item = "<li><a onclick='stack_filter(&quot;machine_type&quot;, &quot;" + machine_type + "&quot;)' data-toggle='modal' data-target='#processing-modal' href='#'>" + machine_type + "</a></li>";
                     items.push(item);
                 });
                 machine_type_list.append(items);
@@ -124,7 +124,7 @@ $( document ).ready(function() {
                 var items = [];
                 $.each(suites, function(i) {
                     var suite = suites[i];
-                    var item = "<li><a onclick='stack_filter(&quot;suite&quot;, &quot;" + suite + "&quot;)' href='#'>" + suite + "</a></li>";
+                    var item = "<li><a onclick='stack_filter(&quot;suite&quot;, &quot;" + suite + "&quot;)' data-toggle='modal' data-target='#processing-modal' href='#'>" + suite + "</a></li>";
                     items.push(item);
                 });
                 suite_list.append(items);

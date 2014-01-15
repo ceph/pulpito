@@ -33,9 +33,9 @@
                         <b class="caret"></b>
                     </a>
                 <ul class="dropdown-menu">
-                    <li><a href="/latest/">Latest Runs</a></li>
-                    <li><a onclick="stack_filter('date', 'today')" href="#">Today's Runs</a></li>
-                    <li><a onclick="stack_filter('date', 'yesterday')" href="#">Yesterday's Runs</a></li>
+                    <li><a href="/latest/" data-toggle='modal' data-target='#processing-modal'>Latest Runs</a></li>
+                    <li><a onclick="stack_filter('date', 'today')" data-toggle='modal' data-target='#processing-modal' href="#">Today's Runs</a></li>
+                    <li><a onclick="stack_filter('date', 'yesterday')" data-toggle='modal' data-target='#processing-modal' href="#">Yesterday's Runs</a></li>
                 </ul>
                 <li class="dropdown statuses">
                     <a href="#" class="dropdown-toggle" id="menu-statuses" data-toggle="dropdown">By Status
@@ -43,7 +43,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         {% for status in ['running', 'finished pass', 'finished fail', 'finished dead', 'unknown'] %}
-                        <li><a onclick="stack_filter('status', '{{ status }}')" href="#">{{ status }}</a></li>
+                        <li><a onclick="stack_filter('status', '{{ status }}')" data-toggle='modal' data-target='#processing-modal' href="#">{{ status }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
@@ -53,7 +53,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         {% for branch in ['master', 'next', 'emperor', 'dumpling', 'cuttlefish', 'bobtail'] %}
-                        <li><a onclick="stack_filter('branch', '{{ branch }}')" href="#">{{ branch }}</a></li>
+                        <li><a onclick="stack_filter('branch', '{{ branch }}')" data-toggle='modal' data-target='#processing-modal' href="#">{{ branch }}</a></li>
                         {% endfor %}
                         <li>
                             <form class="navbar-form">
@@ -83,6 +83,21 @@
       <div class="container">
         {% block body %}{% endblock %}
       </div>
+      </div>
+      <!-- Static Modal -->
+      <div class="modal modal-static fade" id="processing-modal" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-body">
+                      <div class="text-center">
+                          <img src="/images/loading.gif" class="icon" />
+                          <h4>Loading...
+                              <!--<button type="button" class="close" style="float: none;" data-dismiss="modal" aria-hidden="true">×</button>-->
+                          </h4>
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
     </body>
 </html>
