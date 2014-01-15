@@ -61,7 +61,7 @@
                     <tr class="{{ run['status_class'] }}">
                       {% for field in ['user', 'scheduled', 'posted', 'suite', 'branch', 'machine_type'] %}
                       <td>
-                          <a href="/{{ run.name }}">{{ run[field] }}</a>
+                          <a href="/{{ run.name }}" target="_blank">{{ run[field] }}</a>
                       </td>
                       {% endfor %}
                       {% if num_pass|int > 0 %}<td>{{ run['results']['pass'] }}</td>{% endif %}
