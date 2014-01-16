@@ -16,13 +16,18 @@ function table_sortend_callback(event) {
     $(this).find(".tablesorter-headerAsc").children().append(sortAsc);
 }
 
+function filter(name, value) {
+    var new_url = '/?' + name + '=' + value;
+    window.location.href = new_url;
+};
+
 function stack_filter(name, value) {
     /* Given a filter name and value, combine it with existing filters and
      * navigate the that query's page. */
     filters = window.filters;
     filters[name] = value;
     var query_str = jQuery.param(filters);
-    new_url = '/?' + query_str;
+    var new_url = '/?' + query_str;
     window.location.href = new_url;
 };
 

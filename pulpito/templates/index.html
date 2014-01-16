@@ -8,7 +8,7 @@
                 <h2>
                     <ol class="breadcrumb">
                         {% for filter in filters %}
-                        <li><a href={{ '/?' + filter + '=' + filters[filter]|replace(' ', '%20') }}>{{ filter + ': ' + filters[filter]  }}</a></li>
+                        <li><a onclick="filter('{{ filter }}', '{{ filters[filter]|replace(' ', '+') }}')" data-toggle='modal' data-target='#processing-modal' href="#">{{ filter + ': ' + filters[filter]  }}</a></li>
                         {% endfor %}
                         <li>{{ runs|length }} runs</li>
                     </ol>
