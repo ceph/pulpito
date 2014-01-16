@@ -128,6 +128,8 @@ class RunController(object):
 
         if 'jobs' in run:
             for job in run['jobs']:
+                job['posted_pretty'] = job['posted'].split('.')[0]
+                job['updated_pretty'] = job['updated'].split('.')[0]
                 job['status_class'] = get_job_status_class(job)
                 job['duration_pretty'] = get_job_time_info(job)
 

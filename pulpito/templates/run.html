@@ -48,6 +48,8 @@
                     <th>Status</th>
                     <th>Job ID</th>
                     <th data-sorter="false">Links</th>
+                    <th>Posted</th>
+                    <th>Updated</th>
                     <th>Duration</th>
                     <th>Machine</th>
                     <th>Teuthology Branch</th>
@@ -77,6 +79,12 @@
                           {% if job.sentry_event %}
                             <a href="{{ job.sentry_event }}" target="_blank"><img src="/images/sentry.png" width="24px"></a>
                           {% endif %}
+                        </td>
+                        <td>
+                          {{ job.posted_pretty }}
+                        </td>
+                        <td>
+                          {{ job.updated_pretty }}
                         </td>
                         <td>
                           {{ job['duration_pretty'] }}
