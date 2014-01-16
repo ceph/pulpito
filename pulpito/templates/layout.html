@@ -33,7 +33,7 @@
                         <b class="caret"></b>
                     </a>
                 <ul class="dropdown-menu">
-                    <li><a href="/latest/" data-toggle='modal' data-target='#processing-modal'>Latest Runs</a></li>
+                    <li><a onclick="stack_filter('latest', 'true')" href="#" data-toggle='modal' data-target='#processing-modal'>Latest Runs</a></li>
                     <li><a onclick="stack_filter('date', 'today')" data-toggle='modal' data-target='#processing-modal' href="#">Today's Runs</a></li>
                     <li><a onclick="stack_filter('date', 'yesterday')" data-toggle='modal' data-target='#processing-modal' href="#">Yesterday's Runs</a></li>
                 </ul>
