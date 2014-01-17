@@ -31,6 +31,21 @@ function stack_filter(name, value) {
     window.location.href = new_url;
 };
 
+function unstack_filter(name) {
+    /* The opposite of stack_filter: removes the given filter, then rebuilds
+     * the query and navigates to that page */
+    var filters = window.filters;
+    delete filters[name];
+    if (filters == {}) {
+        var new_url = '/';
+    } else {
+        var query_str = jQuery.param(filters);
+        var new_url = '/?' + query_str;
+    };
+    window.location.href = new_url;
+}
+
+
 $( document ).ready(function() {
     $("table")
         .tablesorter({
