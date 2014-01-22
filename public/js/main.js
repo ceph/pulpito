@@ -18,6 +18,7 @@ function table_sortend_callback(event) {
 
 function filter(name, value) {
     var new_url = '/?' + name + '=' + value;
+    $('#processing-modal').modal();
     window.location.href = new_url;
 };
 
@@ -28,6 +29,7 @@ function stack_filter(name, value) {
     filters[name] = value;
     var query_str = jQuery.param(filters);
     var new_url = '/?' + query_str;
+    $('#processing-modal').modal();
     window.location.href = new_url;
 };
 
@@ -42,6 +44,7 @@ function unstack_filter(name) {
         var query_str = jQuery.param(filters);
         var new_url = '/?' + query_str;
     };
+    $('#processing-modal').modal();
     window.location.href = new_url;
 }
 

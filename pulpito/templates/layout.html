@@ -24,7 +24,7 @@
       <div class="navbar navbar-inverse">
           <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand" href="/"> <img src="/images/pulpito-white.png" width="40px">Pulpito</a>
+            <a class="navbar-brand" onclick="filter('', '')" href="#"> <img src="/images/pulpito-white.png" width="40px">Pulpito</a>
           </div>
           <div>
             <ul class="nav navbar-nav">
@@ -33,9 +33,9 @@
                         <b class="caret"></b>
                     </a>
                 <ul class="dropdown-menu">
-                    <li><a onclick="filter('latest', 'true')" href="#" data-toggle='modal' data-target='#processing-modal'>Latest Runs</a></li>
-                    <li><a onclick="stack_filter('date', 'today')" data-toggle='modal' data-target='#processing-modal' href="#">Today's Runs</a></li>
-                    <li><a onclick="stack_filter('date', 'yesterday')" data-toggle='modal' data-target='#processing-modal' href="#">Yesterday's Runs</a></li>
+                    <li><a onclick="filter('latest', 'true')" href="#">Latest Runs</a></li>
+                    <li><a onclick="stack_filter('date', 'today')" href="#">Today's Runs</a></li>
+                    <li><a onclick="stack_filter('date', 'yesterday')" href="#">Yesterday's Runs</a></li>
                 </ul>
                 <li class="dropdown statuses">
                     <a href="#" class="dropdown-toggle" id="menu-statuses" data-toggle="dropdown">By Status
@@ -43,7 +43,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         {% for status in ['running', 'finished pass', 'finished fail', 'finished dead', 'unknown'] %}
-                        <li><a onclick="stack_filter('status', '{{ status }}')" data-toggle='modal' data-target='#processing-modal' href="#">{{ status }}</a></li>
+                        <li><a onclick="stack_filter('status', '{{ status }}')" href="#">{{ status }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
@@ -53,7 +53,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         {% for branch in ['master', 'next', 'emperor', 'dumpling', 'cuttlefish', 'bobtail'] %}
-                        <li><a onclick="stack_filter('branch', '{{ branch }}')" data-toggle='modal' data-target='#processing-modal' href="#">{{ branch }}</a></li>
+                        <li><a onclick="stack_filter('branch', '{{ branch }}')" href="#">{{ branch }}</a></li>
                         {% endfor %}
                         <li>
                             <form class="navbar-form">
