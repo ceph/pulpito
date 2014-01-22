@@ -23,8 +23,6 @@ class RootController(object):
                                   suite=suite, date=date, to_date=to_date)
         request.context['filters'] = filters
 
-        if not request.context.get('filters', dict()).keys() and not latest:
-                redirect('/?status=running')
         uri = '{base}/runs/'.format(base=base_url)
         if branch:
             uri += 'branch/%s/' % branch
