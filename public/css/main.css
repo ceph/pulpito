@@ -70,6 +70,14 @@ div[class="tooltip-inner"] {
   max-width: 350px;
 }
 
+.navbar-form > input {
+  margin-top: 17px;
+}
+
+.inline {
+  display: inline !important;
+}
+
 .navbar-form input {
   border: 1px inset;
 }

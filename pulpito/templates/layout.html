@@ -3,6 +3,7 @@
       <title>{% block title %}{% endblock %}Pulpito :: Results Dashoard</title>
       {% block css %}
       <link rel="stylesheet" type="text/css" media="screen" href="/css/bootstrap.min.css" />
+      <link rel="stylesheet" type="text/css" media="screen" href="/css/datepicker.css" />
       <link rel="stylesheet" type="text/css" media="screen" href="/css/typeahead.js-bootstrap.css" />
       <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
       <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
@@ -11,6 +12,7 @@
       <script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
       <script type="text/javascript" src="/js/jquery.tablesorter.min.js"></script>
       <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
       <script type="text/javascript" src="/js/typeahead.min.js"></script>
       <script type="text/javascript" src="/js/main.js"></script>
       <script type="text/javascript">
@@ -27,16 +29,10 @@
             <a class="navbar-brand" onclick="filter('', '')" href="#"> <img src="/images/pulpito-white.png" width="40px">Pulpito</a>
           </div>
           <div>
+            <form class="navbar-form navbar-left" role="search">
+                <input type="text" size="10" id="search-dates" placeholder="yyyy-mm-dd">
+            </form>
             <ul class="nav navbar-nav">
-                <li class="dropdown dates">
-                    <a href="#" class="dropdown-toggle" id="menu-branches" data-toggle="dropdown">By Date
-                        <b class="caret"></b>
-                    </a>
-                <ul class="dropdown-menu">
-                    <li><a onclick="filter('latest', 'true')" href="#">Latest Runs</a></li>
-                    <li><a onclick="stack_filter('date', 'today')" href="#">Today's Runs</a></li>
-                    <li><a onclick="stack_filter('date', 'yesterday')" href="#">Yesterday's Runs</a></li>
-                </ul>
                 <li class="dropdown statuses">
                     <a href="#" class="dropdown-toggle" id="menu-statuses" data-toggle="dropdown">By Status
                         <b class="caret"></b>

@@ -125,6 +125,13 @@ $( document ).ready(function() {
         $('#expand-fail-btn').prop('disabled', false);
     });
 
+    $('#search-dates').datepicker({ format: 'yyyy-mm-dd' });
+    $('#search-dates').on('changeDate', function(ev) {
+        date = new Date(ev.date);
+        date_str = date.toISOString().split("T")[0]
+        stack_filter('date', date_str);
+    });
+
     $('#menu-machine-type').click(function() {
         var machine_type_list = $(this).parent().find('ul');
         if (machine_type_list.children().length == 0) {
