@@ -17,7 +17,11 @@ function table_sortend_callback(event) {
 }
 
 function filter(name, value) {
-    var new_url = '/?' + name + '=' + value;
+    if (name == '') {
+        var new_url = '/';
+    } else {
+        var new_url = '/?' + name + '=' + value;
+    };
     $('#processing-modal').modal();
     window.location.href = new_url;
 };
