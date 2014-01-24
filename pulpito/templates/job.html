@@ -59,10 +59,50 @@
                     {{ job.failure_reason|e }}
                 </p>
               {% endif %}
-
-            </div><!-- /example -->
+            </div>
+            <div class="panel-group" id="detail-panel">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="detail-panel" href="#collapseOne">All Details...</a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul>
+                            {% for (key, value) in job.items() recursive %}
+                            {% set outer_loop = loop %}
+                                <li>{{ key }}:
+                                {% if value is mapping %}
+                                    <ul>{{ loop(value.items()) }}</ul>
+                                {% elif value is string and value|length > 0 %}
+                                    {{ value }}
+                                {% elif value is sequence and value|length > 0 %}
+                                    <ul>
+                                    {% for item in value %}
+                                        <li>
+                                        {% if item is mapping %}
+                                            {{ outer_loop(item.items()) }}
+                                        {% elif item|string|length > 0 %}
+                                            {{ item }}
+                                        {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                    </ul>
+                                {% elif value|string == "None" %}
+                                {% elif value|string|length == 0 %}
+                                {% else %}
+                                    {{ value }}
+                                {% endif %}
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
           </div>
-        </div>
+      </div>
 {% endblock %}
 
 
