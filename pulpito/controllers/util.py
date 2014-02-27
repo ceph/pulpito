@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from ..filters import utc_stamp_to_local
 
 timestamp_fmt = '%Y-%m-%d %H:%M:%S'
 
@@ -26,9 +27,10 @@ def set_run_status_class(run):
 
 def set_run_time_info(run):
     run['posted'] = run['posted'].split('.')[0]
-    posted = datetime.strptime(run['posted'], timestamp_fmt)
-    updated = datetime.strptime(run['posted'], timestamp_fmt)
-    run['runtime'] = str(updated - posted)
+    if 'running' in run['status']:
+        posted_local = utc_stamp_to_local(run['posted'])
+        posted = datetime.strptime(posted_local, timestamp_fmt)
+        run['runtime'] = str(datetime.now() - posted).split('.')[0]
 
 
 def prettify_job(job):
