@@ -50,7 +50,8 @@
                     <th data-sorter="false">Links</th>
                     <th>Posted</th>
                     <th>Updated</th>
-                    <th><div class="tip" data-toggle="tooltip" title="duration reported by teuthology" data-placement="left">Duration</div></th>
+                    <th><div class="tip" data-toggle="tooltip" title="Runtime calculated by Pulpito" data-placement="left">Runtime</div></th>
+                    <th><div class="tip" data-toggle="tooltip" title="Duration reported by teuthology" data-placement="left">Duration</div></th>
                     <th>Machine</th>
                     <th>Teuthology Branch</th>
                     <th>OS Type</th>
@@ -85,6 +86,9 @@
                         </td>
                         <td>
                           {{ job.updated_pretty|localtime }}
+                        </td>
+                        <td>
+                          {{ job['runtime'] }}
                         </td>
                         <td>
                           {{ job['duration_pretty'] }}

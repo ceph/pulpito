@@ -1,4 +1,5 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
+timestamp_fmt = '%Y-%m-%d %H:%M:%S'
 
 
 def set_job_status_class(job):
@@ -10,13 +11,15 @@ def set_job_status_class(job):
         'unknown': 'warning',
         None:      'warning',
     }
-
     job['status_class'] = status_class_map.get(job.get('status', 'unknown'))
 
 
 def set_job_time_info(job):
     job['posted_pretty'] = job['posted'].split('.')[0]
     job['updated_pretty'] = job['updated'].split('.')[0]
+    posted = datetime.strptime(job['posted_pretty'], timestamp_fmt)
+    updated = datetime.strptime(job['updated_pretty'], timestamp_fmt)
+    job['runtime'] = str(updated - posted)
     duration = job.get('duration')
     if duration:
         duration_pretty = str(timedelta(seconds=job['duration']))

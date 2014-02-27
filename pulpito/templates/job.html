@@ -12,7 +12,8 @@
               <table class="table table-striped table-bordered table-hover link-bare">
                 <thead>
                   <tr>
-                    <th>Duration</th>
+                    <th><div class="tip" data-toggle="tooltip" title="Runtime calculated by Pulpito" data-placement="top">Runtime</div></th>
+                    <th><div class="tip" data-toggle="tooltip" title="Duration reported by teuthology" data-placement="top">Duration</div></th>
                     <th>Machine</th>
                     <th>Teuthology Branch</th>
                     <th>OS Type</th>
@@ -22,7 +23,10 @@
                 <tbody>
                     <tr class="{{ job['status_class'] }}">
                         <td>
-                            {{ job['duration'] }}
+                            {{ job['runtime'] }}
+                        </td>
+                        <td>
+                            {{ job['duration_pretty'] }}
                         </td>
                         <td>
                             {{ job['machine_type'] }}
