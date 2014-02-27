@@ -81,10 +81,10 @@
                           {% endif %}
                         </td>
                         <td>
-                          {{ job.posted_pretty }}
+                          {{ job.posted_pretty|localtime }}
                         </td>
                         <td>
-                          {{ job.updated_pretty }}
+                          {{ job.updated_pretty|localtime }}
                         </td>
                         <td>
                           {{ job['duration_pretty'] }}
