@@ -1,4 +1,4 @@
-from util import get_job_status_class, get_job_time_info
+from util import prettify_job
 from pecan import conf, expose
 import requests
 
@@ -59,8 +59,7 @@ class RunCompareController(object):
             run_info['jobs'] = dict()
             for job in jobs:
                 description = job.pop('description')
-                job['status_class'] = get_job_status_class(job)
-                job['duration_pretty'] = get_job_time_info(job)
+                prettify_job(job)
                 descriptions.add(description)
                 run_info['jobs'][description] = job
             full_info['runs'].append(run_info)

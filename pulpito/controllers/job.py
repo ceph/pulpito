@@ -1,7 +1,7 @@
 from pecan import expose
 from pecan import conf
 import requests
-from util import get_job_status_class
+from util import prettify_job
 
 base_url = conf.paddles_address
 
@@ -12,7 +12,7 @@ class JobController(object):
         self.job_id = job_id
         self.job = requests.get("{base}/runs/{run}/jobs/{job}".format(
             base=base_url, run=run_name, job=job_id)).json()
-        self.job['status_class'] = get_job_status_class(self.job)
+        prettify_job(self.job)
 
     @expose('job.html')
     def index(self):
