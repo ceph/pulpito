@@ -26,8 +26,9 @@ def set_run_status_class(run):
 
 
 def set_run_time_info(run):
-    run['posted'] = run['posted'].split('.')[0]
-    if 'running' in run['status']:
+    if 'posted' in run:
+        run['posted'] = run['posted'].split('.')[0]
+    if 'running' in run.get('status', ''):
         posted_local = utc_stamp_to_local(run['posted'])
         posted = datetime.strptime(posted_local, timestamp_fmt)
         run['runtime'] = str(datetime.now() - posted).split('.')[0]
@@ -52,13 +53,15 @@ def set_job_status_class(job):
 
 
 def set_job_time_info(job):
-    job['posted_pretty'] = job['posted'].split('.')[0]
-    job['updated_pretty'] = job['updated'].split('.')[0]
-    posted = datetime.strptime(job['posted_pretty'], timestamp_fmt)
-    updated = datetime.strptime(job['updated_pretty'], timestamp_fmt)
-    job['runtime'] = str(updated - posted)
-    duration = job.get('duration')
-    if duration:
+    if 'posted' in job:
+        job['posted_pretty'] = job['posted'].split('.')[0]
+        posted = datetime.strptime(job['posted_pretty'], timestamp_fmt)
+    if 'updated' in job:
+        job['updated_pretty'] = job['updated'].split('.')[0]
+        updated = datetime.strptime(job['updated_pretty'], timestamp_fmt)
+    if 'posted' in job and 'updated' in job:
+        job['runtime'] = str(updated - posted)
+    if job.get('duration'):
         duration_pretty = str(timedelta(seconds=job['duration']))
         job['duration_pretty'] = duration_pretty
 
