@@ -2,7 +2,7 @@ from pecan import conf, expose, redirect, request
 import requests
 
 from job import JobController
-from util import prettify_job
+from util import prettify_run, prettify_job
 from pulpito.controllers import error
 from pulpito.controllers.errors import ErrorsController
 from pulpito.controllers.compare import RunCompareController
@@ -41,8 +41,7 @@ class RootController(object):
 
         latest_runs = requests.get(uri).json()
         for run in latest_runs:
-            run['posted'] = run['posted'].split('.')[0]
-            run['status_class'] = self.set_status_class(run)
+            prettify_run(run)
         return dict(runs=latest_runs,
                     filters=request.context.get('filters', dict()),
                     branch=branch,
@@ -54,21 +53,6 @@ class RootController(object):
     @expose('index.html')
     def latest(self, **kwargs):
         return self.index(latest=True, **kwargs)
-
-    def set_status_class(self, run):
-        fail = run['results']['fail']
-        running = run['results']['running']
-        passing = run['results']['pass']
-        status_class = 'warning'
-        if fail:
-            status_class = 'danger'
-        elif not running and passing:
-            status_class = 'success'
-        elif running and passing:
-            status_class = 'warning'
-        else:
-            status_class = 'warning'
-        return status_class
 
     @expose('index.html')
     def date(self, from_date_str, to='', to_date_str=''):
@@ -92,7 +76,7 @@ class RootController(object):
             runs = resp.json()
 
         for run in runs:
-            run['status_class'] = self.set_status_class(run)
+            prettify_run(run)
         return dict(runs=runs,
                     filters=request.context.get('filters', dict()),
                     dates=[from_date_str, to_date_str]

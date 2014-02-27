@@ -1,5 +1,40 @@
 from datetime import datetime, timedelta
+
 timestamp_fmt = '%Y-%m-%d %H:%M:%S'
+
+
+def prettify_run(run):
+    set_run_status_class(run)
+    set_run_time_info(run)
+
+
+def set_run_status_class(run):
+    fail = run['results']['fail']
+    running = run['results']['running']
+    passing = run['results']['pass']
+    status_class = 'warning'
+    if fail:
+        status_class = 'danger'
+    elif not running and passing:
+        status_class = 'success'
+    elif running and passing:
+        status_class = 'warning'
+    else:
+        status_class = 'warning'
+    run['status_class'] = status_class
+
+
+def set_run_time_info(run):
+    run['posted'] = run['posted'].split('.')[0]
+    posted = datetime.strptime(run['posted'], timestamp_fmt)
+    updated = datetime.strptime(run['posted'], timestamp_fmt)
+    run['runtime'] = str(updated - posted)
+
+
+def prettify_job(job):
+    set_job_status_class(job)
+    set_job_time_info(job)
+    return job
 
 
 def set_job_status_class(job):
@@ -24,12 +59,6 @@ def set_job_time_info(job):
     if duration:
         duration_pretty = str(timedelta(seconds=job['duration']))
         job['duration_pretty'] = duration_pretty
-
-
-def prettify_job(job):
-    set_job_status_class(job)
-    set_job_time_info(job)
-    return job
 
 
 def get_run_filters(**kwargs):
