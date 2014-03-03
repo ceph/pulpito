@@ -12,6 +12,8 @@
               <table class="table table-striped table-bordered table-hover link-bare">
                 <thead>
                   <tr>
+                    <th>Posted</th>
+                    <th>Updated</th>
                     <th><div class="tip" data-toggle="tooltip" title="Runtime calculated by Pulpito" data-placement="top">Runtime</div></th>
                     <th><div class="tip" data-toggle="tooltip" title="Duration reported by teuthology" data-placement="top">Duration</div></th>
                     <th>Machine</th>
@@ -22,6 +24,12 @@
                 </thead>
                 <tbody>
                     <tr class="{{ job.status_class }}">
+                        <td>
+                            {{ job.posted_pretty|localtime }}
+                        </td>
+                        <td>
+                            {{ job.updated_pretty|localtime }}
+                        </td>
                         <td>
                             {{ job.runtime }}
                         </td>
