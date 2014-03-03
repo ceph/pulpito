@@ -3,6 +3,15 @@ from ..filters import utc_stamp_to_local
 
 timestamp_fmt = '%Y-%m-%d %H:%M:%S'
 
+status_class_map = {
+    'pass':    'success',
+    'fail':    'danger',
+    'dead':    'danger',
+    'running': 'warning',
+    'unknown': 'warning',
+    None:      'warning',
+}
+
 
 def prettify_run(run):
     set_run_status_class(run)
@@ -10,18 +19,10 @@ def prettify_run(run):
 
 
 def set_run_status_class(run):
-    fail = run['results']['fail']
-    running = run['results']['running']
-    passing = run['results']['pass']
-    status_class = 'warning'
-    if fail:
-        status_class = 'danger'
-    elif not running and passing:
-        status_class = 'success'
-    elif running and passing:
-        status_class = 'warning'
-    else:
-        status_class = 'warning'
+    for key in status_class_map.keys():
+        if key and key in run.get('status', 'unknown'):
+            status_class = status_class_map[key]
+            break
     run['status_class'] = status_class
 
 
@@ -41,14 +42,6 @@ def prettify_job(job):
 
 
 def set_job_status_class(job):
-    status_class_map = {
-        'pass':    'success',
-        'fail':    'danger',
-        'dead':    'danger',
-        'running': 'warning',
-        'unknown': 'warning',
-        None:      'warning',
-    }
     job['status_class'] = status_class_map.get(job.get('status', 'unknown'))
 
 
