@@ -53,7 +53,10 @@ def set_job_time_info(job):
         job['updated_pretty'] = job['updated'].split('.')[0]
         updated = datetime.strptime(job['updated_pretty'], timestamp_fmt)
     if 'posted' in job and 'updated' in job:
-        job['runtime'] = str(updated - posted)
+        if job['status'] == 'running':
+            job['runtime'] = str(datetime.utcnow() - posted).split('.')[0]
+        else:
+            job['runtime'] = str(updated - posted)
     if job.get('duration'):
         duration_pretty = str(timedelta(seconds=job['duration']))
         job['duration_pretty'] = duration_pretty
