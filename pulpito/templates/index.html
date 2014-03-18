@@ -70,7 +70,7 @@
                         {% set fields = ['user', 'scheduled', 'posted', 'suite', 'branch', 'machine_type'] %}
                       {% endif %}
                       {% for field in fields %}
-                        {% if field in ['posted'] %}
+                        {% if field in ['posted', 'scheduled'] %}
                         <td>
                             <a href="/{{ run.name }}" target="_blank">{{ run[field]|localtime }}</a>
                         </td>
