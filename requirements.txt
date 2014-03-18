@@ -18,3 +18,5 @@ singledispatch==3.4.0.2
 six==1.4.1
 waitress==0.8.7
 wsgiref==0.1.2
+pytz
+tzlocal
