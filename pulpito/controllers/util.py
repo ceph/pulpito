@@ -33,6 +33,8 @@ def set_run_time_info(run):
         posted_local = utc_stamp_to_local(run['posted'])
         posted = datetime.strptime(posted_local, timestamp_fmt)
         run['runtime'] = str(datetime.now() - posted).split('.')[0]
+    if 'scheduled' in run:
+        run['scheduled'] = run['scheduled'].split('.')[0]
 
 
 def prettify_job(job):
