@@ -22,8 +22,8 @@ def set_run_status_class(run):
     for key in status_class_map.keys():
         if key and key in run.get('status', 'unknown'):
             status_class = status_class_map[key]
+            run['status_class'] = status_class
             break
-    run['status_class'] = status_class
 
 
 def set_run_time_info(run):
@@ -33,6 +33,8 @@ def set_run_time_info(run):
         posted_local = utc_stamp_to_local(run['posted'])
         posted = datetime.strptime(posted_local, timestamp_fmt)
         run['runtime'] = str(datetime.now() - posted).split('.')[0]
+    if 'scheduled' in run:
+        run['scheduled'] = run['scheduled'].split('.')[0]
 
 
 def prettify_job(job):
