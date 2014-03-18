@@ -22,8 +22,8 @@ def set_run_status_class(run):
     for key in status_class_map.keys():
         if key and key in run.get('status', 'unknown'):
             status_class = status_class_map[key]
+            run['status_class'] = status_class
             break
-    run['status_class'] = status_class
 
 
 def set_run_time_info(run):
