@@ -18,5 +18,5 @@ class ErrorsController(object):
             'error_message',
             'resource was not found'
         )
-        status = 404
-        return dict(status=status, message=msg)
+        response.status = 404
+        return dict(status=response.status, message=msg)
