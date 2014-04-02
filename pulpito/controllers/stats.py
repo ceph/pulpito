@@ -1,4 +1,4 @@
-from pecan import conf, expose
+from pecan import conf, expose, redirect
 import requests
 
 base_url = conf.paddles_address
@@ -13,7 +13,12 @@ class StatsController(object):
             uri += '?machine_type=%s' % machine_type
         else:
             uri += '/'
+
         response = requests.get(uri)
+        if response.status_code != 200:
+            redirect('/errors?status_code={status}&message={msg}'.format(
+                status=response.status_code, msg=response.text))
+
         nodes = response.json()
         statuses = ['pass', 'fail', 'dead', 'unknown', 'running']
         for name in nodes.keys():
