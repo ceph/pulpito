@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+      <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              {% if machine_type %}
+                <h1>Stats for {{ count }} {{ machine_type }} nodes</h1>
+              {% else %}
+                <h1>State for all nodes</h1>
+              {% endif %}
+            </div>
+
+            <div class="bs-example">
+              <table class="table table-condensed table-striped table-bordered table-hover" style="border-collapse:collapse;">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Pass</th>
+                    <th>Fail</th>
+                    <th>Dead</th>
+                    <th>Unknown</th>
+                    <th>Running</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% if not nodes|length %}
+                  <tr>
+                    <td colspan=7>No nodes!</td>
+                  </tr>
+                {% else %}
+                  {% for name in nodes %}
+                  {% set node = nodes[name] %}
+                    <tr>
+                      <td>
+                        {{ name }}
+                      <td>
+                        {{ node.pass }}
+                      </td>
+                      <td>
+                        {{ node.fail }}
+                      </td>
+                      <td>
+                        {{ node.dead }}
+                      </td>
+                      <td>
+                        {{ node.unknown }}
+                      </td>
+                      <td>
+                        {{ node.running }}
+                      </td>
+                      <td>
+                        {{ node.total }}
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  {% endif %}
+                </tbody>
+              </table>
+            </div><!-- /example -->
+          </div>
+        </div>
+{% endblock %}
+
+
