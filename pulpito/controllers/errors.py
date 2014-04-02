@@ -4,6 +4,11 @@ from pecan import expose, response
 class ErrorsController(object):
 
     @expose('error.html')
+    def index(self, status_code, message):
+        response.status = status_code
+        return dict(status=status_code, message=message)
+
+    @expose('error.html')
     def invalid(self, **kw):
         msg = kw.get(
             'error_message',
