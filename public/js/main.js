@@ -16,14 +16,18 @@ function table_sortend_callback(event) {
     $(this).find(".tablesorter-headerAsc").children().append(sortAsc);
 }
 
+function navigate_with_modal(url) {
+    $('#processing-modal').modal();
+    window.location.href = url;
+}
+
 function filter(name, value) {
     if (name == '') {
         var new_url = '/';
     } else {
         var new_url = '/?' + name + '=' + value;
     };
-    $('#processing-modal').modal();
-    window.location.href = new_url;
+    navigate_with_modal(new_url);
 };
 
 function stack_filter(name, value) {
@@ -33,8 +37,7 @@ function stack_filter(name, value) {
     filters[name] = value;
     var query_str = jQuery.param(filters);
     var new_url = '/?' + query_str;
-    $('#processing-modal').modal();
-    window.location.href = new_url;
+    navigate_with_modal(new_url);
 };
 
 function unstack_filter(name) {
