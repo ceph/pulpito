@@ -8,12 +8,12 @@ base_url = conf.paddles_address
 class StatsController(object):
 
     @expose('node_stats.html')
-    def nodes(self, machine_type=None):
-        uri = '{base}/nodes/job_stats'.format(base=base_url)
+    def nodes(self, machine_type=None, since_days=14):
+        uri = '{base}/nodes/job_stats?since_days={days}'.format(
+            base=base_url,
+            days=since_days)
         if machine_type:
-            uri += '?machine_type=%s' % machine_type
-        else:
-            uri += '/'
+            uri += '&machine_type=%s' % machine_type
 
         response = requests.get(uri, timeout=60)
         if response.status_code == 502:
@@ -34,6 +34,7 @@ class StatsController(object):
             sorted(nodes.items(), key=lambda t: t[1]['total'], reverse=True))
         return dict(
             machine_type=machine_type,
+            days=since_days,
             nodes=nodes,
             count=len(nodes),
         )
