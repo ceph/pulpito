@@ -1,5 +1,6 @@
 from collections import OrderedDict
 from pecan import conf, expose, redirect
+from pulpito.controllers import error
 import requests
 
 base_url = conf.paddles_address
@@ -15,13 +16,15 @@ class StatsController(object):
         if machine_type:
             uri += '&machine_type=%s' % machine_type
 
-        response = requests.get(uri, timeout=60)
-        if response.status_code == 502:
+        resp = requests.get(uri, timeout=60)
+        if resp.status_code == 502:
             redirect('/errors?status_code={status}&message={msg}'.format(
                 status=200, msg='502 gateway error :('),
                 internal=True)
+        elif resp.status_code == 400:
+            error('/errors/invalid/', msg=resp.text)
 
-        nodes = response.json()
+        nodes = resp.json()
         statuses = ['pass', 'fail', 'dead', 'unknown', 'running']
         for name in nodes.keys():
             node = nodes[name]
