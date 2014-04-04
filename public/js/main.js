@@ -58,7 +58,6 @@ function unstack_filter(name) {
 
 function set_machine_types() {
     $.getJSON(window.paddles_address + '/runs/machine_type/', function(machine_types) {
-        window.machine_types = machine_types;
         populate_machine_type_menus(machine_types);
     });
 }
@@ -84,6 +83,25 @@ function populate_machine_type_menus(machine_types) {
             items.push(item);
         });
         node_stats_list.append(items);
+    }
+}
+
+function set_suites() {
+    $.getJSON(paddles_address + '/runs/suite/', function(suite_names) {
+        populate_suite_menus(suite_names);
+    });
+}
+
+function populate_suite_menus(suite_names) {
+    var suite_list = $('#menu-suites').parent().find('ul');
+    if (suite_list.children().length == 0) {
+            var items = [];
+            $.each(suite_names, function(i) {
+                var suite = suite_names[i];
+                var item = "<li><a onclick='stack_filter(&quot;suite&quot;, &quot;" + suite + "&quot;)' data-toggle='modal' data-target='#processing-modal' href='#'>" + suite + "</a></li>";
+                items.push(item);
+            });
+            suite_list.append(items);
     }
 }
 
@@ -170,21 +188,6 @@ $( document ).ready(function() {
         stack_filter('date', date_str);
     });
 
-    $('#menu-suites').click(function() {
-        var suite_list = $(this).parent().find('ul');
-        if (suite_list.children().length == 0) {
-            $.getJSON(paddles_address + '/runs/suite/', function(suites) {
-                var items = [];
-                $.each(suites, function(i) {
-                    var suite = suites[i];
-                    var item = "<li><a onclick='stack_filter(&quot;suite&quot;, &quot;" + suite + "&quot;)' data-toggle='modal' data-target='#processing-modal' href='#'>" + suite + "</a></li>";
-                    items.push(item);
-                });
-                suite_list.append(items);
-            });
-        };
-    });
-
     $('#search-branches').typeahead({
         name: 'branches',
         prefetch: paddles_address + '/runs/branch/',
@@ -200,4 +203,5 @@ $( document ).ready(function() {
     });
 
     set_machine_types();
+    set_suites();
 })
