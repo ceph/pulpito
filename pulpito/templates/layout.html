@@ -75,6 +75,18 @@
             </ul>
             </div>
           </div>
+        <div class="navbar-right navbar-inverse">
+                <ul class="nav navbar-nav navbar-tiny">
+                <li class="dropdown statuses">
+                    <a href="#" class="dropdown-toggle" id="menu-node-stats" data-toggle="dropdown">Node Stats
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a onclick="navigate_with_modal('/stats/nodes/')" href="#">All</a></li>
+                    </ul>
+                </li>
+                </ul>
+        </div>
       </div>
       <div class="container">
         {% block body %}{% endblock %}

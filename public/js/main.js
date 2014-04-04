@@ -16,14 +16,18 @@ function table_sortend_callback(event) {
     $(this).find(".tablesorter-headerAsc").children().append(sortAsc);
 }
 
+function navigate_with_modal(url) {
+    $('#processing-modal').modal();
+    window.location.href = url;
+}
+
 function filter(name, value) {
     if (name == '') {
         var new_url = '/';
     } else {
         var new_url = '/?' + name + '=' + value;
     };
-    $('#processing-modal').modal();
-    window.location.href = new_url;
+    navigate_with_modal(new_url);
 };
 
 function stack_filter(name, value) {
@@ -33,8 +37,7 @@ function stack_filter(name, value) {
     filters[name] = value;
     var query_str = jQuery.param(filters);
     var new_url = '/?' + query_str;
-    $('#processing-modal').modal();
-    window.location.href = new_url;
+    navigate_with_modal(new_url);
 };
 
 function unstack_filter(name) {
@@ -52,6 +55,37 @@ function unstack_filter(name) {
     window.location.href = new_url;
 }
 
+
+function set_machine_types() {
+    $.getJSON(window.paddles_address + '/runs/machine_type/', function(machine_types) {
+        window.machine_types = machine_types;
+        populate_machine_type_menus(machine_types);
+    });
+}
+
+function populate_machine_type_menus(machine_types) {
+    var run_filter_list = $('#menu-machine-type').parent().find('ul');
+    if (run_filter_list.children().length == 0) {
+        var items = [];
+        $.each(machine_types, function(i) {
+            var machine_type = machine_types[i];
+            var item = "<li><a onclick='stack_filter(&quot;machine_type&quot;, &quot;" + machine_type + "&quot;)' data-toggle='modal' data-target='#processing-modal' href='#'>" + machine_type + "</a></li>";
+            items.push(item);
+        });
+        run_filter_list.append(items);
+    }
+
+    var node_stats_list = $('#menu-node-stats').parent().find('ul');
+    if (node_stats_list.children().length == 1) {
+        var items = [];
+        $.each(machine_types, function(i) {
+            var machine_type = machine_types[i];
+            var item = "<li><a onclick='navigate_with_modal(&quot;/stats/nodes?machine_type=" +machine_type +"&quot;)' href='#'>" + machine_type + "</a></li>"
+            items.push(item);
+        });
+        node_stats_list.append(items);
+    }
+}
 
 $( document ).ready(function() {
     $("table")
@@ -136,21 +170,6 @@ $( document ).ready(function() {
         stack_filter('date', date_str);
     });
 
-    $('#menu-machine-type').click(function() {
-        var machine_type_list = $(this).parent().find('ul');
-        if (machine_type_list.children().length == 0) {
-            $.getJSON(paddles_address + '/runs/machine_type/', function(machine_types) {
-                var items = [];
-                $.each(machine_types, function(i) {
-                    var machine_type = machine_types[i];
-                    var item = "<li><a onclick='stack_filter(&quot;machine_type&quot;, &quot;" + machine_type + "&quot;)' data-toggle='modal' data-target='#processing-modal' href='#'>" + machine_type + "</a></li>";
-                    items.push(item);
-                });
-                machine_type_list.append(items);
-            });
-        };
-    });
-
     $('#menu-suites').click(function() {
         var suite_list = $(this).parent().find('ul');
         if (suite_list.children().length == 0) {
@@ -179,4 +198,6 @@ $( document ).ready(function() {
             stack_filter('branch', branch);
         }
     });
+
+    set_machine_types();
 })
