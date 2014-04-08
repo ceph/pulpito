@@ -13,6 +13,10 @@ status_class_map = {
 }
 
 
+def remove_msecs(timestamp):
+    return timestamp.split('.')[0]
+
+
 def prettify_run(run):
     set_run_status_class(run)
     set_run_time_info(run)
@@ -28,13 +32,13 @@ def set_run_status_class(run):
 
 def set_run_time_info(run):
     if 'posted' in run:
-        run['posted'] = run['posted'].split('.')[0]
+        run['posted'] = remove_msecs(run['posted'])
     if 'running' in run.get('status', ''):
         posted_local = utc_stamp_to_local(run['posted'])
         posted = datetime.strptime(posted_local, timestamp_fmt)
-        run['runtime'] = str(datetime.now() - posted).split('.')[0]
+        run['runtime'] = remove_msecs(str(datetime.now() - posted))
     if 'scheduled' in run:
-        run['scheduled'] = run['scheduled'].split('.')[0]
+        run['scheduled'] = remove_msecs(run['scheduled'])
 
 
 def prettify_job(job):
@@ -49,14 +53,14 @@ def set_job_status_class(job):
 
 def set_job_time_info(job):
     if 'posted' in job:
-        job['posted_pretty'] = job['posted'].split('.')[0]
+        job['posted_pretty'] = remove_msecs(job['posted'])
         posted = datetime.strptime(job['posted_pretty'], timestamp_fmt)
     if 'updated' in job:
-        job['updated_pretty'] = job['updated'].split('.')[0]
+        job['updated_pretty'] = remove_msecs(job['updated'])
         updated = datetime.strptime(job['updated_pretty'], timestamp_fmt)
     if 'posted' in job and 'updated' in job:
         if job['status'] == 'running':
-            job['runtime'] = str(datetime.utcnow() - posted).split('.')[0]
+            job['runtime'] = remove_msecs(str(datetime.utcnow() - posted))
         else:
             job['runtime'] = str(updated - posted)
     if job.get('duration'):
