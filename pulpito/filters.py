@@ -13,6 +13,8 @@ def tojson_filter(obj, **kwargs):
 
 
 def utc_stamp_to_local(stamp, format='%Y-%m-%d %H:%M:%S'):
+    if not stamp:
+        return ''
     utc_dt_naive = datetime.strptime(stamp, format)
     utc_dt_aware = pytz.utc.localize(utc_dt_naive)
     local_dt = utc_dt_aware.astimezone(local_tz)
