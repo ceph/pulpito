@@ -51,10 +51,9 @@
                     <th>User</th>
                     <th>Scheduled</th>
                     <th data-sortinitialorder="desc">Posted<span class="fa fa-sort-desc"></span></th>
-                    {% if filters.status and filters.status == 'running' %}
                     <th>Started</th>
+                    <th>Updated</th>
                     <th>Runtime</th>
-                    {% endif %}
                     <th>Suite</th>
                     <th>Branch</th>
                     <th>Machine Type</th>
@@ -68,13 +67,9 @@
                 <tbody>
                   {% for run in runs %}
                     <tr class="{{ run['status_class'] }}">
-                      {% if filters.status and filters.status == 'running' %}
-                        {% set fields = ['user', 'scheduled', 'posted', 'started', 'runtime', 'suite', 'branch', 'machine_type'] %}
-                      {% else %}
-                        {% set fields = ['user', 'scheduled', 'posted', 'suite', 'branch', 'machine_type'] %}
-                      {% endif %}
+                        {% set fields = ['user', 'scheduled', 'posted', 'started', 'updated', 'runtime', 'suite', 'branch', 'machine_type'] %}
                       {% for field in fields %}
-                        {% if field in ['posted', 'scheduled', 'started'] %}
+                        {% if field in ['scheduled', 'posted', 'started', 'updated'] %}
                         <td>
                             <a href="/{{ run.name }}" target="_blank">{{ run[field]|localtime }}</a>
                         </td>
