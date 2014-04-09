@@ -21,6 +21,9 @@
                 {% macro total(attr) %}
                   {{ runs|map(attribute='results')|sum(attribute=attr) }}
                 {% endmacro %}
+                {% set num_queued = total('queued') %}
+                {% if num_queued|int > 0 %} {{ num_queued }} queued, {% endif %}
+
                 {% set num_fail = total('fail') %}
                 {% if num_fail|int > 0 %} {{ num_fail }} failed, {% endif %}
 
@@ -47,8 +50,9 @@
                   <tr>
                     <th>User</th>
                     <th>Scheduled</th>
-                    <th data-sortinitialorder="desc">Posted (Started)<span class="fa fa-sort-desc"></span></th>
+                    <th data-sortinitialorder="desc">Posted<span class="fa fa-sort-desc"></span></th>
                     {% if filters.status and filters.status == 'running' %}
+                    <th>Started</th>
                     <th>Runtime</th>
                     {% endif %}
                     <th>Suite</th>
@@ -65,12 +69,12 @@
                   {% for run in runs %}
                     <tr class="{{ run['status_class'] }}">
                       {% if filters.status and filters.status == 'running' %}
-                        {% set fields = ['user', 'scheduled', 'posted', 'runtime', 'suite', 'branch', 'machine_type'] %}
+                        {% set fields = ['user', 'scheduled', 'posted', 'started', 'runtime', 'suite', 'branch', 'machine_type'] %}
                       {% else %}
                         {% set fields = ['user', 'scheduled', 'posted', 'suite', 'branch', 'machine_type'] %}
                       {% endif %}
                       {% for field in fields %}
-                        {% if field in ['posted', 'scheduled'] %}
+                        {% if field in ['posted', 'scheduled', 'started'] %}
                         <td>
                             <a href="/{{ run.name }}" target="_blank">{{ run[field]|localtime }}</a>
                         </td>
