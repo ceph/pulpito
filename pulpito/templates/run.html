@@ -23,6 +23,9 @@
             </div>
 
             <div class="btn-group">
+              {% if run.results.queued %}
+                <button type="button" class="btn btn-primary" id='queued-job-btn'>{{ run.results.queued }} Queued</button>
+              {% endif %}
               {% if run.results.fail %}
                 <button type="button" class="btn btn-danger" id='fail-job-btn'>{{ run.results.fail }} Failed</button>
               {% endif %}
@@ -49,6 +52,7 @@
                     <th>Job ID</th>
                     <th data-sorter="false">Links</th>
                     <th>Posted</th>
+                    <th>Started</th>
                     <th>Updated</th>
                     <th><div class="tip" data-toggle="tooltip" title="Runtime calculated by Pulpito" data-placement="left">Runtime</div></th>
                     <th><div class="tip" data-toggle="tooltip" title="Duration reported by teuthology" data-placement="left">Duration</div></th>
@@ -74,7 +78,7 @@
                           </a>
                         </td>
                         <td>
-                          {% if job.log_href %}
+                          {% if job.log_href and job.status != 'queued' %}
                             <a href="{{ job.log_href }}" target="_blank"><img src="/images/log.png" width="24px"></a>
                           {% endif %}
                           {% if job.sentry_event %}
@@ -83,6 +87,9 @@
                         </td>
                         <td>
                           {{ job.posted_pretty|localtime }}
+                        </td>
+                        <td>
+                          {{ job.started_pretty|localtime }}
                         </td>
                         <td>
                           {{ job.updated_pretty|localtime }}
