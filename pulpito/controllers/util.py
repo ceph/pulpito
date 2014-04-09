@@ -65,8 +65,8 @@ def set_job_time_info(job):
     if job.get('updated'):
         job['updated'] = remove_msecs(job['updated'])
     if job.get('started') and job.get('updated'):
+        started = datetime.strptime(job['started'], timestamp_fmt)
         if job['status'] == 'running':
-            started = datetime.strptime(job['started'], timestamp_fmt)
             job['runtime'] = remove_msecs(str(datetime.utcnow() - started))
         else:
             updated = datetime.strptime(job['updated'], timestamp_fmt)
