@@ -140,6 +140,13 @@ $( document ).ready(function() {
         $(this).addClass('active').siblings('.btn').not(this).removeClass('active');
     });
 
+    $('#queued-job-btn').click(function() {
+        $('.job').hide();
+        $('.job_queued_extra').show();
+        $('.job_queued').show();
+        $('#expand-queued-btn').prop('disabled', false);
+    });
+
     $('#fail-job-btn').click(function() {
         $('.job').hide();
         $('.job_fail_extra').show();
