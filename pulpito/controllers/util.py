@@ -59,21 +59,21 @@ def set_job_status_class(job):
 
 def set_job_time_info(job):
     if job.get('posted'):
-        job['posted_pretty'] = remove_msecs(job['posted'])
+        job['posted'] = remove_msecs(job['posted'])
     if job.get('started'):
-        job['started_pretty'] = remove_msecs(job['started'])
+        job['started'] = remove_msecs(job['started'])
     if job.get('updated'):
-        job['updated_pretty'] = remove_msecs(job['updated'])
+        job['updated'] = remove_msecs(job['updated'])
     if job.get('started') and job.get('updated'):
         if job['status'] == 'running':
-            started = datetime.strptime(job['started_pretty'], timestamp_fmt)
+            started = datetime.strptime(job['started'], timestamp_fmt)
             job['runtime'] = remove_msecs(str(datetime.utcnow() - started))
         else:
-            updated = datetime.strptime(job['updated_pretty'], timestamp_fmt)
+            updated = datetime.strptime(job['updated'], timestamp_fmt)
             job['runtime'] = str(updated - started)
     if job.get('duration'):
-        duration_pretty = str(timedelta(seconds=job['duration']))
-        job['duration_pretty'] = duration_pretty
+        duration = str(timedelta(seconds=job['duration']))
+        job['duration'] = duration
 
 
 def get_run_filters(**kwargs):

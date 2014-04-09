@@ -25,16 +25,16 @@
                 <tbody>
                     <tr class="{{ job.status_class }}">
                         <td>
-                            {{ job.posted_pretty|localtime }}
+                            {{ job.posted|localtime }}
                         </td>
                         <td>
-                            {{ job.updated_pretty|localtime }}
+                            {{ job.updated|localtime }}
                         </td>
                         <td>
                             {{ job.runtime }}
                         </td>
                         <td>
-                            {{ job.duration_pretty }}
+                            {{ job.duration }}
                         </td>
                         <td>
                             {{ job.machine_type }}
