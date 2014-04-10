@@ -13,6 +13,7 @@
                 <thead>
                   <tr>
                     <th>Posted</th>
+                    <th>Started</th>
                     <th>Updated</th>
                     <th><div class="tip" data-toggle="tooltip" title="Runtime calculated by Pulpito" data-placement="top">Runtime</div></th>
                     <th><div class="tip" data-toggle="tooltip" title="Duration reported by teuthology" data-placement="top">Duration</div></th>
@@ -26,6 +27,9 @@
                     <tr class="{{ job.status_class }}">
                         <td>
                             {{ job.posted|localtime }}
+                        </td>
+                        <td>
+                            {{ job.started|localtime }}
                         </td>
                         <td>
                             {{ job.updated|localtime }}
