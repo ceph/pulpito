@@ -11,6 +11,8 @@ from pulpito.controllers.util import get_run_filters
 
 base_url = conf.paddles_address
 
+run_sorter = lambda run: run['scheduled']
+
 
 class RootController(object):
 
@@ -43,6 +45,7 @@ class RootController(object):
         latest_runs = requests.get(uri).json()
         for run in latest_runs:
             prettify_run(run)
+        latest_runs.sort(key=run_sorter)
         return dict(runs=latest_runs,
                     filters=request.context.get('filters', dict()),
                     branch=branch,
@@ -78,6 +81,7 @@ class RootController(object):
 
         for run in runs:
             prettify_run(run)
+        runs.sort(key=run_sorter)
         return dict(runs=runs,
                     filters=request.context.get('filters', dict()),
                     dates=[from_date_str, to_date_str]
