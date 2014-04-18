@@ -1,0 +1,19 @@
+<tr class="{{ run['status_class'] }}">
+    {% set fields = ['user', 'scheduled', 'started', 'updated', 'runtime', 'suite', 'branch', 'machine_type'] %}
+  {% for field in fields %}
+    {% if field in ['scheduled', 'started', 'updated'] %}
+    <td>
+        <a href="/{{ run.name }}" target="_blank">{{ run[field]|localtime }}</a>
+    </td>
+    {% else %}
+    <td>
+        <a href="/{{ run.name }}" target="_blank">{{ run[field] }}</a>
+    </td>
+    {% endif %}
+  {% endfor %}
+  {% if results.pass|int > 0 %}<td>{{ run['results']['pass'] }}</td>{% endif %}
+  {% if results.fail|int > 0 %}<td>{{ run['results']['fail'] }}</td>{% endif %}
+  {% if results.dead|int > 0 %}<td>{{ run['results']['dead'] }}</td>{% endif %}
+  {% if results.unknown|int > 0 %}<td>{{ run['results']['unknown'] }}</td>{% endif %}
+  {% if results.running|int > 0 %}<td>{{ run['results']['running'] }}</td>{% endif %}
+</tr>

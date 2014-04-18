@@ -1,0 +1,17 @@
+<thead>
+  <tr>
+    <th>User</th>
+    <th data-sortinitialorder="desc">Scheduled<span class="fa fa-sort-asc"></span></th>
+    <th>Started</th>
+    <th>Updated</th>
+    <th>Runtime</th>
+    <th>Suite</th>
+    <th>Branch</th>
+    <th>Machine Type</th>
+    {% if results.pass|int > 0 %}<th>Pass</th>{% endif %}
+    {% if results.fail|int > 0 %}<th>Fail</th>{% endif %}
+    {% if results.dead|int > 0 %}<th>Dead</th>{% endif %}
+    {% if results.unknown|int > 0 %}<th>Unknown</th>{% endif %}
+    {% if results.running|int > 0 %}<th>Running</th>{% endif %}
+  </tr>
+</thead>

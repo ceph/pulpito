@@ -21,74 +21,26 @@
                 {% macro total(attr) %}
                   {{ runs|map(attribute='results')|sum(attribute=attr) }}
                 {% endmacro %}
-                {% set num_queued = total('queued') %}
-                {% if num_queued|int > 0 %} {{ num_queued }} queued, {% endif %}
+                {% set results = dict(queued=total('queued'), fail=total('fail'), running=total('running'), dead=total('dead'), unknown=total('unknown'), pass=total('pass'), total=total('total')) %}
+                {% if results.queued|int > 0 %} {{ results.queued }} queued, {% endif %}
 
-                {% set num_fail = total('fail') %}
-                {% if num_fail|int > 0 %} {{ num_fail }} failed, {% endif %}
+                {% if results.fail|int > 0 %} {{ results.fail }} failed, {% endif %}
 
-                {% set num_running = total('running') %}
-                {% if num_running|int > 0 %} {{ num_running }} running, {% endif %}
+                {% if results.running|int > 0 %} {{ results.running }} running, {% endif %}
 
-                {% set num_dead = total('dead') %}
-                {% if num_dead|int > 0 %} {{ num_dead }} dead, {% endif %}
+                {% if results.dead|int > 0 %} {{ results.dead }} dead, {% endif %}
 
-                {% set num_unknown = total('unknown') %}
-                {% if num_unknown|int > 0 %} {{ num_unknown }} unknown, {% endif %}
+                {% if results.unknown|int > 0 %} {{ results.unknown }} unknown, {% endif %}
 
-                {% set num_pass = total('pass') %}
-                {% if num_pass|int > 0 %} {{ num_pass }} passed, {% endif %}
+                {% if results.pass|int > 0 %} {{ results.pass }} passed, {% endif %}
 
-                {% set num_total = total('total') %}
-                ({{ num_total|int }} total)
+                ({{ results.total|int }} total)
               </h2>
             </div>
 
             <div class="bs-example">
-              <table class="table table-condensed table-striped table-bordered table-hover link-bare">
-                <thead>
-                  <tr>
-                    <th>User</th>
-                    <th data-sortinitialorder="desc">Scheduled<span class="fa fa-sort-asc"></span></th>
-                    <th>Started</th>
-                    <th>Updated</th>
-                    <th>Runtime</th>
-                    <th>Suite</th>
-                    <th>Branch</th>
-                    <th>Machine Type</th>
-                    {% if num_pass|int > 0 %}<th>Pass</th>{% endif %}
-                    {% if num_fail|int > 0 %}<th>Fail</th>{% endif %}
-                    {% if num_dead|int > 0 %}<th>Dead</th>{% endif %}
-                    {% if num_unknown|int > 0 %}<th>Unknown</th>{% endif %}
-                    {% if num_running|int > 0 %}<th>Running</th>{% endif %}
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for run in runs %}
-                    <tr class="{{ run['status_class'] }}">
-                        {% set fields = ['user', 'scheduled', 'started', 'updated', 'runtime', 'suite', 'branch', 'machine_type'] %}
-                      {% for field in fields %}
-                        {% if field in ['scheduled', 'started', 'updated'] %}
-                        <td>
-                            <a href="/{{ run.name }}" target="_blank">{{ run[field]|localtime }}</a>
-                        </td>
-                        {% else %}
-                        <td>
-                            <a href="/{{ run.name }}" target="_blank">{{ run[field] }}</a>
-                        </td>
-                        {% endif %}
-                      {% endfor %}
-                      {% if num_pass|int > 0 %}<td>{{ run['results']['pass'] }}</td>{% endif %}
-                      {% if num_fail|int > 0 %}<td>{{ run['results']['fail'] }}</td>{% endif %}
-                      {% if num_dead|int > 0 %}<td>{{ run['results']['dead'] }}</td>{% endif %}
-                      {% if num_unknown|int > 0 %}<td>{{ run['results']['unknown'] }}</td>{% endif %}
-                      {% if num_running|int > 0 %}<td>{{ run['results']['running'] }}</td>{% endif %}
-                    </tr>
-                  {% endfor %}
-               </tbody>
-              </table>
+                {% include "run_table.html" %}
             </div><!-- /example -->
           </div>
         </div>
 {% endblock %}
-

@@ -119,6 +119,7 @@ class RunController(object):
             for job in run['jobs']:
                 prettify_job(job)
 
+        prettify_run(run)
         self.run = run
         return self.run
 

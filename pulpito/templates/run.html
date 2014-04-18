@@ -22,6 +22,16 @@
               {% endif %}
             </div>
 
+            <div>
+                {% set results = run.results %}
+                <table class="table table-condensed table-striped table-bordered table-hover link-bare">
+                {% include "run_table_head.html" %}
+                <tbody>
+                    {% include "run_table_body.html" %}
+                </tbody>
+                </table>
+            </div>
+
             <div class="btn-group">
               {% if run.results.queued %}
                 <button type="button" class="btn btn-primary" id='queued-job-btn'>{{ run.results.queued }} Queued</button>
