@@ -144,7 +144,7 @@ $( document ).ready(function() {
         $('.job').hide();
         $('.job_queued_extra').show();
         $('.job_queued').show();
-        $('#expand-queued-btn').prop('disabled', false);
+        $('#expand-queued-btn').prop('disabled', true);
     });
 
     $('#fail-job-btn').click(function() {
@@ -158,7 +158,7 @@ $( document ).ready(function() {
         $('.job').hide();
         $('.job_dead_extra').show();
         $('.job_dead').show();
-        $('#expand-dead-btn').prop('disabled', false);
+        $('#expand-dead-btn').prop('disabled', true);
     });
 
     $('#running-job-btn').click(function() {
