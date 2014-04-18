@@ -14,11 +14,6 @@ table {
     font-size: 1em;
 }
 
-table th {
-    /* for headers in compare view */
-    width: 7em;
-}
-
 th[data-sort]{
   cursor:pointer;
 }
