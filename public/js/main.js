@@ -1,7 +1,3 @@
-function set_paddles_address(address) {
-    window.paddles_address = address;
-}
-
 function set_filters(filters) {
     window.filters = filters;
 }
@@ -57,7 +53,7 @@ function unstack_filter(name) {
 
 
 function set_machine_types() {
-    $.getJSON(window.paddles_address + '/runs/machine_type/', function(machine_types) {
+    $.getJSON('/_paddles/machine_types/', function(machine_types) {
         populate_machine_type_menus(machine_types);
     });
 }
@@ -87,7 +83,7 @@ function populate_machine_type_menus(machine_types) {
 }
 
 function set_suites() {
-    $.getJSON(paddles_address + '/runs/suite/', function(suite_names) {
+    $.getJSON('/_paddles/suites/', function(suite_names) {
         populate_suite_menus(suite_names);
     });
 }
@@ -197,7 +193,7 @@ $( document ).ready(function() {
 
     $('#search-branches').typeahead({
         name: 'branches',
-        prefetch: paddles_address + '/runs/branch/',
+        prefetch: '/_paddles/branches/',
         ttl: 30000,
     });
 

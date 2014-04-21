@@ -12,6 +12,5 @@ def setup_app(config):
     return make_app(
         app_conf.pop('root'),
         logging=getattr(config, 'logging', {}),
-        extra_template_vars=dict(paddles_address=conf.paddles_address),
         **app_conf
     )

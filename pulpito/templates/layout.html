@@ -16,7 +16,6 @@
       <script type="text/javascript" src="/js/typeahead.min.js"></script>
       <script type="text/javascript" src="/js/main.js"></script>
       <script type="text/javascript">
-        set_paddles_address("{{ paddles_address }}");
         var filters = JSON.parse('{{ filters|tojson|safe if filters else {}|tojson }}');
         set_filters(filters);
       </script>
