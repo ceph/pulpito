@@ -8,6 +8,7 @@
     <th>Suite</th>
     <th>Branch</th>
     <th>Machine Type</th>
+    {% if results.queued|int > 0 %}<th>Queued</th>{% endif %}
     {% if results.pass|int > 0 %}<th>Pass</th>{% endif %}
     {% if results.fail|int > 0 %}<th>Fail</th>{% endif %}
     {% if results.dead|int > 0 %}<th>Dead</th>{% endif %}

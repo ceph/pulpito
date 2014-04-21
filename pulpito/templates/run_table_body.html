@@ -11,6 +11,7 @@
     </td>
     {% endif %}
   {% endfor %}
+  {% if results.queued|int > 0 %}<td>{{ run['results']['queued'] }}</td>{% endif %}
   {% if results.pass|int > 0 %}<td>{{ run['results']['pass'] }}</td>{% endif %}
   {% if results.fail|int > 0 %}<td>{{ run['results']['fail'] }}</td>{% endif %}
   {% if results.dead|int > 0 %}<td>{{ run['results']['dead'] }}</td>{% endif %}
