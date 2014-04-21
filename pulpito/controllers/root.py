@@ -6,6 +6,7 @@ from util import prettify_run, prettify_job
 from pulpito.controllers import error
 from pulpito.controllers.errors import ErrorsController
 from pulpito.controllers.compare import RunCompareController
+from pulpito.controllers.proxy import ProxyController
 from pulpito.controllers.stats import StatsController
 from pulpito.controllers.util import get_run_filters
 
@@ -93,6 +94,8 @@ class RootController(object):
 
     @expose()
     def _lookup(self, name, *remainder):
+        if name == '_paddles':
+            return ProxyController(query=name), remainder
         return RunController(name), remainder
 
 
