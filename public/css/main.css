@@ -117,3 +117,8 @@ div[class="tooltip-inner"] {
 }
 .modal-static .modal-content .icon {
 }
+
+.spaced-h {
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+}
