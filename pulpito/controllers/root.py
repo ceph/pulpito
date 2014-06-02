@@ -46,7 +46,7 @@ class RootController(object):
         latest_runs = requests.get(uri).json()
         for run in latest_runs:
             prettify_run(run)
-        latest_runs.sort(key=run_sorter)
+        latest_runs.sort(key=run_sorter, reverse=True)
         return dict(runs=latest_runs,
                     filters=request.context.get('filters', dict()),
                     branch=branch,
