@@ -7,6 +7,7 @@ from pulpito.controllers import error
 from pulpito.controllers.errors import ErrorsController
 from pulpito.controllers.compare import RunCompareController
 from pulpito.controllers.proxy import ProxyController
+from pulpito.controllers.queue import QueueController
 from pulpito.controllers.stats import StatsController
 from pulpito.controllers.util import get_run_filters
 
@@ -91,6 +92,8 @@ class RootController(object):
     compare = RunCompareController()
 
     stats = StatsController()
+
+    queue = QueueController()
 
     @expose()
     def _lookup(self, name, *remainder):
