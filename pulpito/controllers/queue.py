@@ -15,6 +15,7 @@ class QueueController(object):
         for run in runs:
             prettify_run(run)
         return dict(
+            title="The Queue",
             runs=runs,
         )
 
