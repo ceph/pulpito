@@ -5,11 +5,9 @@
       <div class="row">
           <div class="col-lg-12">
             <div class="page-header">
-              {% if machine_type %}
-                <h1>{{ days }}-day stats for {{ machine_type }} nodes</h1>
-              {% else %}
-                <h1>{{ days }}-day stats for all nodes</h1>
-              {% endif %}
+            {% if title|length > 0 %}
+                <h1>{{ title }}</h1>
+            {% endif %}
             </div>
 
             <div class="bs-example">

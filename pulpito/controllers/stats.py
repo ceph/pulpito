@@ -35,9 +35,11 @@ class StatsController(object):
                     node[status] = 0
         nodes = OrderedDict(
             sorted(nodes.items(), key=lambda t: t[1]['total'], reverse=True))
+        title_templ = "{days}-day stats for {mtype} nodes"
+        title = title_templ.format(days=since_days,
+                                   mtype=(machine_type or 'all'))
         return dict(
-            machine_type=machine_type,
-            days=since_days,
+            title=title,
             nodes=nodes,
             count=len(nodes),
         )
