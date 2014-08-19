@@ -43,8 +43,12 @@ def set_run_time_info(run):
         if run['status'] == 'running':
             run['runtime'] = remove_msecs(str(datetime.utcnow() - started))
         else:
-            updated = datetime.strptime(run['updated'], timestamp_fmt)
-            run['runtime'] = remove_msecs(str(updated - started))
+            run_updated = run.get('updated', run['posted'])
+            if not run_updated:
+                run['runtime'] = ''
+            else:
+                updated = datetime.strptime(run_updated, timestamp_fmt)
+                run['runtime'] = remove_msecs(str(updated - started))
 
 
 def prettify_job(job):
