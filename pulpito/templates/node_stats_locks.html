@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+            {% if title|length > 0 %}
+                <h1>{{ title }}</h1>
+            {% endif %}
+            </div>
+
+            <div class="bs-example">
+              <table data-sortlist="[[1,0],[2,1],[0,1]]" class="table table-condensed table-striped table-bordered table-hover" style="border-collapse:collapse;">
+                <thead>
+                  <tr>
+                    <th>Owner</th>
+                    <th>Type</th>
+                    <th>Count</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% if not users|length %}
+                  <tr>
+                    <td colspan=7>No data!</td>
+                  </tr>
+                {% else %}
+                  {% for user_name in users %}
+                    {% for mtype in users[user_name] %}
+                    {% set count = users[user_name][mtype] %}
+                        <tr>
+                          <td>
+                            {{ user_name }}
+                          </td>
+                          <td>
+                            {{ mtype }}
+                          </td>
+                          <td>
+                            {{ count }}
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    {% endfor %}
+                  {% endif %}
+                </tbody>
+              </table>
+            </div><!-- /example -->
+          </div>
+        </div>
+{% endblock %}
+
+
