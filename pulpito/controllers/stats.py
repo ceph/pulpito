@@ -6,10 +6,9 @@ import requests
 base_url = conf.paddles_address
 
 
-class StatsController(object):
-
+class NodeStatsController(object):
     @expose('node_stats.html')
-    def nodes(self, machine_type=None, since_days=14):
+    def jobs(self, machine_type=None, since_days=14):
         uri = '{base}/nodes/job_stats?since_days={days}'.format(
             base=base_url,
             days=since_days)
@@ -43,3 +42,7 @@ class StatsController(object):
             nodes=nodes,
             count=len(nodes),
         )
+
+
+class StatsController(object):
+    nodes = NodeStatsController()
