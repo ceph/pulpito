@@ -70,15 +70,15 @@ function populate_machine_type_menus(machine_types) {
         run_filter_list.append(items);
     }
 
-    var node_stats_list = $('#menu-node-stats').parent().find('ul');
-    if (node_stats_list.children().length == 1) {
+    var node_stats_jobs_list = $('#menu-node-stats-jobs').parent().find('ul');
+    if (node_stats_jobs_list.children().length == 1) {
         var items = [];
         $.each(machine_types, function(i) {
             var machine_type = machine_types[i];
-            var item = "<li><a onclick='navigate_with_modal(&quot;/stats/nodes?machine_type=" +machine_type +"&quot;)' href='#'>" + machine_type + "</a></li>"
+            var item = "<li><a onclick='navigate_with_modal(&quot;/stats/nodes/jobs?machine_type=" +machine_type +"&quot;)' href='#'>" + machine_type + "</a></li>"
             items.push(item);
         });
-        node_stats_list.append(items);
+        node_stats_jobs_list.append(items);
     }
 }
 

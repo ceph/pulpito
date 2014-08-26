@@ -7,7 +7,7 @@ base_url = conf.paddles_address
 
 
 class NodeStatsController(object):
-    @expose('node_stats.html')
+    @expose('node_stats_jobs.html')
     def jobs(self, machine_type=None, since_days=14):
         uri = '{base}/nodes/job_stats?since_days={days}'.format(
             base=base_url,
