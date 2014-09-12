@@ -3,7 +3,7 @@ from ..filters import utc_stamp_to_local
 
 timestamp_fmt = '%Y-%m-%d %H:%M:%S'
 
-status_class_map = {
+run_status_map = {
     'pass':    'success',
     'fail':    'danger',
     'dead':    'danger',
@@ -23,9 +23,9 @@ def prettify_run(run):
 
 
 def set_run_status_class(run):
-    for key in status_class_map.keys():
+    for key in run_status_map.keys():
         if key and key in run.get('status', 'unknown'):
-            status_class = status_class_map[key]
+            status_class = run_status_map[key]
             run['status_class'] = status_class
             break
 
@@ -58,7 +58,7 @@ def prettify_job(job):
 
 
 def set_job_status_class(job):
-    job['status_class'] = status_class_map.get(job.get('status', 'unknown'))
+    job['status_class'] = run_status_map.get(job.get('status', 'unknown'))
 
 
 def set_job_time_info(job):
@@ -90,3 +90,17 @@ def get_run_filters(**kwargs):
         else:
             filters[key] = value
     return filters
+
+
+def set_node_status_class(node):
+    up = node.get('up')
+    locked = node.get('locked')
+    if up is True and locked is False:
+        status_class = 'success'
+    elif up is False:
+        status_class = 'danger'
+    elif locked is True:
+        status_class = 'warning'
+    else:
+        status_class = ''
+    node['status_class'] = status_class
