@@ -1,9 +1,15 @@
 venv
+virtualenv
 log
 .DS_Store
 .vagrant
 
 *.py[cod]
+
+# vim cruft
+*.swp
+*.un~
+.ropeproject
 
 # C extensions
 *.so
