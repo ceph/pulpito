@@ -70,21 +70,23 @@ function populate_machine_type_menus(machine_types) {
         run_filter_list.append(items);
     }
 
-    function populate_node_stats_menu(menu_list, page) {
+    function populate_nodes_menu(menu_list, page) {
         if (menu_list.children().length == 1) {
             var items = [];
             $.each(machine_types, function(i) {
                 var machine_type = machine_types[i];
-                var item = "<li><a onclick='navigate_with_modal(&quot;/stats/nodes/" + page + "?machine_type=" + machine_type +"&quot;)' href='#'>" + machine_type + "</a></li>"
+                var item = "<li><a onclick='navigate_with_modal(&quot;" + page + "?machine_type=" + machine_type +"&quot;)' href='#'>" + machine_type + "</a></li>"
                 items.push(item);
             });
             menu_list.append(items);
         }
     }
+    var nodes_list = $('#menu-nodes').parent().find('ul');
+    populate_nodes_menu(nodes_list, '/nodes/');
     var node_stats_jobs_list = $('#menu-node-stats-jobs').parent().find('ul');
-    populate_node_stats_menu(node_stats_jobs_list, 'jobs');
+    populate_nodes_menu(node_stats_jobs_list, '/stats/nodes/jobs');
     var node_stats_locks_list = $('#menu-node-stats-locks').parent().find('ul');
-    populate_node_stats_menu(node_stats_locks_list, 'locks');
+    populate_nodes_menu(node_stats_locks_list, '/stats/nodes/locks');
 }
 
 function set_suites() {

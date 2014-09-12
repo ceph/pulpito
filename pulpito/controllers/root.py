@@ -6,6 +6,7 @@ from util import prettify_run, prettify_job
 from pulpito.controllers import error
 from pulpito.controllers.errors import ErrorsController
 from pulpito.controllers.compare import RunCompareController
+from pulpito.controllers.nodes import NodesController
 from pulpito.controllers.proxy import ProxyController
 from pulpito.controllers.queue import QueueController
 from pulpito.controllers.stats import StatsController
@@ -90,6 +91,8 @@ class RootController(object):
                     )
 
     compare = RunCompareController()
+
+    nodes = NodesController()
 
     stats = StatsController()
 
