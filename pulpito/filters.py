@@ -12,6 +12,12 @@ def tojson_filter(obj, **kwargs):
     return jinja2.Markup(json.dumps(obj, **kwargs))
 
 
+def brief_filter(obj, **kwargs):
+    if obj in (None, 'None'):
+        return ''
+    return obj
+
+
 def utc_stamp_to_local(stamp, format='%Y-%m-%d %H:%M:%S'):
     if not stamp:
         return ''
@@ -23,6 +29,8 @@ def utc_stamp_to_local(stamp, format='%Y-%m-%d %H:%M:%S'):
 
 def setup_filters():
     jinja2.filters.FILTERS['localtime'] = utc_stamp_to_local
-    if not 'tojson' in jinja2.filters.FILTERS:
+    if 'tojson' not in jinja2.filters.FILTERS:
         jinja2.filters.FILTERS['tojson'] = tojson_filter
+    if 'brief' not in jinja2.filters.FILTERS:
+        jinja2.filters.FILTERS['brief'] = brief_filter
     return True
