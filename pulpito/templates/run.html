@@ -80,6 +80,7 @@
                     <th>Machine</th>
                     <th>Teuthology Branch</th>
                     <th>OS Type</th>
+                    <th>OS Version</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -129,6 +130,9 @@
                         </td>
                         <td>
                           {{ job['os_type'] }}
+                        </td>
+                        <td>
+                          {{ job['os_version'] }}
                         </td>
                       </tr>
                       {% if job.failure_reason %}
