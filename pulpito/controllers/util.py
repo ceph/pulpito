@@ -54,6 +54,7 @@ def set_run_time_info(run):
 def prettify_job(job):
     set_job_status_class(job)
     set_job_time_info(job)
+    remove_none_strings(job)
     return job
 
 
@@ -78,6 +79,13 @@ def set_job_time_info(job):
     if job.get('duration'):
         duration = str(timedelta(seconds=job['duration']))
         job['duration'] = duration
+
+
+def remove_none_strings(obj):
+    for key, value in obj.iteritems():
+        if str(value) == 'None':
+            obj[key] = ''
+    return obj
 
 
 def get_run_filters(**kwargs):
