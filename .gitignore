@@ -3,6 +3,7 @@ virtualenv
 log
 .DS_Store
 .vagrant
+prod.py
 
 *.py[cod]
 
