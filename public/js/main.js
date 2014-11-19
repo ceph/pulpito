@@ -150,7 +150,7 @@ $( document ).ready(function() {
 
     $('#queued-job-btn').click(function() {
         $('.job').hide();
-        $('.job_queued_extra').show();
+        $('.job_fail_extra').hide();
         $('.job_queued').show();
         $('#expand-queued-btn').prop('disabled', true);
     });
@@ -160,7 +160,8 @@ $( document ).ready(function() {
         $('.job_fail_extra').show();
         $('.job_fail').show();
         $('#expand-fail-btn').prop('disabled', false);
-        if (open_panel_count) {
+        var fail_jobs_failures = $(".job_fail").next(".job_fail_extra").length
+        if (open_panel_count && fail_jobs_failures) {
             $("tr.job:visible").next("tr.job_fail_extra").find(".collapse").collapse("show");
             $("tr.job:hidden").next("tr.job_fail_extra").find(".in").collapse("hide");
         }
@@ -168,12 +169,16 @@ $( document ).ready(function() {
 
     $('#dead-job-btn').click(function() {
         $('.job').hide();
-        $('.job_dead_extra').show();
+        $('.job_fail_extra').show();
         $('.job_dead').show();
         $('#expand-dead-btn').prop('disabled', true);
-        if (open_panel_count) {
+        var dead_jobs_failures = $(".job_dead").next(".job_fail_extra").length
+        if (open_panel_count && dead_jobs_failures) {
             $("tr.job:visible").next("tr.job_fail_extra").find(".collapse").collapse("show");
             $("tr.job:hidden").next("tr.job_fail_extra").find(".in").collapse("hide");
+        }
+        else {
+            $('.job_fail_extra').hide();
         }
     });
 
