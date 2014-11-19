@@ -132,12 +132,12 @@ $( document ).ready(function() {
         }
     });
 
-    $('.collapse').on('shown.bs.collapse', function () {
+    $('.collapse').not(".panel-collapse").on('shown.bs.collapse', function () {
         open_panel_count++;
         update_toggle_button();
     });
 
-    $('.collapse').on('hidden.bs.collapse', function () {
+    $('.collapse').not(".panel-collapse").on('hidden.bs.collapse', function () {
         open_panel_count--;
         update_toggle_button();
     });
