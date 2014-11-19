@@ -124,7 +124,12 @@ $( document ).ready(function() {
     update_toggle_button(); // Run once on page load to text #expand-fail-btn
 
     $('#expand-fail-btn').click(function() {
-        $(open_panel_count ? '.in': '.collapse').collapse(open_panel_count ? 'hide' : 'show');
+        var open_rows = $("tr.job:visible").next("tr.job_fail_extra");
+        if (open_panel_count) {
+            open_rows.find('.in').collapse('hide');
+        } else {
+            open_rows.find('.collapse').collapse('show');
+        }
     });
 
     $('.collapse').on('shown.bs.collapse', function () {
@@ -155,6 +160,10 @@ $( document ).ready(function() {
         $('.job_fail_extra').show();
         $('.job_fail').show();
         $('#expand-fail-btn').prop('disabled', false);
+        if (open_panel_count) {
+            $("tr.job:visible").next("tr.job_fail_extra").find(".collapse").collapse("show");
+            $("tr.job:hidden").next("tr.job_fail_extra").find(".in").collapse("hide");
+        }
     });
 
     $('#dead-job-btn').click(function() {
@@ -162,6 +171,10 @@ $( document ).ready(function() {
         $('.job_dead_extra').show();
         $('.job_dead').show();
         $('#expand-dead-btn').prop('disabled', true);
+        if (open_panel_count) {
+            $("tr.job:visible").next("tr.job_fail_extra").find(".collapse").collapse("show");
+            $("tr.job:hidden").next("tr.job_fail_extra").find(".in").collapse("hide");
+        }
     });
 
     $('#running-job-btn').click(function() {
@@ -189,6 +202,9 @@ $( document ).ready(function() {
         $('.job_fail_extra').show();
         $('.job').show();
         $('#expand-fail-btn').prop('disabled', false);
+        if (open_panel_count) {
+            $("tr.job:visible").next("tr.job_fail_extra").find(".collapse").collapse("show");
+        }
     });
 
     $('#search-dates').datepicker({ format: 'yyyy-mm-dd' });
