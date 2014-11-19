@@ -171,7 +171,7 @@ $( document ).ready(function() {
         $('.job').hide();
         $('.job_fail_extra').show();
         $('.job_dead').show();
-        $('#expand-dead-btn').prop('disabled', true);
+        $('#expand-fail-btn').prop('disabled', false);
         var dead_jobs_failures = $(".job_dead").next(".job_fail_extra").length
         if (open_panel_count && dead_jobs_failures) {
             $("tr.job:visible").next("tr.job_fail_extra").find(".collapse").collapse("show");
