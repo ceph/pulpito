@@ -124,15 +124,20 @@ $( document ).ready(function() {
     update_toggle_button(); // Run once on page load to text #expand-fail-btn
 
     $('#expand-fail-btn').click(function() {
-        $(open_panel_count ? '.in': '.collapse').collapse(open_panel_count ? 'hide' : 'show');
+        var open_rows = $("tr.job:visible").next("tr.job_fail_extra");
+        if (open_panel_count) {
+            open_rows.find('.in').collapse('hide');
+        } else {
+            open_rows.find('.collapse').collapse('show');
+        }
     });
 
-    $('.collapse').on('shown.bs.collapse', function () {
+    $('.collapse').not(".panel-collapse").on('shown.bs.collapse', function () {
         open_panel_count++;
         update_toggle_button();
     });
 
-    $('.collapse').on('hidden.bs.collapse', function () {
+    $('.collapse').not(".panel-collapse").on('hidden.bs.collapse', function () {
         open_panel_count--;
         update_toggle_button();
     });
@@ -145,7 +150,7 @@ $( document ).ready(function() {
 
     $('#queued-job-btn').click(function() {
         $('.job').hide();
-        $('.job_queued_extra').show();
+        $('.job_fail_extra').hide();
         $('.job_queued').show();
         $('#expand-queued-btn').prop('disabled', true);
     });
@@ -155,13 +160,26 @@ $( document ).ready(function() {
         $('.job_fail_extra').show();
         $('.job_fail').show();
         $('#expand-fail-btn').prop('disabled', false);
+        var fail_jobs_failures = $(".job_fail").next(".job_fail_extra").length
+        if (open_panel_count && fail_jobs_failures) {
+            $("tr.job:visible").next("tr.job_fail_extra").find(".collapse").collapse("show");
+            $("tr.job:hidden").next("tr.job_fail_extra").find(".in").collapse("hide");
+        }
     });
 
     $('#dead-job-btn').click(function() {
         $('.job').hide();
-        $('.job_dead_extra').show();
+        $('.job_fail_extra').show();
         $('.job_dead').show();
         $('#expand-dead-btn').prop('disabled', true);
+        var dead_jobs_failures = $(".job_dead").next(".job_fail_extra").length
+        if (open_panel_count && dead_jobs_failures) {
+            $("tr.job:visible").next("tr.job_fail_extra").find(".collapse").collapse("show");
+            $("tr.job:hidden").next("tr.job_fail_extra").find(".in").collapse("hide");
+        }
+        else {
+            $('.job_fail_extra').hide();
+        }
     });
 
     $('#running-job-btn').click(function() {
@@ -189,6 +207,9 @@ $( document ).ready(function() {
         $('.job_fail_extra').show();
         $('.job').show();
         $('#expand-fail-btn').prop('disabled', false);
+        if (open_panel_count) {
+            $("tr.job:visible").next("tr.job_fail_extra").find(".collapse").collapse("show");
+        }
     });
 
     $('#search-dates').datepicker({ format: 'yyyy-mm-dd' });
