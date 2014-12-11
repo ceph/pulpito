@@ -10,6 +10,7 @@ run_status_map = {
     'running': 'warning',
     'unknown': 'warning',
     None:      'warning',
+    'waiting': 'info',
 }
 
 
@@ -40,7 +41,7 @@ def set_run_time_info(run):
     if run.get('started'):
         run['started'] = remove_msecs(run['started'])
         started = datetime.strptime(run['started'], timestamp_fmt)
-        if run['status'] == 'running':
+        if run['status'] in ['running', 'waiting']:
             run['runtime'] = remove_msecs(str(datetime.utcnow() - started))
         else:
             run_updated = run.get('updated', run['posted'])
@@ -71,7 +72,7 @@ def set_job_time_info(job):
         job['updated'] = remove_msecs(job['updated'])
     if job.get('started') and job.get('updated'):
         started = datetime.strptime(job['started'], timestamp_fmt)
-        if job['status'] == 'running':
+        if job['status'] in ['running', 'waiting']:
             job['runtime'] = remove_msecs(str(datetime.utcnow() - started))
         else:
             updated = datetime.strptime(job['updated'], timestamp_fmt)

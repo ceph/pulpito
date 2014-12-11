@@ -4,6 +4,7 @@ log
 .DS_Store
 .vagrant
 prod.py
+config.py
 
 *.py[cod]
 

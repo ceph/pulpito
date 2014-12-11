@@ -24,10 +24,12 @@
                 {% macro total(attr) %}
                   {{ runs|map(attribute='results')|sum(attribute=attr) }}
                 {% endmacro %}
-                {% set results = dict(queued=total('queued'), fail=total('fail'), running=total('running'), dead=total('dead'), unknown=total('unknown'), pass=total('pass'), total=total('total')) %}
+                {% set results = dict(queued=total('queued'), fail=total('fail'), running=total('running'), waiting=total('waiting'), dead=total('dead'), unknown=total('unknown'), pass=total('pass'), total=total('total')) %}
                 {% if results.queued|int > 0 %} {{ results.queued }} queued, {% endif %}
 
                 {% if results.fail|int > 0 %} {{ results.fail }} failed, {% endif %}
+
+                {% if results.waiting|int > 0 %} {{ results.waiting}} waiting, {% endif %}
 
                 {% if results.running|int > 0 %} {{ results.running }} running, {% endif %}
 

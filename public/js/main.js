@@ -189,6 +189,13 @@ $( document ).ready(function() {
         $('#expand-fail-btn').prop('disabled', true);
     });
 
+    $('#waiting-job-btn').click(function() {
+        $('.job').hide();
+        $('.job_fail_extra').hide();
+        $('.job_waiting').show();
+        $('#expand-fail-btn').prop('disabled', true);
+    });
+
     $('#unknown-job-btn').click(function() {
         $('.job').hide();
         $('.job_fail_extra').hide();

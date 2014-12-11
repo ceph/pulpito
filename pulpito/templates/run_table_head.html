@@ -13,6 +13,7 @@
     {% if results.fail|int > 0 %}<th>Fail</th>{% endif %}
     {% if results.dead|int > 0 %}<th>Dead</th>{% endif %}
     {% if results.unknown|int > 0 %}<th>Unknown</th>{% endif %}
+    {% if results.waiting|int > 0 %}<th>Waiting</th>{% endif %}
     {% if results.running|int > 0 %}<th>Running</th>{% endif %}
   </tr>
 </thead>
