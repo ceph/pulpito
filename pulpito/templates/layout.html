@@ -40,7 +40,7 @@
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        {% for status in ['queued', 'running', 'finished pass', 'finished fail', 'finished dead'] %}
+                        {% for status in ['queued', 'waiting', 'running', 'finished pass', 'finished fail', 'finished dead'] %}
                         <li><a onclick="stack_filter('status', '{{ status }}')" href="#">{{ status }}</a></li>
                         {% endfor %}
                     </ul>

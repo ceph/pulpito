@@ -56,6 +56,9 @@
               {% if run.results.running %}
                 <button type="button" class="btn btn-warning" id='running-job-btn'>{{ run.results.running }} Running</button>
               {% endif %}
+              {% if results.waiting %}
+                <button type="button" class="btn btn-info" id='waiting-job-btn'>{{ results.waiting }} Waiting</button>
+              {% endif %}
               {% if run.results.unknown %}
                 <button type="button" class="btn btn-warning" id='unknown-job-btn'>{{ run.results.unknown }} Unknown</button>
               {% endif %}
