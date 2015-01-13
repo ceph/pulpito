@@ -127,6 +127,12 @@ div[class="tooltip-inner"] {
  margin: 10px 0 0 0;
 }
 
+#body-content {
+  width:100%;
+  padding-left:5px;
+  padding-right:5px;
+}
+
 /* backported from another version of bootstrap */
 .table > thead > tr > td.info,
 .table > tbody > tr > td.info,
