@@ -133,6 +133,12 @@ div[class="tooltip-inner"] {
   padding-right:5px;
 }
 
+.table {
+  width: inherit;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* backported from another version of bootstrap */
 .table > thead > tr > td.info,
 .table > tbody > tr > td.info,
