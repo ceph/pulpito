@@ -17,6 +17,7 @@
                     <th>Updated</th>
                     <th><div class="tip" data-toggle="tooltip" title="Runtime calculated by Pulpito" data-placement="top">Runtime</div></th>
                     <th><div class="tip" data-toggle="tooltip" title="Duration reported by teuthology" data-placement="top">Duration</div></th>
+                    <th><div class="tip" data-toggle="tooltip" title="Amount of time spent in the waiting status" data-placement="top">In Waiting</div></th>
                     <th>Machine</th>
                     <th>Teuthology Branch</th>
                     <th>OS Type</th>
@@ -40,6 +41,9 @@
                         </td>
                         <td>
                             {{ job.duration }}
+                        </td>
+                        <td>
+                            {{ job.wait_time }}
                         </td>
                         <td>
                             {{ job.machine_type }}

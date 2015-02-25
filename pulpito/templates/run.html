@@ -22,6 +22,7 @@
                                 {% include "run_table_body.html" %}
                             </tbody>
                             </table>
+                            <h2>Average wait time: {{ run.avg_wait_time }}</h2>
                         </div>
                     </div>
                 </div>
@@ -80,6 +81,7 @@
                     <th>Updated</th>
                     <th><div class="tip" data-toggle="tooltip" title="Runtime calculated by Pulpito" data-placement="left">Runtime</div></th>
                     <th><div class="tip" data-toggle="tooltip" title="Duration reported by teuthology" data-placement="left">Duration</div></th>
+                    <th><div class="tip" data-toggle="tooltip" title="Amount of time spent in the waiting status" data-placement="left">In Waiting</div></th>
                     <th>Machine</th>
                     <th>Teuthology Branch</th>
                     <th>OS Type</th>
@@ -124,6 +126,9 @@
                         </td>
                         <td>
                           {{ job['duration'] }}
+                        </td>
+                        <td>
+                          {{ job['wait_time'] }}
                         </td>
                         <td>
                           {{ job['machine_type'] }}
