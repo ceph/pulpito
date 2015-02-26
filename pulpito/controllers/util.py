@@ -18,9 +18,33 @@ def remove_msecs(timestamp):
     return timestamp.split('.')[0]
 
 
+def remove_delta_msecs(delta):
+    return delta - timedelta(microseconds=getattr(delta, 'microseconds', 0))
+
+
 def prettify_run(run):
     set_run_status_class(run)
     set_run_time_info(run)
+    set_run_wait_time(run)
+
+
+def set_run_wait_time(run):
+    if run.get('jobs'):
+        total_wait_time = None
+        for job in run['jobs']:
+            if job.get("wait_time"):
+                if total_wait_time:
+                    total_wait_time = total_wait_time + job['wait_time']
+                else:
+                    total_wait_time = job['wait_time']
+
+        if total_wait_time:
+            run["total_wait_time"] = total_wait_time
+            jobs_that_waited = [job for job in run['jobs']
+                                if job.get("wait_time")]
+            run["avg_wait_time"] = remove_delta_msecs(
+                total_wait_time / len(jobs_that_waited)
+            )
 
 
 def set_run_status_class(run):
@@ -73,13 +97,17 @@ def set_job_time_info(job):
     if job.get('started') and job.get('updated'):
         started = datetime.strptime(job['started'], timestamp_fmt)
         if job['status'] in ['running', 'waiting']:
-            job['runtime'] = remove_msecs(str(datetime.utcnow() - started))
+            job['runtime'] = remove_delta_msecs(datetime.utcnow() - started)
         else:
             updated = datetime.strptime(job['updated'], timestamp_fmt)
-            job['runtime'] = str(updated - started)
+            job['runtime'] = remove_delta_msecs(updated - started)
     if job.get('duration'):
-        duration = str(timedelta(seconds=job['duration']))
-        job['duration'] = duration
+        duration = timedelta(seconds=job['duration'])
+        job['duration'] = str(duration)
+        wait_time = remove_delta_msecs(job['runtime'] - duration)
+        job['wait_time'] = wait_time
+    elif job.get("status") == 'waiting':
+        job['wait_time'] = job['runtime']
 
 
 def remove_none_strings(obj):
