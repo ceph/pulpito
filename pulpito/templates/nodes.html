@@ -22,6 +22,7 @@
                     <th>OS Type</th>
                     <th>OS Version</th>
                     <th>Arch</th>
+                    <th>Description</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -41,6 +42,7 @@
                       <td>{{ node.os_type|brief }}</td>
                       <td>{{ node.os_version|brief }}</td>
                       <td>{{ node.arch|brief }}</td>
+                      <td>{{ node.description }}</td>
                     </tr>
                     {% endfor %}
                   {% endif %}
