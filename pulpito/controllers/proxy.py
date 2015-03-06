@@ -20,7 +20,7 @@ class ProxyController(object):
 
     @expose('json')
     def machine_types(self):
-        resp = requests.get(self.base_url + '/runs/machine_type/')
+        resp = requests.get(self.base_url + '/nodes/machine_types/')
         resp.raise_for_status()
         return resp.json()
 
