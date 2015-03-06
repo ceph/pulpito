@@ -24,18 +24,18 @@ class TestRootController(FunctionalTest):
 class TestStatsController(FunctionalTest):
 
     def test_root(self):
-        response = self.app.get('/stats/nodes/')
+        response = self.app.get('/stats/nodes/jobs/')
         assert response.status_int == 200
 
     def test_machine_type(self):
-        response = self.app.get('/stats/nodes?machine_type=plana')
+        response = self.app.get('/stats/nodes/jobs?machine_type=plana')
         assert response.status_int == 200
 
     def test_since_days(self):
-        response = self.app.get('/stats/nodes?since_days=30')
+        response = self.app.get('/stats/nodes/jobs?since_days=30')
         assert response.status_int == 200
 
     def test_bogus_since_days(self):
-        response = self.app.get('/stats/nodes?since_days=-1',
+        response = self.app.get('/stats/nodes/jobs?since_days=-1',
                                 expect_errors=True)
         assert response.status_int == 400
