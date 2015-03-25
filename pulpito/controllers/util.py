@@ -107,7 +107,7 @@ def set_job_time_info(job):
         wait_time = remove_delta_msecs(job['runtime'] - duration)
         job['wait_time'] = wait_time
     elif job.get("status") == 'waiting':
-        job['wait_time'] = job['runtime']
+        job['wait_time'] = job.get('runtime')
 
 
 def remove_none_strings(obj):
