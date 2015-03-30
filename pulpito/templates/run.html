@@ -100,7 +100,7 @@
                         {{ job.status }}
                       </td>
                         <td>
-                          <a href="/{{ run['name']}}/{{ job['job_id'] }}" target="_blank">
+                          <a href="/{{ run['name']}}/{{ job['job_id'] }}" class="tip" target="_blank" title="{{job.description}}">
                             {{ job['job_id'] }}
                           </a>
                         </td>
