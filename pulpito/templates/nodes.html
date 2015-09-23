@@ -11,20 +11,7 @@
 
             <div class="bs-example">
               <table data-sortlist="[[1,0]]" class="table table-condensed table-striped table-bordered table-hover" style="border-collapse:collapse;">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Machine Type</th>
-                    <th>Up</th>
-                    <th>Locked</th>
-                    <th>Locked Since</th>
-                    <th>Locked By</th>
-                    <th>OS Type</th>
-                    <th>OS Version</th>
-                    <th>Arch</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
+                  {% include "node_table_head.html" %}
                 <tbody>
                 {% if not nodes|length %}
                   <tr>
@@ -32,20 +19,9 @@
                   </tr>
                 {% else %}
                   {% for node in nodes %}
-                    <tr class="{{ node.status_class }}">
-                      <td>{{ node.name }}</td>
-                      <td>{{ node.machine_type }}</td>
-                      <td>{{ node.up }}</td>
-                      <td>{{ node.locked }}</td>
-                      <td>{{ node.locked_since|brief }}</td>
-                      <td>{{ node.locked_by|brief }}</td>
-                      <td>{{ node.os_type|brief }}</td>
-                      <td>{{ node.os_version|brief }}</td>
-                      <td>{{ node.arch|brief }}</td>
-                      <td>{{ node.description }}</td>
-                    </tr>
-                    {% endfor %}
-                  {% endif %}
+                    {% include "node_table_body.html" %}
+                  {% endfor %}
+                {% endif %}
                 </tbody>
               </table>
             </div>
