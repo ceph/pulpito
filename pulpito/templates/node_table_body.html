@@ -1,5 +1,9 @@
 <tr class="{{ node.status_class }}">
-  <td>{{ node.name }}</td>
+  {% if node.fqdn %}
+    <td><a href="./{{ node.fqdn }}">{{ node.name }}</a></td>
+  {% else %}
+    <td>{{ node.name }}</td>
+  {% endif %}
   <td>{{ node.machine_type }}</td>
   <td>{{ node.up }}</td>
   <td>{{ node.locked }}</td>
