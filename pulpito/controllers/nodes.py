@@ -27,7 +27,8 @@ class NodesController(object):
         for node in nodes:
             set_node_status_class(node)
             # keep only the node name, not the fqdn
-            node['name'] = node['name'].split(".")[0]
+            node['fqdn'] = node['name']
+            node['name'] = node['fqdn'].split(".")[0]
             desc = node['description']
             if not desc or desc.lower() == "none":
                 node['description'] = ""
