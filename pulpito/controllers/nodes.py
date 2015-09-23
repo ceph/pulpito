@@ -44,3 +44,34 @@ class NodesController(object):
             title=title,
             nodes=nodes,
         )
+
+    @expose()
+    def _lookup(self, name, *remainder):
+        return NodeController(name), remainder
+
+
+class NodeController(object):
+    def __init__(self, name):
+        self.name = name
+        self.node = None
+
+    def get_node(self):
+        resp = requests.get(
+            '{base}/nodes/{name}'.format(base=base_url,
+                                         name=self.name))
+        if resp.status_code == 404:
+            error('/errors/not_found/',
+                  'requested node does not exist')
+        else:
+            node = resp.json()
+
+        set_node_status_class(node)
+        self.node = node
+        return self.node
+
+    @expose('nodes.html')
+    def index(self):
+        node = self.node or self.get_node()
+        return dict(
+            nodes=[node]
+        )
