@@ -1,0 +1,16 @@
+<tr class="{{ node.status_class }}">
+  {% if node.fqdn %}
+    <td><a href="./{{ node.fqdn }}">{{ node.name }}</a></td>
+  {% else %}
+    <td>{{ node.name }}</td>
+  {% endif %}
+  <td>{{ node.machine_type }}</td>
+  <td>{{ node.up }}</td>
+  <td>{{ node.locked }}</td>
+  <td>{{ node.locked_since|brief }}</td>
+  <td>{{ node.locked_by|brief }}</td>
+  <td>{{ node.os_type|brief }}</td>
+  <td>{{ node.os_version|brief }}</td>
+  <td>{{ node.arch|brief }}</td>
+  <td>{{ node.description }}</td>
+</tr>
