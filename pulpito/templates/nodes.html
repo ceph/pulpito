@@ -11,6 +11,13 @@
             <div class="bs-example">
                 {% include "node_table.html" %}
             </div>
+            {% if nodes|length == 1 and nodes[0].jobs|length > 0 %}
+                <div class="bs-example">
+                    {% set node = nodes[0] %}
+                    {% set jobs = node.jobs %}
+                    {% include "run_jobs_table.html" %}
+                </div>
+            {% endif %}
           </div>
         </div>
 {% endblock %}
