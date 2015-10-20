@@ -70,6 +70,7 @@
             </div>
             <button type="button" class="btn btn-info {{ '' if run.results.fail else 'disabled'}}" id="expand-fail-btn"></button>
             <div class="bs-example">
+                {% set jobs = run.jobs %}
                 {% include "run_jobs_table.html" %}
             </div><!-- /example -->
           </div>

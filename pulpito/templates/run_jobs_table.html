@@ -17,18 +17,18 @@
     </tr>
   </thead>
   <tbody>
-  {% if not run.jobs|length %}
+  {% if not jobs|length %}
     <tr>
       <td colspan=7>No jobs!</td>
     </tr>
   {% else %}
-    {% for job in run.jobs %}
+    {% for job in jobs %}
       <tr class="{{ job.status_class }} job job_{{job.status}}" data-toggle="collapse" data-target="#{{ job.job_id }}">
         <td>
           {{ job.status }}
         </td>
           <td>
-            <a href="/{{ run['name']}}/{{ job['job_id'] }}" class="tip" target="_blank" title="{{job.description}}">
+            <a href="/{{ job['name']}}/{{ job['job_id'] }}" class="tip" target="_blank" title="{{job.description}}">
               {{ job['job_id'] }}
             </a>
           </td>
