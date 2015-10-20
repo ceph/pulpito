@@ -1,6 +1,6 @@
 from pecan import conf, expose, redirect
 from pulpito.controllers import error
-from pulpito.controllers.util import set_node_status_class
+from pulpito.controllers.util import set_node_status_class, prettify_job
 import requests
 
 base_url = conf.paddles_address
@@ -68,6 +68,22 @@ class NodeController(object):
 
         set_node_status_class(node)
         self.node = node
+        self.get_node_jobs()
+        return self.node
+
+    def get_node_jobs(self, count=5):
+        resp = requests.get(
+            '{base}/nodes/{name}/jobs/?count={count}'.format(
+                base=base_url,
+                name=self.name,
+                count=count,
+            )
+        )
+
+        jobs = resp.json()
+        for job in jobs:
+            prettify_job(job)
+        self.node['jobs'] = jobs
         return self.node
 
     @expose('nodes.html')
