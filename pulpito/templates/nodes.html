@@ -8,22 +8,8 @@
                 <h1>{{ title }}</h1>
             {% endif %}
             </div>
-
             <div class="bs-example">
-              <table data-sortlist="[[1,0]]" class="table table-condensed table-striped table-bordered table-hover" style="border-collapse:collapse;">
-                  {% include "node_table_head.html" %}
-                <tbody>
-                {% if not nodes|length %}
-                  <tr>
-                    <td colspan=8>No nodes!</td>
-                  </tr>
-                {% else %}
-                  {% for node in nodes %}
-                    {% include "node_table_body.html" %}
-                  {% endfor %}
-                {% endif %}
-                </tbody>
-              </table>
+                {% include "node_table.html" %}
             </div>
           </div>
         </div>
