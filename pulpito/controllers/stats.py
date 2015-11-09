@@ -2,6 +2,7 @@ from collections import OrderedDict
 from pecan import conf, expose, redirect
 from pulpito.controllers import error
 import requests
+import urlparse
 
 base_url = conf.paddles_address
 
@@ -9,9 +10,10 @@ base_url = conf.paddles_address
 class NodeStatsController(object):
     @expose('node_stats_jobs.html')
     def jobs(self, machine_type=None, since_days=14):
-        uri = '{base}/nodes/job_stats?since_days={days}'.format(
-            base=base_url,
-            days=since_days)
+        uri = urlparse.urljoin(
+            base_url,
+            '/nodes/job_stats?since_days={0}'.format(since_days)
+        )
         if machine_type:
             uri += '&machine_type=%s' % machine_type
 
@@ -45,9 +47,7 @@ class NodeStatsController(object):
 
     @expose('node_stats_locks.html')
     def locks(self, machine_type=None):
-        uri = '{base}/nodes/?up=True'.format(
-            base=base_url,
-        )
+        uri = urlparse.urljoin(base_url, '/nodes/?up=True')
         if machine_type:
             uri += '&machine_type=%s' % machine_type
 

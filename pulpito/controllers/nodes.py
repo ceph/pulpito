@@ -2,6 +2,7 @@ from pecan import conf, expose, redirect
 from pulpito.controllers import error
 from pulpito.controllers.util import set_node_status_class, prettify_job
 import requests
+import urlparse
 
 base_url = conf.paddles_address
 
@@ -9,9 +10,7 @@ base_url = conf.paddles_address
 class NodesController(object):
     @expose('nodes.html')
     def index(self, machine_type=None):
-        uri = '{base}/nodes/'.format(
-            base=base_url,
-        )
+        uri = urlparse.urljoin(base_url, '/nodes/')
         if machine_type:
             uri += '?machine_type=%s' % machine_type
 
@@ -57,9 +56,8 @@ class NodeController(object):
         self.node = None
 
     def get_node(self):
-        resp = requests.get(
-            '{base}/nodes/{name}'.format(base=base_url,
-                                         name=self.name))
+        url = urlparse.urljoin(base_url, '/nodes/{0}/'.format(self.name))
+        resp = requests.get(url)
         if resp.status_code == 404:
             error('/errors/not_found/',
                   'requested node does not exist')
@@ -72,13 +70,11 @@ class NodeController(object):
         return self.node
 
     def get_node_jobs(self, count=5):
-        resp = requests.get(
-            '{base}/nodes/{name}/jobs/?count={count}'.format(
-                base=base_url,
-                name=self.name,
-                count=count,
-            )
+        url = urlparse.urljoin(
+            base_url,
+            '/nodes/{0}/jobs/?count={count}'.format(self.name, count)
         )
+        resp = requests.get(url)
 
         jobs = resp.json()
         for job in jobs:

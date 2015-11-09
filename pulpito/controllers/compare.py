@@ -1,6 +1,7 @@
 from util import prettify_job
 from pecan import conf, expose
 import requests
+import urlparse
 
 from pulpito.controllers import error
 
@@ -26,11 +27,13 @@ class RunCompareController(object):
                 ]
             }
         """
-        url = '{base}/runs/branch/{branch}/suite/{suite}/?count={count}'.format(  # noqa
-            base=base_url,
-            branch=branch,
-            suite=suite,
-            count=str(count))
+        url = urlparse.urljoin(
+            base_url,
+            '/runs/branch/{branch}/suite/{suite}/?count={count}'.format(
+                branch=branch,
+                suite=suite,
+                count=str(count))
+        )
         if since:
             url += '&since=' + since
 
@@ -44,10 +47,12 @@ class RunCompareController(object):
         descriptions = set()
         for run in runs:
             run_info = dict()
-            resp = requests.get(
-                '{base}/runs/{run_name}/jobs/?fields=job_id,description,status,log_href,failure_reason'.format(  # noqa
-                    base=base_url,
-                    run_name=run['name']))
+            url = urlparse.urljoin(
+                base_url,
+                '/runs/{0}/jobs/?fields=job_id,description,status,log_href,failure_reason'.format(  # noqa
+                    run['name'])
+            )
+            resp = requests.get(url)
 
             if resp.status_code == 404:
                 error('/errors/not_found/')
