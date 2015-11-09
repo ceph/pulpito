@@ -1,5 +1,6 @@
 from pecan import conf, expose
 import requests
+import urlparse
 
 
 class ProxyController(object):
@@ -14,18 +15,21 @@ class ProxyController(object):
 
     @expose('json')
     def branches(self):
-        resp = requests.get(self.base_url + '/runs/branch/')
+        url = urlparse.urljoin(self.base_url, '/runs/branch/')
+        resp = requests.get(url)
         resp.raise_for_status()
         return resp.json()
 
     @expose('json')
     def machine_types(self):
-        resp = requests.get(self.base_url + '/nodes/machine_types/')
+        url = urlparse.urljoin(self.base_url, '/nodes/machine_types/')
+        resp = requests.get(url)
         resp.raise_for_status()
         return resp.json()
 
     @expose('json')
     def suites(self):
-        resp = requests.get(self.base_url + '/runs/suite/')
+        url = urlparse.urljoin(self.base_url, '/runs/suite/')
+        resp = requests.get(url)
         resp.raise_for_status()
         return resp.json()

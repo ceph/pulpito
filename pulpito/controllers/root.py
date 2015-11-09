@@ -1,5 +1,6 @@
 from pecan import conf, expose, redirect, request
 import requests
+import urlparse
 
 from job import JobController
 from util import prettify_run, prettify_job
@@ -29,7 +30,7 @@ class RootController(object):
                                   suite=suite, date=date, to_date=to_date)
         request.context['filters'] = filters
 
-        uri = '{base}/runs/'.format(base=base_url)
+        uri = urlparse.urljoin(base_url, '/runs/')
         if branch:
             uri += 'branch/%s/' % branch
         if machine_type:
@@ -66,12 +67,17 @@ class RootController(object):
         filters = get_run_filters(date=from_date_str, to_date=to_date_str)
         request.context['filters'] = filters
         if to:
-            resp = requests.get(
-                '{base}/runs/date/from/{from_}/to/{to}'.format(
-                    base=base_url, from_=from_date_str, to=to_date_str))
+            url = urlparse.urljoin(
+                base_url,
+                '/runs/date/from/{0}/to/{1}'.format(
+                    from_date_str, to_date_str)
+            )
         else:
-            resp = requests.get('{base}/runs/date/{date}/'.format(
-                base=base_url, date=from_date_str))
+            url = urlparse.urljoin(
+                base_url,
+                '/runs/date/{0}/'.format(from_date_str)
+            )
+        resp = requests.get(url)
 
         if resp.status_code == 400:
             error('/errors/invalid/',
@@ -112,9 +118,8 @@ class RunController(object):
         self.run = None
 
     def get_run(self):
-        resp = requests.get(
-            '{base}/runs/{name}'.format(base=base_url,
-                                        name=self.name))
+        url = urlparse.urljoin(base_url, '/runs/%s/' % self.name)
+        resp = requests.get(url)
         if resp.status_code == 404:
             error('/errors/not_found/',
                   'requested run does not exist')
