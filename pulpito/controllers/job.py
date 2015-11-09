@@ -14,7 +14,7 @@ class JobController(object):
         self.job_id = job_id
         url = urlparse.urljoin(
             base_url,
-            "/runs/{0}/jobs/{1}".format(run_name, job_id)
+            "/runs/{0}/jobs/{1}/".format(run_name, job_id)
         )
         resp = requests.get(url)
         if resp.status_code == 400:
