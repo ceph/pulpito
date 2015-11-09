@@ -61,7 +61,6 @@ class NodeStatsController(object):
 
         nodes = resp.json()
         users = dict()
-        print nodes
         for node in nodes:
             if node.get('locked', False):
                 owner = node.get('locked_by')
