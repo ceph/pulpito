@@ -72,7 +72,7 @@ class NodeController(object):
     def get_node_jobs(self, count=5):
         url = urlparse.urljoin(
             base_url,
-            '/nodes/{0}/jobs/?count={count}'.format(self.name, count)
+            '/nodes/{0}/jobs/?count={1}'.format(self.name, count)
         )
         resp = requests.get(url)
 
