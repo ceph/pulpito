@@ -101,7 +101,7 @@ def set_job_time_info(job):
         else:
             updated = datetime.strptime(job['updated'], timestamp_fmt)
             job['runtime'] = remove_delta_msecs(updated - started)
-    if job.get('duration'):
+    if job.get('duration') and job.get('runtime'):
         duration = timedelta(seconds=job['duration'])
         job['duration'] = str(duration)
         wait_time = remove_delta_msecs(job['runtime'] - duration)
