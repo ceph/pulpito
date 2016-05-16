@@ -77,6 +77,14 @@
                     </a>
                 </p>
               {% endif %}
+              {% if job.pcp_grafana_url %}
+                <p>
+                    Performance graphs:
+                    <a href="{{ job.pcp_grafana_url }}" target="_blank">
+                        {{ job.pcp_grafana_url }}
+                    </a>
+                </p>
+              {% endif %}
               {% if job.failure_reason %}
                 <h4> Failure Reason:</h4>
                 <p class="code-text">

@@ -39,6 +39,9 @@
             {% if job.sentry_event %}
               <a href="{{ job.sentry_event }}" target="_blank"><img src="/images/sentry.png" width="24px"></a>
             {% endif %}
+            {% if job.pcp_grafana_url %}
+              <a href="{{ job.pcp_grafana_url }}" target="_blank"><img src="/images/pcp_graph.png" width="24px"></a>
+            {% endif %}
           </td>
           <td>
             {{ job.posted|localtime }}
