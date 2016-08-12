@@ -20,7 +20,7 @@
                 </h2>
                 {% endif %}
               <h2>
-                Job stats:
+                Job stats for this page:
                 {% macro total(attr) %}
                   {{ runs|map(attribute='results')|sum(attribute=attr) }}
                 {% endmacro %}
