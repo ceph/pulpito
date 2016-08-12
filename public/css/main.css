@@ -156,3 +156,12 @@ div[class="tooltip-inner"] {
   background-color: #c4e3f3;
 }
 
+.center-table {
+  float: none !important;
+  margin: 0 auto;
+  display: table !important;
+}
+
+.center-inline-block {
+  display: inline-block !important;
+}

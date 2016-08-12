@@ -1,5 +1,6 @@
-from pecan import conf, expose, redirect, request
+from pecan import conf, expose, request
 import requests
+import urllib
 import urlparse
 
 from job import JobController
@@ -24,11 +25,13 @@ class RootController(object):
 
     @expose('index.html')
     def index(self, latest=False, branch='', machine_type='', status='',
-              suite='', date='', to_date=''):
-        filters = get_run_filters(latest=latest, branch=branch,
-                                  machine_type=machine_type, status=status,
-                                  suite=suite, date=date, to_date=to_date)
+              suite='', date='', to_date='', page='1'):
+        filters = get_run_filters(
+            latest=latest, branch=branch, machine_type=machine_type,
+            status=status, suite=suite, date=date, to_date=to_date,
+        )
         request.context['filters'] = filters
+        urlencode_args = dict()
 
         uri = urlparse.urljoin(base_url, '/runs/')
         if branch:
@@ -44,7 +47,11 @@ class RootController(object):
         elif date:
             uri += 'date/%s/' % date
         if status == 'running':
-            uri += '?count=9999'
+            urlencode_args['count'] = 9999
+        if page > 1:
+            urlencode_args['page'] = page
+        if urlencode_args:
+            uri += '?%s' % urllib.urlencode(urlencode_args)
 
         latest_runs = requests.get(uri).json()
         for run in latest_runs:
@@ -56,6 +63,7 @@ class RootController(object):
                     machine_type=machine_type,
                     suite=suite,
                     dates=[date, to_date],
+                    page=page,
                     )
 
     @expose('index.html')
