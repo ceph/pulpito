@@ -46,11 +46,13 @@
             <div class="bs-example">
                 {% include "run_table.html" %}
             </div>
+            {% if page %}
             <div class="btn-group center-table">
                 {% if page|int > 1 %}
                 <button type="button" class="btn btn-primary center-inline-block" id='prev-page-btn' onclick="stack_filter('page', '{{ page|int - 1 }}')">Previous Page</button>
                 {% endif %}
                 <button type="button" class="btn btn-primary center-inline-block" id='next-page-btn' onclick="stack_filter('page', '{{ page|int + 1 }}')">Next Page</button>
+            {% endif %}
             </div>
           </div>
         </div>
