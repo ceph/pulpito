@@ -18,6 +18,9 @@
                     {% include "run_jobs_table.html" %}
                 </div>
             {% endif %}
+            {% if page %}
+                {% include "page_buttons.html" %}
+            {% endif %}
           </div>
         </div>
 {% endblock %}

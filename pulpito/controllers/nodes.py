@@ -55,7 +55,7 @@ class NodeController(object):
         self.name = name
         self.node = None
 
-    def get_node(self):
+    def get_node(self, page=None):
         url = urlparse.urljoin(base_url, '/nodes/{0}/'.format(self.name))
         resp = requests.get(url)
         if resp.status_code == 404:
@@ -66,13 +66,15 @@ class NodeController(object):
 
         set_node_status_class(node)
         self.node = node
-        self.get_node_jobs()
+        self.get_node_jobs(page=page)
         return self.node
 
-    def get_node_jobs(self, count=5):
+    def get_node_jobs(self, count=5, page=None):
+        page = page or 1
         url = urlparse.urljoin(
             base_url,
-            '/nodes/{0}/jobs/?count={1}'.format(self.name, count)
+            '/nodes/{0}/jobs/?count={1}&page={2}'.format(
+                self.name, count, page)
         )
         resp = requests.get(url)
 
@@ -83,8 +85,9 @@ class NodeController(object):
         return self.node
 
     @expose('nodes.html')
-    def index(self):
-        node = self.node or self.get_node()
+    def index(self, page=1):
+        node = self.node or self.get_node(page=page)
         return dict(
-            nodes=[node]
+            nodes=[node],
+            page=page,
         )
