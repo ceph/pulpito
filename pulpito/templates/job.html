@@ -63,6 +63,20 @@
                     </tr>
                 </tbody>
               </table>
+            {% if job.targets %}
+            <div class="panel-group" id="detail-panel">
+                Nodes:
+                {% for (key, value) in job.targets.items() %}
+                    {% if '@' in key %}
+                        {% set host = key.split('@')[1] %}
+                    {% else %}
+                        {% set host = key %}
+                    {% endif %}
+                    {% set short_host = host.split('.')[0] %}
+                    <a href="/nodes/{{ host }}/">{{ short_host }}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
               <p>
                 Log:
                 <a href="{{ job.log_href }}" target="_blank">
