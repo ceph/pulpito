@@ -15,7 +15,7 @@ pyflakes
 pytest
 requests==2.8.0
 singledispatch==3.4.0.2
-six==1.4.1
+six
 waitress==0.8.7
 wsgiref
 pytz

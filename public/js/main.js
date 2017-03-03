@@ -32,7 +32,7 @@ function stack_filter(name, value) {
     filters = window.filters;
     filters[name] = value;
     var query_str = jQuery.param(filters);
-    var new_url = '/?' + query_str;
+    var new_url = window.location.pathname + '?' + query_str;
     navigate_with_modal(new_url);
 };
 
