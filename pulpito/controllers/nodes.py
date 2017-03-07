@@ -69,7 +69,7 @@ class NodeController(object):
         self.get_node_jobs(page=page)
         return self.node
 
-    def get_node_jobs(self, count=5, page=None):
+    def get_node_jobs(self, count=20, page=None):
         page = page or 1
         url = urlparse.urljoin(
             base_url,
