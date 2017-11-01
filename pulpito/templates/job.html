@@ -8,7 +8,7 @@
                 <h1 id="tables"><a href="/{{ job.name }}/">{{ job.name }}</a><span class='spaced-h'>/</span>{{ job.job_id }}</h1>
             </div>
 
-            <div class="bs-example">
+            <div id="table-flow" class="bs-example">
               <table class="table table-striped table-bordered table-hover link-bare">
                 <thead>
                   <tr>
@@ -27,37 +27,37 @@
                 </thead>
                 <tbody>
                     <tr class="{{ job.status_class }}">
-                        <td>
+                        <td data-title="Posted">
                             {{ job.posted|localtime }}
                         </td>
-                        <td>
+                        <td data-title="Started">
                             {{ job.started|localtime }}
                         </td>
-                        <td>
+                        <td data-title="Updated">
                             {{ job.updated|localtime }}
                         </td>
-                        <td>
+                        <td data-title="Runtime">
                             {{ job.runtime }}
                         </td>
-                        <td>
+                        <td data-title="Duration">
                             {{ job.duration }}
                         </td>
-                        <td>
+                        <td data-title="In Waiting">
                             {{ job.wait_time }}
                         </td>
-                        <td>
+                        <td data-title="Machine Type">
                             {{ job.machine_type }}
                         </td>
-                        <td>
+                        <td data-title="Teuthology Branch">
                             {{ job.teuthology_branch }}
                         </td>
-                        <td>
+                        <td data-title="OS Type">
                             {{ job.os_type }}
                         </td>
-                        <td>
+                        <td data-title="OS Version">
                             {{ job.os_version }}
                         </td>
-                        <td>
+                        <td data-title="Status">
                             {{ job.status }}
                         </td>
                     </tr>

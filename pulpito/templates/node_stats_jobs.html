@@ -10,7 +10,7 @@
             {% endif %}
             </div>
 
-            <div class="bs-example">
+            <div id="table-flow" class="bs-example">
               <table data-sortlist="[[6,1]]" class="table table-condensed table-striped table-bordered table-hover" style="border-collapse:collapse;">
                 <thead>
                   <tr>
@@ -32,24 +32,24 @@
                   {% for name in nodes %}
                   {% set node = nodes[name] %}
                     <tr>
-                      <td>
+                      <td data-title="Name">
                         <a href="/nodes/{{ name }}">{{ name }}</a>
-                      <td>
+                      <td data-title="Pass">
                         {{ node.pass }}
                       </td>
-                      <td>
+                      <td data-title="Fail">
                         {{ node.fail }}
                       </td>
-                      <td>
+                      <td data-title="Dead">
                         {{ node.dead }}
                       </td>
-                      <td>
+                      <td data-title="Unknown">
                         {{ node.unknown }}
                       </td>
-                      <td>
+                      <td data-title="Running">
                         {{ node.running }}
                       </td>
-                      <td>
+                      <td data-title="Total">
                         {{ node.total }}
                       </td>
                     </tr>

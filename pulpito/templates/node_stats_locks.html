@@ -10,7 +10,7 @@
             {% endif %}
             </div>
 
-            <div class="bs-example">
+            <div id="table-flow" class="bs-example">
               <table data-sortlist="[[1,0],[2,1],[0,1]]" class="table table-condensed table-striped table-bordered table-hover" style="border-collapse:collapse;">
                 <thead>
                   <tr>
@@ -29,13 +29,13 @@
                     {% for mtype in users[user_name] %}
                     {% set count = users[user_name][mtype] %}
                         <tr>
-                          <td>
+                          <td data-title="Owner">
                             {{ user_name }}
                           </td>
-                          <td>
+                          <td data-title="Type">
                             {{ mtype }}
                           </td>
-                          <td>
+                          <td data-title="Count">
                             {{ count }}
                           </td>
                         </tr>
