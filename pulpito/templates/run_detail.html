@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="row">
+  <div class="col-lg-12">
+    <div class="page-header">
+      <h1 class="panel-title"> {{ run.name }}</h1>
+    </div>
+    <div class="btn-group">
+      {% set results = run.results %}
+      {% if run.results.queued %}
+        <button type="button" class="btn btn-primary" id='queued-job-btn'>{{ run.results.queued }} Queued</button>
+      {% endif %}
+      {% if run.results.fail %}
+        <button type="button" class="btn btn-danger" id='fail-job-btn'>{{ run.results.fail }} Failed</button>
+      {% endif %}
+      {% if run.results.dead %}
+        <button type="button" class="btn btn-danger" id='dead-job-btn'>{{ run.results.dead }} Dead</button>
+      {% endif %}
+      {% if run.results.running %}
+        <button type="button" class="btn btn-warning" id='running-job-btn'>{{ run.results.running }} Running</button>
+      {% endif %}
+      {% if results.waiting %}
+        <button type="button" class="btn btn-info" id='waiting-job-btn'>{{ results.waiting }} Waiting</button>
+      {% endif %}
+      {% if run.results.unknown %}
+        <button type="button" class="btn btn-warning" id='unknown-job-btn'>{{ run.results.unknown }} Unknown</button>
+      {% endif %}
+      {% if run.results.pass %}
+        <button type="button" class="btn btn-success" id='pass-job-btn'>{{ run.results.pass }} Passed</button>
+      {% endif %}
+        <button type="button" class="btn btn-primary active" id='all-job-btn'>{{ run.results.total }} Total</button>
+    </div>
+    <div class="bs-example">
+      {% set jobs = run.jobs %}
+      {% include "run_jobs_detail.html" %}
+    </div>
+  </div>
+</div>
+{% endblock %}

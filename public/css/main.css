@@ -174,6 +174,30 @@ div[class="tooltip-inner"] {
   display: inline-block !important;
 }
 
+.table {
+  display: table;
+  table-layout: auto;
+  border-bottom: 1px solid grey;
+  border-right: 1px solid grey;
+}
+
+.table .table-row {
+  display: table-row;
+  padding: 0.1em;
+  margin: 0;
+}
+
+.table .header .table-cell {
+  font-weight: bold;
+}
+
+.table .table-cell {
+  display: table-cell;
+  padding: 0.1em;
+  border-top: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+  border-collapse: collapse;
+}
 
 /* Be responsive when the screen size is small */
 @media only screen and (max-width: 768px) {
@@ -197,6 +221,7 @@ div[class="tooltip-inner"] {
   }
 
   /* Force table to not be like tables anymore */
+  .table .table-cell,
   #table-flow table,
   #table-flow thead,
   #table-flow tbody,
@@ -206,7 +231,14 @@ div[class="tooltip-inner"] {
     display: block;
   }
 
+  .table {
+    border: none;
+    table-layout: auto;
+    display: unset;
+  }
+
   /* Hide table headers (but not display: none;, for accessibility) */
+  .table .table-row.header,
   #table-flow thead tr {
     position: absolute;
     top: -9999px;
@@ -215,23 +247,25 @@ div[class="tooltip-inner"] {
 
   #table-flow tr { border: 1px solid #ccc; }
 
+  .table .table-cell,
   #table-flow td {
     /* Behave  like a "row" */
     border: none;
     border-bottom: 1px solid #eee;
     position: relative;
-    padding-left: 50%;
+    padding-left: 25%;
     white-space: normal;
     text-align:left;
   }
 
+  .table .table-cell:before,
   #table-flow td:before {
     /* Now like a table header */
     position: absolute;
     /* Top/left values mimic padding */
     top: 6px;
     left: 6px;
-    width: 45%;
+    width: 25%;
     padding-right: 10px;
     white-space: nowrap;
     text-align:left;
@@ -240,4 +274,54 @@ div[class="tooltip-inner"] {
 
   /* Label the data */
   #table-flow td:before { content: attr(data-title); }
+  .table .table-cell:before { content: attr(data-title); }
+
+  .table .table-row {
+    display: block;
+    border-top: 1px solid gray;
+  }
+}
+
+/* Render a .table / .table-row / .table-cell construct as a set of cards */
+.card-stack {
+  table-display: auto;
+  display: unset;
+}
+
+.card-stack.table .table-row {
+  display: block;
+  border-top: 1px solid gray;
+}
+
+.card-stack.table .table-row.header {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+.card-stack.table .table-cell:before {
+  /* Now like a table header */
+  position: absolute;
+  /* Top/left values mimic padding */
+  top: 6px;
+  left: 6px;
+  width: 25%;
+  padding-right: 10px;
+  white-space: nowrap;
+  text-align:left;
+  font-weight: bold;
+  content: attr(data-title);
+}
+
+.card-stack.table .table-cell {
+  display: block;
+  border: none;
+  border-bottom: 1px solid #eee;
+  position: relative;
+  padding-left: 25%;
+  min-height: 2em;
+  white-space: normal;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
