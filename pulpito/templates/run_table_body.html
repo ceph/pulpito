@@ -1,21 +1,25 @@
 <tr class="{{ run['status_class'] }}">
-    {% set fields = ['user', 'scheduled', 'started', 'updated', 'runtime', 'suite', 'branch', 'machine_type'] %}
+  {% set fields = ['user', 'scheduled', 'started', 'updated', 'runtime', 'suite', 'branch', 'machine_type'] %}
   {% for field in fields %}
+    <td data-title="{{ field|capitalize }}">
+		{% if runs %}
+			<a href="/{{ run.name }}">
+		{% endif %}
     {% if field in ['scheduled', 'started', 'updated'] %}
-    <td>
-        <a href="/{{ run.name }}" target="_blank">{{ run[field]|localtime }}</a>
-    </td>
+			{{ run[field]|localtime }}
     {% else %}
-    <td>
-        <a href="/{{ run.name }}" target="_blank">{{ run[field] }}</a>
-    </td>
+			{{ run[field] }}
     {% endif %}
+		{% if runs %}
+			</a>
+		{% endif %}
+    </td>
   {% endfor %}
-  {% if results.queued|int > 0 %}<td>{{ run['results']['queued'] }}</td>{% endif %}
-  {% if results.pass|int > 0 %}<td>{{ run['results']['pass'] }}</td>{% endif %}
-  {% if results.fail|int > 0 %}<td>{{ run['results']['fail'] }}</td>{% endif %}
-  {% if results.dead|int > 0 %}<td>{{ run['results']['dead'] }}</td>{% endif %}
-  {% if results.unknown|int > 0 %}<td>{{ run['results']['unknown'] }}</td>{% endif %}
-  {% if results.waiting|int > 0 %}<td>{{ run['results']['waiting'] }}</td>{% endif %}
-  {% if results.running|int > 0 %}<td>{{ run['results']['running'] }}</td>{% endif %}
+  {% if results.queued|int > 0 %}<td data-title="Queued">{{ run['results']['queued'] }}</td>{% endif %}
+  {% if results.pass|int > 0 %}<td data-title="Pass">{{ run['results']['pass'] }}</td>{% endif %}
+  {% if results.fail|int > 0 %}<td data-title="Fail">{{ run['results']['fail'] }}</td>{% endif %}
+  {% if results.dead|int > 0 %}<td data-title="Dead">{{ run['results']['dead'] }}</td>{% endif %}
+  {% if results.unknown|int > 0 %}<td data-title="Unknown">{{ run['results']['unknown'] }}</td>{% endif %}
+  {% if results.waiting|int > 0 %}<td data-title="Waiting">{{ run['results']['waiting'] }}</td>{% endif %}
+  {% if results.running|int > 0 %}<td data-title="Running">{{ run['results']['running'] }}</td>{% endif %}
 </tr>

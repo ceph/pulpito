@@ -33,7 +33,6 @@ th[data-sort]{
 table.link-bare td a {
     display: block;
     width: 100%;
-    height: 100%;
     color: #666;
 }
 
@@ -168,4 +167,51 @@ div[class="tooltip-inner"] {
 
 .center-inline-block {
   display: inline-block !important;
+}
+
+@media only screen and (max-width: 800px) {
+  /* Force table to not be like tables anymore */
+  #table-flow table,
+  #table-flow thead,
+  #table-flow tbody,
+  #table-flow th,
+  #table-flow td,
+  #table-flow tr {
+    display: block;
+  }
+
+  /* Hide table headers (but not display: none;, for accessibility) */
+  #table-flow thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  #table-flow tr { border: 1px solid #ccc; }
+
+  #table-flow td {
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+    white-space: normal;
+    text-align:left;
+  }
+
+  #table-flow td:before {
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align:left;
+    font-weight: bold;
+  }
+
+  /* Label the data */
+  #table-flow td:before { content: attr(data-title); }
 }
