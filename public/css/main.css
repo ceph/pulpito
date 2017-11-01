@@ -176,7 +176,7 @@ div[class="tooltip-inner"] {
 
 
 /* Be responsive when the screen size is small */
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 768px) {
   /* Make the navbar collapse tightly */
   .navbar .nav > li > a {
     padding-top: 0px;
