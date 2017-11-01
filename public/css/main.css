@@ -86,18 +86,23 @@ div[class="tooltip-inner"] {
 
 .navbar .nav > li > a {
   padding-top: 25px;
-  padding-bottom: 25px;
 }
 
 .navbar-right {
   border: none;
   background: transparent;
+  padding-bottom: 5px;
+  margin-right: 5px;
 }
 
 .navbar-tiny > li > a {
   padding-top: 0px !important;
-  padding-bottom: 5px !important;
+  padding-bottom: 5px;
 }
+
+.navbar-nav>li>a,.navbar-nav>li>a:hover {
+    padding-bottom: 0px;
+  }
 
 .modal-static {
     position: fixed;
@@ -169,7 +174,28 @@ div[class="tooltip-inner"] {
   display: inline-block !important;
 }
 
+
+/* Be responsive when the screen size is small */
 @media only screen and (max-width: 800px) {
+  /* Make the navbar collapse tightly */
+  .navbar .nav > li > a {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .navbar-right {
+    padding-left: 15px;
+  }
+
+  .navbar .nav {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
   /* Force table to not be like tables anymore */
   #table-flow table,
   #table-flow thead,
