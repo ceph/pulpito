@@ -6,6 +6,10 @@ body {
   margin-top: 20px;
 }
 
+.navbar-brand > img {
+  display: inline;
+}
+
 h1 {
     font-size: 1.5em;
 }
@@ -29,7 +33,6 @@ th[data-sort]{
 table.link-bare td a {
     display: block;
     width: 100%;
-    height: 100%;
     color: #666;
 }
 
@@ -83,18 +86,23 @@ div[class="tooltip-inner"] {
 
 .navbar .nav > li > a {
   padding-top: 25px;
-  padding-bottom: 25px;
 }
 
 .navbar-right {
   border: none;
   background: transparent;
+  padding-bottom: 5px;
+  margin-right: 5px;
 }
 
 .navbar-tiny > li > a {
   padding-top: 0px !important;
-  padding-bottom: 5px !important;
+  padding-bottom: 5px;
 }
+
+.navbar-nav>li>a,.navbar-nav>li>a:hover {
+    padding-bottom: 0px;
+  }
 
 .modal-static {
     position: fixed;
@@ -164,4 +172,71 @@ div[class="tooltip-inner"] {
 
 .center-inline-block {
   display: inline-block !important;
+}
+
+
+/* Be responsive when the screen size is small */
+@media only screen and (max-width: 768px) {
+  /* Make the navbar collapse tightly */
+  .navbar .nav > li > a {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .navbar-right {
+    padding-left: 15px;
+  }
+
+  .navbar .nav {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  /* Force table to not be like tables anymore */
+  #table-flow table,
+  #table-flow thead,
+  #table-flow tbody,
+  #table-flow th,
+  #table-flow td,
+  #table-flow tr {
+    display: block;
+  }
+	/* Hide table headers (but not display: none;, for accessibility) */
+	#table-flow thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+  #table-flow tr { border: 1px solid #ccc; }
+
+	#table-flow td {
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+		white-space: normal;
+		text-align:left;
+	}
+
+	#table-flow td:before {
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%;
+		padding-right: 10px;
+		white-space: nowrap;
+		text-align:left;
+		font-weight: bold;
+	}
+
+  /* Label the data */
+	#table-flow td:before { content: attr(data-title); }
 }

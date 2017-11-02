@@ -1,3 +1,4 @@
+<div id='table-flow'>
 <table class="table table-condensed table-striped table-bordered table-hover" style="border-collapse:collapse;">
   <thead>
     <tr>
@@ -17,22 +18,22 @@
     </tr>
   </thead>
   <tbody>
-  {% if not jobs|length %}
-    <tr>
-      <td colspan=7>No jobs!</td>
-    </tr>
-  {% else %}
-    {% for job in jobs %}
-      <tr class="{{ job.status_class }} job job_{{job.status}}" data-toggle="collapse" data-target="#{{ job.job_id }}">
-        <td>
-          {{ job.status }}
-        </td>
-          <td>
+    {% if not jobs|length %}
+      <tr>
+	<td colspan=7>No jobs!</td>
+      </tr>
+    {% else %}
+      {% for job in jobs %}
+	<tr class="{{ job.status_class }} job job_{{job.status}}" data-toggle="collapse" data-target="#{{ job.job_id }}">
+	  <td data-title="Status">
+	    {{ job.status }}
+	  </td>
+          <td data-title="Job ID">
             <a href="/{{ job['name']}}/{{ job['job_id'] }}" class="tip" target="_blank" title="{{job.description}}">
               {{ job['job_id'] }}
             </a>
           </td>
-          <td>
+          <td data-title="Links">
             {% if job.log_href and job.status != 'queued' %}
               <a href="{{ job.log_href }}" target="_blank"><img src="/images/log.png" width="24px"></a>
             {% endif %}
@@ -43,34 +44,34 @@
               <a href="{{ job.pcp_grafana_url }}" target="_blank"><img src="/images/pcp_graph.png" width="24px"></a>
             {% endif %}
           </td>
-          <td>
+          <td data-title="Posted">
             {{ job.posted|localtime }}
           </td>
-          <td>
+          <td data-title="Started">
             {{ job.started|localtime }}
           </td>
-          <td>
+          <td data-title="Updated">
             {{ job.updated|localtime }}
           </td>
-          <td>
+          <td data-title="Runtime">
             {{ job['runtime'] }}
           </td>
-          <td>
+          <td data-title="Duration">
             {{ job['duration'] }}
           </td>
-          <td>
+          <td data-title="In Waiting">
             {{ job['wait_time'] }}
           </td>
-          <td>
+          <td data-title="Machine Type">
             {{ job['machine_type'] }}
           </td>
-          <td>
+          <td data-title="Teuthology Branch">
             {{ job['teuthology_branch'] }}
           </td>
-          <td>
+          <td data-title="OS Type">
             {{ job['os_type'] }}
           </td>
-          <td>
+          <td data-title="OS Version">
             {{ job['os_version'] }}
           </td>
         </tr>
@@ -88,3 +89,4 @@
     {% endif %}
   </tbody>
 </table>
+</div>
