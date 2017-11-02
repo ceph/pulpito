@@ -1,0 +1,44 @@
+<div class='table card-stack'>
+<div class='table-row header'>
+  <div class='table-cell'>ID</div>
+  <div class='table-cell'>Status</div>
+  <div class='table-cell'>Ceph Branch</div>
+  <div class='table-cell'>Suite Branch</div>
+  <div class='table-cell'>Teuthology Branch</div>
+  <div class='table-cell'>Machine</div>
+  <div class='table-cell'>OS</div>
+  <div class='table-cell'>Nodes</div>
+  <div class='table-cell'>Description</div>
+  <div class='table-cell'>Failure Reason</div>
+</div>
+{% for job in jobs %}
+<div id="{{ job.job_id }}" class="table-row job job_{{job.status}} alert-{{ job.status_class }}">
+    <div class='table-cell' data-title='ID:'>
+      <a href="#{{ job.job_id }}">
+        <span class="glyphicon glyphicon-link" />
+      </a>
+      <a href="/{{ job.name }}/{{ job.job_id }}">{{ job['job_id'] }}</a>
+    </div>
+    <div class='table-cell' data-title="Status:">
+      <a href="{{ job.log_href }}">{{ job.status|upper }}</a>
+    </div>
+    <div class='table-cell' data-title="Ceph Branch:">{{ job.branch }}</div>
+    <div class='table-cell' data-title="Suite Branch:">{{ job.suite_branch }}</div>
+    <div class='table-cell' data-title="Teuthology Branch:">{{ job.teuthology_branch }}</div>
+    <div class='table-cell' data-title="Machine:">{{ job.machine_type }}</div>
+    {% set os_str = '&nbsp;'.join([job.os_type|default(''), job.os_version|default('')]) %}
+    <div class='table-cell' data-title="OS:">{{ os_str }}</div>
+    <div class='table-cell' data-title="Targets:">
+    {% if job.targets %}
+    {% for node in job.targets.keys()|sort %}
+      <a href='/nodes/{{ node }}'>{{ node.split('@')[-1].split('.')[0] }}</a>
+    {% endfor %}
+    {% endif %}
+    </div>
+    <div class='table-cell' data-title="Description:">{{ job.description }}</div>
+    {% if job.failure_reason %}
+    <div class='table-cell' data-title="Failure Reason:">{{ job.failure_reason }}</div>
+    {% endif %}
+</div>
+{% endfor %}
+</div>

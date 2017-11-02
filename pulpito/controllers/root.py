@@ -152,6 +152,13 @@ class RunController(object):
             run=run
         )
 
+    @expose('run_detail.html')
+    def detail(self):
+        run = self.run or self.get_run()
+        return dict(
+            run=run
+        )
+
     @expose('json')
     def _lookup(self, job_id, *remainder):
         return JobController(self.name, job_id), remainder
