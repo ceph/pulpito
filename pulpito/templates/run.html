@@ -35,6 +35,13 @@
                   </a>
                 </h2>
               {% endif %}
+              {% if run.branch %}
+                <h2>
+                  <a href="/?branch={{ run.branch }}" target="_blank">
+                      See other runs on branch '{{ run.branch }}'?
+                  </a>
+                </h2>
+              {% endif %}
               {% if run.scheduled %}
                 <h2>
                   <a href="/date/{{ run.scheduled_day }}/" target="_blank">
