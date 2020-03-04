@@ -36,7 +36,8 @@ application = wsgiserver.WSGIPathInfoDispatcher({
     '/': simpleapp_wsgi_app,
     '/css': make_static_config('css'),
     '/js': make_static_config('js'),
-    '/images': make_static_config('images')
+    '/images': make_static_config('images'),
+    '/fonts': make_static_config('fonts')
     }
 )
 
