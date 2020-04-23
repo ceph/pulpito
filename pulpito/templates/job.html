@@ -78,6 +78,12 @@
             </div>
             {% endif %}
               <p>
+                Description:
+                <tt>
+                  {{ job.description }}
+                </tt>
+              </p>
+              <p>
                 Log:
                 <a href="{{ job.log_href }}" target="_blank">
                   {{ job.log_href }}

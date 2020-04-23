@@ -122,6 +122,11 @@ $( document ).ready(function() {
         $('#expand-fail-btn').text((open_panel_count ? "Collapse" : "Expand") + " All")
     }
     update_toggle_button(); // Run once on page load to text #expand-fail-btn
+    open_desc_count = 0;
+    function update_description_button() {
+        $('#expand-desc-btn').text((open_desc_count ? "Hide" : "Show") + " Description")
+    }
+    update_description_button(); // Run once on page load to text #expand-desc-btn
 
     $('#expand-fail-btn').click(function() {
         var open_rows = $("tr.job:visible").next("tr.job_fail_extra");
@@ -130,6 +135,44 @@ $( document ).ready(function() {
         } else {
             open_rows.find('.collapse').collapse('show');
         }
+    });
+
+    function show_hide_desc() {
+        var show_columns = ["Description"];
+        var hide_columns = [
+                "Posted",
+                "Started",
+                "Updated",
+                "Runtime",
+                "In Waiting",
+                "OS Type",
+                "OS Version",
+                "Teuthology Branch",
+                "Machine",
+        ];
+        show_columns.forEach( function(item) {
+            var i = $('#run-job-table').find("th:contains('" + item + "')").index() + 1
+            if (open_desc_count) {
+                $('td:nth-child(' + i  + '),th:nth-child(' + i + ')').show();
+            } else {
+                $('td:nth-child(' + i  + '),th:nth-child(' + i + ')').hide();
+            }
+        });
+        hide_columns.forEach( function(item) {
+            var i = $('#run-job-table').find("th:contains('" + item + "')").index() + 1
+            if (!open_desc_count) {
+                $('td:nth-child(' + i  + '),th:nth-child(' + i + ')').show();
+            } else {
+                $('td:nth-child(' + i  + '),th:nth-child(' + i + ')').hide();
+            }
+        });
+        update_description_button();
+        open_desc_count = (open_desc_count + 1) % 2;
+    }
+    show_hide_desc();
+
+    $('#expand-desc-btn').click(function () {
+        show_hide_desc();
     });
 
     $('.collapse').not(".panel-collapse").on('shown.bs.collapse', function () {
