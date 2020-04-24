@@ -1,5 +1,5 @@
 <div id='table-flow'>
-<table class="table table-condensed table-striped table-bordered table-hover" style="border-collapse:collapse;">
+<table id='run-job-table' class="table table-condensed table-striped table-bordered table-hover" style="border-collapse:collapse;">
   <thead>
     <tr>
       <th>Status</th>
@@ -15,6 +15,7 @@
       <th>Teuthology Branch</th>
       <th>OS Type</th>
       <th>OS Version</th>
+      <th>Description</th>
     </tr>
   </thead>
   <tbody>
@@ -74,10 +75,13 @@
           <td data-title="OS Version">
             {{ job['os_version'] }}
           </td>
+          <td data-title="Description">
+            {{ job['description'] }}
+          </td>
         </tr>
         {% if job.failure_reason %}
           <tr class="tablesorter-childRow job_fail_extra">
-            <td colspan="12" class="hiddenRow"><div class="collapse" id="{{ job.job_id }}">
+            <td colspan="14" class="hiddenRow"><div class="collapse" id="{{ job.job_id }}">
               Failure Reason:
               <p class="code-text">
                 {{ job.failure_reason|e }}
