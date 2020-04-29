@@ -6,8 +6,8 @@ server = {
     'host': os.environ.get('PULPITO_SERVER_HOST', '0.0.0.0')
 }
 
-paddles_address = os.environ.get('PULPITO_PADDLES_ADDRESS',
-                                 'http://sentry.front.sepia.ceph.com:8080')
+paddles_address = 'http://sentry.front.sepia.ceph.com:8080'
+paddles_address = os.environ.get('PULPITO_PADDLES_ADDRESS', paddles_address)
 
 # Pecan Application Configurations
 app = {
