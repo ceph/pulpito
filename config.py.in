@@ -6,6 +6,10 @@ server = {
     'host': os.environ.get('PULPITO_SERVER_HOST', '0.0.0.0')
 }
 
+# In the ceph-cm-ansible pulpito role the setup_pulpito task
+# replaces last occurance of 'paddles_address' assignment
+# using regex, that is why it should be one line expression.
+
 paddles_address = 'http://sentry.front.sepia.ceph.com:8080'
 paddles_address = os.environ.get('PULPITO_PADDLES_ADDRESS', paddles_address)
 
