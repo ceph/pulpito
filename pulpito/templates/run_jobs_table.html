@@ -16,6 +16,7 @@
       <th>OS Type</th>
       <th>OS Version</th>
       <th>Description</th>
+      <th>Nodes</th>
     </tr>
   </thead>
   <tbody>
@@ -77,6 +78,9 @@
           </td>
           <td data-title="Description">
             {{ job['description'] }}
+          </td>
+          <td data-title="Nodes">
+            {% if job['targets'] %}{{ job['targets'].items()|length }}{% else %}&mdash;{% endif %}
           </td>
         </tr>
         {% if job.failure_reason %}
