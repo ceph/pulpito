@@ -22,6 +22,7 @@
                     <th>Teuthology Branch</th>
                     <th>OS Type</th>
                     <th>OS Version</th>
+                    <th>Nodes</th>
                     <th>Status</th>
                   </tr>
                 </thead>
@@ -56,6 +57,9 @@
                         </td>
                         <td data-title="OS Version">
                             {{ job.os_version }}
+                        </td>
+                        <td data-title="Nodes">
+                            {% if job.targets %}{{ job.targets.items()|length }}{% else %}&mdash;{% endif %}
                         </td>
                         <td data-title="Status">
                             {{ job.status }}
