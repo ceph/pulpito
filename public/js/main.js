@@ -115,6 +115,7 @@ $( document ).ready(function() {
         })
         .bind('sortEnd', table_sortend_callback);
 
+    $('table').stickyTableHeaders();
     $('.tip').tooltip();
 
     open_panel_count = 0;

@@ -156,6 +156,11 @@ div[class="tooltip-inner"] {
 .table > tfoot > tr.info > th {
   background-color: #d9edf7;
 }
+
+.table > thead > tr > th {
+  background-color: #fafafa;
+}
+
 .table-hover > tbody > tr > td.info:hover,
 .table-hover > tbody > tr > th.info:hover,
 .table-hover > tbody > tr.info:hover > td,
