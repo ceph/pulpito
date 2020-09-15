@@ -15,6 +15,7 @@
 		{% endif %}
     </td>
   {% endfor %}
+  <td data-title="Revision"><a href="/?sha1={{ run['sha1']}}" target="_blank" title="Show all runs for '{{ run['sha1'][0:256] }}'">{{ run['sha1'][0:7] }}</a></td>
   {% if results.queued|int > 0 %}<td data-title="Queued">{{ run['results']['queued'] }}</td>{% endif %}
   {% if results.pass|int > 0 %}<td data-title="Pass">{{ run['results']['pass'] }}</td>{% endif %}
   {% if results.fail|int > 0 %}<td data-title="Fail">{{ run['results']['fail'] }}</td>{% endif %}
