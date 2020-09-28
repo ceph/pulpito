@@ -284,6 +284,20 @@ $( document ).ready(function() {
         }
     });
 
+    params = new URLSearchParams(window.location.search);
+    sha1 = params.get('sha1')
+    if (sha1) {
+        $('#search-sha1').val(sha1);
+    }
+    $('#search-sha1').keypress(function(e) {
+        // Enter pressed?
+        if(e.which == 10 || e.which == 13) {
+            sha1 = $(this).prop('value');
+            stack_filter('sha1', sha1);
+            return false;
+        }
+    });
+
     set_machine_types();
     set_suites();
 })

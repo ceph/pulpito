@@ -24,10 +24,10 @@ class RootController(object):
     errors = ErrorsController()
 
     @expose('index.html')
-    def index(self, latest=False, branch='', machine_type='', status='',
-              suite='', date='', to_date='', page='1'):
+    def index(self, latest=False, branch='', machine_type='', sha1='',
+              status='', suite='', date='', to_date='', page='1'):
         filters = get_run_filters(
-            latest=latest, branch=branch, machine_type=machine_type,
+            latest=latest, branch=branch, machine_type=machine_type, sha1=sha1,
             status=status, suite=suite, date=date, to_date=to_date,
         )
         request.context['filters'] = filters
@@ -38,6 +38,8 @@ class RootController(object):
             uri += 'branch/%s/' % branch
         if machine_type:
             uri += 'machine_type/%s/' % machine_type
+        if sha1:
+            uri += 'sha1/%s/' % sha1
         if status:
             uri += 'status/%s/' % status
         if suite:
@@ -64,6 +66,7 @@ class RootController(object):
                     suite=suite,
                     dates=[date, to_date],
                     page=page,
+                    sha1=sha1,
                     )
 
     @expose('index.html')
