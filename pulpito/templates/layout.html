@@ -109,6 +109,20 @@
                         <li><a onclick="navigate_with_modal('/stats/nodes/jobs/')" href="#">All</a></li>
                     </ul>
                 </li>
+                {% if session %}
+                    {% if session["username"] %}
+                        <li class="dropdown statuses">
+                            <a href="#" class="dropdown-toggle" id="menu-login" data-toggle="dropdown">{{session["username"]}}
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/logout">Logout</a></li>
+                            </ul>
+                        </li>
+                    {%else%}
+                        <a href="/login">Login</a>
+                    {% endif %}
+                {% endif %}
                 </ul>
         </div>
       </div>

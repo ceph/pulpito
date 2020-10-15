@@ -1,7 +1,6 @@
 from pecan import conf, expose
 import requests
-
-from pulpito.controllers import error
+from pulpito.controllers import error, session
 from pulpito.controllers.util import prettify_job
 
 base_url = conf.paddles_address
@@ -37,11 +36,13 @@ class RunCompareController(object):
             url += '&since=' + since
 
         runs = requests.get(url).json()
+        cur_session = session.beaker_session()
         full_info = dict(
             branch=branch,
             suite=suite,
             since=since,
             runs=list(),
+            session=cur_session
         )
         descriptions = set()
         for run in runs:

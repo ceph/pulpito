@@ -1,12 +1,13 @@
 from pecan import expose, response
-
+from pulpito.controllers import session
 
 class ErrorsController(object):
-
+    
     @expose('error.html')
     def index(self, status_code, message):
         response.status = status_code
-        return dict(status=status_code, message=message)
+        cur_session = session.beaker_session()
+        return dict(status=status_code, message=message, session=cur_session)
 
     @expose('error.html')
     def invalid(self, **kw):
@@ -15,7 +16,8 @@ class ErrorsController(object):
             'invalid request'
         )
         response.status = 400
-        return dict(status=response.status, message=msg)
+        cur_session = session.beaker_session()
+        return dict(status=response.status, message=msg, session=cur_session)
 
     @expose('error.html')
     def not_found(self, **kw):
@@ -24,4 +26,5 @@ class ErrorsController(object):
             'resource was not found'
         )
         response.status = 404
-        return dict(status=response.status, message=msg)
+        cur_session = session.beaker_session()
+        return dict(status=response.status, message=msg, session=cur_session)

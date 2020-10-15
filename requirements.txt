@@ -20,3 +20,7 @@ waitress==0.8.7
 pytz
 tzlocal
 CherryPy==3.8.0
+python-dotenv
+oauthlib
+Beaker
+requests-oauthlib==1.3.0

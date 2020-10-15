@@ -1,8 +1,7 @@
 from pecan import conf, expose, redirect
-from pulpito.controllers import error
+from pulpito.controllers import error, session
 from pulpito.controllers.util import set_node_status_class, prettify_job
 from urllib.parse import urljoin
-
 import requests
 
 base_url = conf.paddles_address
@@ -41,9 +40,11 @@ class NodesController(object):
         title = "{mtype} nodes".format(
             mtype=machine_type if machine_type else 'All',
         )
+        cur_session = session.beaker_session()
         return dict(
             title=title,
             nodes=nodes,
+            session=cur_session
         )
 
     @expose()
@@ -88,7 +89,9 @@ class NodeController(object):
     @expose('nodes.html')
     def index(self, page=1):
         node = self.node or self.get_node(page=page)
+        cur_session = session.beaker_session()
         return dict(
             nodes=[node],
             page=page,
+            session=cur_session
         )

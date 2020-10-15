@@ -3,7 +3,7 @@ import requests
 from urllib.parse import urljoin, urlencode
 
 
-from pulpito.controllers import error
+from pulpito.controllers import error, session
 from pulpito.controllers.compare import RunCompareController
 from pulpito.controllers.errors import ErrorsController
 from pulpito.controllers.job import JobController
@@ -12,6 +12,8 @@ from pulpito.controllers.proxy import ProxyController
 from pulpito.controllers.queue import QueueController
 from pulpito.controllers.stats import StatsController
 from pulpito.controllers.util import get_run_filters, prettify_run, prettify_job
+from pulpito.controllers.login import LoginController
+from pulpito.controllers.logout import LogoutController
 
 base_url = conf.paddles_address
 
@@ -21,7 +23,6 @@ run_sorter = lambda run: run['scheduled']
 class RootController(object):
 
     errors = ErrorsController()
-
     @expose('index.html')
     def index(self, latest=False, branch='', machine_type='', sha1='',
               status='', suite='', date='', to_date='', page='1'):
@@ -58,6 +59,7 @@ class RootController(object):
         for run in latest_runs:
             prettify_run(run)
         latest_runs.sort(key=run_sorter, reverse=True)
+        cur_session = session.beaker_session()
         return dict(runs=latest_runs,
                     filters=request.context.get('filters', dict()),
                     branch=branch,
@@ -66,6 +68,7 @@ class RootController(object):
                     dates=[date, to_date],
                     page=page,
                     sha1=sha1,
+                    session=cur_session
                     )
 
     @expose('index.html')
@@ -101,9 +104,11 @@ class RootController(object):
         for run in runs:
             prettify_run(run)
         runs.sort(key=run_sorter)
+        cur_session = session.beaker_session()
         return dict(runs=runs,
                     filters=request.context.get('filters', dict()),
-                    dates=[from_date_str, to_date_str]
+                    dates=[from_date_str, to_date_str],
+                    session=cur_session
                     )
 
     compare = RunCompareController()
@@ -113,6 +118,10 @@ class RootController(object):
     stats = StatsController()
 
     queue = QueueController()
+
+    login = LoginController()
+    
+    logout = LogoutController()
 
     @expose()
     def _lookup(self, name, *remainder):
@@ -150,15 +159,19 @@ class RunController(object):
     @expose('run.html')
     def index(self):
         run = self.run or self.get_run()
+        cur_session = session.beaker_session()
         return dict(
-            run=run
+            run=run,
+            session=cur_session
         )
 
     @expose('run_detail.html')
     def detail(self):
         run = self.run or self.get_run()
+        cur_session = session.beaker_session()
         return dict(
-            run=run
+            run=run,
+            session=cur_session
         )
 
     @expose('json')
