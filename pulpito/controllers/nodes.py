@@ -1,8 +1,9 @@
 from pecan import conf, expose, redirect
 from pulpito.controllers import error
 from pulpito.controllers.util import set_node_status_class, prettify_job
+from urllib.parse import urljoin
+
 import requests
-import urlparse
 
 base_url = conf.paddles_address
 
@@ -10,7 +11,7 @@ base_url = conf.paddles_address
 class NodesController(object):
     @expose('nodes.html')
     def index(self, machine_type=None):
-        uri = urlparse.urljoin(base_url, '/nodes/')
+        uri = urljoin(base_url, '/nodes/')
         if machine_type:
             uri += '?machine_type=%s' % machine_type
 
@@ -56,7 +57,7 @@ class NodeController(object):
         self.node = None
 
     def get_node(self, page=None):
-        url = urlparse.urljoin(base_url, '/nodes/{0}/'.format(self.name))
+        url = urljoin(base_url, '/nodes/{0}/'.format(self.name))
         resp = requests.get(url)
         if resp.status_code == 404:
             error('/errors/not_found/',
@@ -71,7 +72,7 @@ class NodeController(object):
 
     def get_node_jobs(self, count=20, page=None):
         page = page or 1
-        url = urlparse.urljoin(
+        url = urljoin(
             base_url,
             '/nodes/{0}/jobs/?count={1}&page={2}'.format(
                 self.name, count, page)

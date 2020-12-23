@@ -1,9 +1,8 @@
-from util import prettify_job
 from pecan import conf, expose
 import requests
-import urlparse
 
 from pulpito.controllers import error
+from pulpito.controllers.util import prettify_job
 
 base_url = conf.paddles_address
 

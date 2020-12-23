@@ -1,18 +1,17 @@
 from pecan import conf, expose, request
 import requests
-import urllib
-import urlparse
+from urllib.parse import urljoin, urlencode
 
-from job import JobController
-from util import prettify_run, prettify_job
+
 from pulpito.controllers import error
-from pulpito.controllers.errors import ErrorsController
 from pulpito.controllers.compare import RunCompareController
+from pulpito.controllers.errors import ErrorsController
+from pulpito.controllers.job import JobController
 from pulpito.controllers.nodes import NodesController
 from pulpito.controllers.proxy import ProxyController
 from pulpito.controllers.queue import QueueController
 from pulpito.controllers.stats import StatsController
-from pulpito.controllers.util import get_run_filters
+from pulpito.controllers.util import get_run_filters, prettify_run, prettify_job
 
 base_url = conf.paddles_address
 
@@ -33,7 +32,7 @@ class RootController(object):
         request.context['filters'] = filters
         urlencode_args = dict()
 
-        uri = urlparse.urljoin(base_url, '/runs/')
+        uri = urljoin(base_url, '/runs/')
         if branch:
             uri += 'branch/%s/' % branch
         if machine_type:
@@ -50,10 +49,10 @@ class RootController(object):
             uri += 'date/%s/' % date
         if status == 'running':
             urlencode_args['count'] = 9999
-        if page > 1:
+        if int(page) > 1:
             urlencode_args['page'] = page
         if urlencode_args:
-            uri += '?%s' % urllib.urlencode(urlencode_args)
+            uri += '?%s' % urlencode(urlencode_args)
 
         latest_runs = requests.get(uri).json()
         for run in latest_runs:
@@ -78,13 +77,13 @@ class RootController(object):
         filters = get_run_filters(date=from_date_str, to_date=to_date_str)
         request.context['filters'] = filters
         if to:
-            url = urlparse.urljoin(
+            url = urljoin(
                 base_url,
                 '/runs/date/from/{0}/to/{1}'.format(
                     from_date_str, to_date_str)
             )
         else:
-            url = urlparse.urljoin(
+            url = urljoin(
                 base_url,
                 '/runs/date/{0}/'.format(from_date_str)
             )
@@ -129,7 +128,7 @@ class RunController(object):
         self.run = None
 
     def get_run(self):
-        url = urlparse.urljoin(base_url, '/runs/%s/' % self.name)
+        url = urljoin(base_url, '/runs/%s/' % self.name)
         resp = requests.get(url)
         if resp.status_code == 404:
             error('/errors/not_found/',

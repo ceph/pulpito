@@ -1,8 +1,8 @@
 from pecan import conf, expose
 import requests
-import urlparse
 
-from util import prettify_run
+from pulpito.controllers.util import prettify_run
+from urllib.parse import urljoin
 
 base_url = conf.paddles_address
 
@@ -10,7 +10,7 @@ base_url = conf.paddles_address
 class QueueController(object):
     @expose('index.html')
     def index(self):
-        url = urlparse.urljoin(base_url, '/runs/queued/')
+        url = urljoin(base_url, '/runs/queued/')
         resp = requests.get(url)
         runs = resp.json()
         for run in runs:
