@@ -47,5 +47,5 @@ server_name='simpleapp')
 try:
     server.start()
 except KeyboardInterrupt:
-    print "Terminating server..."
+    print("Terminating server...")
     server.stop()
