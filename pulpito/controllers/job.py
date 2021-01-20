@@ -1,9 +1,9 @@
 from pecan import expose
 from pecan import conf
 import requests
-import urlparse
-from util import prettify_job
+from urllib.parse import urljoin
 from pulpito.controllers import error
+from pulpito.controllers.util import prettify_job
 
 base_url = conf.paddles_address
 
@@ -12,7 +12,7 @@ class JobController(object):
     def __init__(self, run_name, job_id):
         self.run_name = run_name
         self.job_id = job_id
-        url = urlparse.urljoin(
+        url = urljoin(
             base_url,
             "/runs/{0}/jobs/{1}/".format(run_name, job_id)
         )

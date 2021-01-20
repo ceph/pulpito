@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from ..filters import utc_stamp_to_local
+from pulpito.filters import utc_stamp_to_local
 
 timestamp_fmt = '%Y-%m-%d %H:%M:%S'
 
@@ -111,7 +111,7 @@ def set_job_time_info(job):
 
 
 def remove_none_strings(obj):
-    for key, value in obj.iteritems():
+    for key, value in obj.items():
         if str(value) == 'None':
             obj[key] = ''
     return obj
@@ -119,7 +119,7 @@ def remove_none_strings(obj):
 
 def get_run_filters(**kwargs):
     filters = dict()
-    for (key, value) in kwargs.iteritems():
+    for (key, value) in kwargs.items():
         if value == '':
             continue
         elif key == 'latest':
