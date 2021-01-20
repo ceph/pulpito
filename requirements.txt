@@ -16,7 +16,7 @@ pytest
 requests==2.8.0
 singledispatch==3.4.0.2
 six
-waitress==0.8.7
+waitress==1.4.3
 pytz
 tzlocal
 CherryPy==3.8.0
