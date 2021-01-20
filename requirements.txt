@@ -13,7 +13,7 @@ pep8
 py
 pyflakes
 pytest
-requests==2.8.0
+requests==2.20.0
 singledispatch==3.4.0.2
 six
 waitress==0.8.7
