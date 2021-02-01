@@ -1,6 +1,6 @@
 from collections import OrderedDict
 from pecan import conf, expose, redirect
-from pulpito.controllers import error
+from pulpito.controllers import error, session
 from urllib.parse import urljoin
 import requests
 
@@ -39,10 +39,12 @@ class NodeStatsController(object):
         title_templ = "{days}-day stats for {mtype} nodes"
         title = title_templ.format(days=since_days,
                                    mtype=(machine_type or 'all'))
+        cur_session = session.beaker_session()
         return dict(
             title=title,
             nodes=nodes,
             count=len(nodes),
+            session=cur_session
         )
 
     @expose('node_stats_locks.html')
@@ -74,9 +76,11 @@ class NodeStatsController(object):
         title = "Machine usage for up {mtype}nodes".format(
             mtype=machine_type + ' ' if machine_type else '',
         )
+        cur_session = session.beaker_session()
         return dict(
             title=title,
             users=users,
+            session=cur_session 
         )
 
 

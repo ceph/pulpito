@@ -5,7 +5,7 @@ log
 .vagrant
 prod.py
 config.py
-
+.env
 *.py[cod]
 
 # vim cruft

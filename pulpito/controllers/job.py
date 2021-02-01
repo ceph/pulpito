@@ -2,7 +2,7 @@ from pecan import expose
 from pecan import conf
 import requests
 from urllib.parse import urljoin
-from pulpito.controllers import error
+from pulpito.controllers import error, session
 from pulpito.controllers.util import prettify_job
 
 base_url = conf.paddles_address
@@ -27,4 +27,5 @@ class JobController(object):
 
     @expose('job.html')
     def index(self):
-        return dict(job=self.job)
+        cur_session = session.beaker_session()
+        return dict(job=self.job, session=cur_session)
