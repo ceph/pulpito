@@ -1,10 +1,9 @@
-FROM ubuntu:18.04
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && apt-get install \
-  -y --no-install-recommends \
+FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
+EXPOSE 8081
+RUN microdnf update -y && \
+  microdnf install -y \
         curl \
         lsof \
-        python-cherrypy \
         python3 \
         python3-pip \
         python3-setuptools \
