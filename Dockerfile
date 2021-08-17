@@ -1,4 +1,5 @@
 FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
+EXPOSE 8081
 RUN microdnf update -y && \
   microdnf install -y \
         curl \
