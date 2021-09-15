@@ -5,7 +5,7 @@ WebOb==1.8.6
 WebTest==2.0.18
 beautifulsoup4==4.3.2
 flake8
-ipdb==0.8.1
+ipdb==0.13.9
 ipython
 mccabe
 pecan
