@@ -1,5 +1,6 @@
 from pecan import conf, expose
 import requests
+from urllib.parse import urljoin
 
 from pulpito.controllers import error
 from pulpito.controllers.util import prettify_job
@@ -26,7 +27,7 @@ class RunCompareController(object):
                 ]
             }
         """
-        url = urlparse.urljoin(
+        url = urljoin(
             base_url,
             '/runs/branch/{branch}/suite/{suite}/?count={count}'.format(
                 branch=branch,
