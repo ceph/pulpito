@@ -80,6 +80,8 @@
             </div>
             <button type="button" class="btn btn-info {{ '' if run.results.fail or run.results.dead else 'disabled'}}" id="expand-fail-btn"></button>
             <button type="button" class="btn btn-info" id="expand-desc-btn"></button>
+            <button type="button" class="btn btn-info" id="scrape" onclick="window.location.href='http://qa-proxy.ceph.com/teuthology/yuriw-2021-03-23_21:23:36-rados-wip-yuri7-testing-2021-03-23-1015-nautilus-distro-basic-smithi/scrape.log'">Scrape</button>
+
             <div class="bs-example">
                 {% set jobs = run.jobs %}
                 {% include "run_jobs_table.html" %}

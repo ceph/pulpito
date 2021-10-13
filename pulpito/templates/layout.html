@@ -21,6 +21,7 @@
       <script type="text/javascript">
         var filters = JSON.parse('{{ filters|tojson|safe if filters else {}|tojson }}');
         set_filters(filters);
+
       </script>
       {% endblock %}
     </head>
