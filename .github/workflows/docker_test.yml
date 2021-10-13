@@ -1,0 +1,22 @@
+name: Docker Test
+
+on:
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  container_test:
+    runs-on: ubuntu-latest
+    name: Docker test
+    steps:
+      - uses: actions/checkout@v2
+      - name: Docker build
+        run: docker build . --file ./Dockerfile --tag ceph-pulpito-test
+      - name: Docker run
+        run: docker run -d -p 80:8080 ceph-pulpito-test
+      - name: Wait for docker to come up
+        run: sleep 4
+      - name: Check if docker is running
+        run: docker ps -a | grep ceph-pulpito-test
