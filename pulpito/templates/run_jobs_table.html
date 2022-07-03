@@ -34,6 +34,9 @@
             <a href="/{{ job['name']}}/{{ job['job_id'] }}" class="tip" target="_blank" title="{{job.description}}">
               {{ job['job_id'] }}
             </a>
+            <button class="copy-job-btn" value="/{{ job['name']}}/{{ job['job_id'] }}/">
+              <img src="/images/copy.png" width="24px">
+            </button>
           </td>
           <td data-title="Links">
             {% if job.log_href and job.status != 'queued' %}
