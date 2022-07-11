@@ -331,3 +331,9 @@ div[class="tooltip-inner"] {
   overflow: hidden;
   text-overflow: ellipsis;
  }
+
+ .copy-job-btn {
+  border: none;
+  background: transparent;
+  float: right;
+}
