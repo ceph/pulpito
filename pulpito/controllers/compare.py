@@ -47,7 +47,7 @@ class RunCompareController(object):
         descriptions = set()
         for run in runs:
             run_info = dict()
-            url = urlparse.urljoin(
+            url = urljoin(
                 base_url,
                 '/runs/{0}/jobs/?fields=job_id,description,status,log_href,failure_reason'.format(  # noqa
                     run['name'])
