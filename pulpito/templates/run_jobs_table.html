@@ -48,6 +48,9 @@
             {% if job.pcp_grafana_url %}
               <a href="{{ job.pcp_grafana_url }}" target="_blank"><img src="/images/pcp_graph.png" width="24px"></a>
             {% endif %}
+            {% if job.cbt_perf_url %}
+              <a href="{{ job.cbt_perf_url }}" target="_blank"><img src="/images/pcp_graph.png" width="24px"></a>
+            {% endif %}
           </td>
           <td data-title="Posted">
             {{ job.posted|localtime }}
