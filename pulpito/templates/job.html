@@ -101,6 +101,14 @@
                     </a>
                 </p>
               {% endif %}
+              {% if job.cbt_perf_url %}
+                <p>
+                    Sentry event:
+                    <a href="{{ job.cbt_perf_url }}" target="_blank">
+                        {{ job.cbt_perf_url }}
+                    </a>
+                </p>
+              {% endif %}
               {% if job.pcp_grafana_url %}
                 <p>
                     Performance graphs:
