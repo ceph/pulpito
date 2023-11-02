@@ -37,7 +37,13 @@ application = wsgiserver.WSGIPathInfoDispatcher({
     '/css': make_static_config('css'),
     '/js': make_static_config('js'),
     '/images': make_static_config('images'),
-    '/fonts': make_static_config('fonts')
+    '/fonts': make_static_config('fonts'),
+    '/favicon.ico': cherrypy.tree.mount(Root(), '/', config={
+        '/favicon.ico': {
+            'tools.staticfile.on': True,
+            'tools.staticfile.filename': os.path.join(public_path, 'images', 'favicon.ico'),
+        },
+    }),
     }
 )
 
