@@ -1,13 +1,10 @@
-FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
+FROM python:3.7-alpine
 EXPOSE 8081
-RUN microdnf update -y && \
-  microdnf install -y \
+RUN apk add \
         curl \
-        lsof \
-        python3 \
-        python3-pip \
-        python3-setuptools \
-        python3-wheel
+        gcc \
+        musl-dev \
+        lsof && pip install -U pip
 
 # Install dependencies:
 COPY requirements.txt .
