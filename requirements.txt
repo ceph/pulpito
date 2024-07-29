@@ -3,4 +3,4 @@ pecan
 requests==2.8.0
 pytz
 tzlocal
-CherryPy==3.8.0
+CherryPy==3.8.2
