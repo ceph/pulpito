@@ -133,32 +133,40 @@
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse">
                         <div class="panel-body">
-                            <ul>
+                            <ul style="list-style-type:circle;">
                             {% for (key, value) in job.items() recursive %}
                             {% set outer_loop = loop %}
-                                <li>{{ key }}:
                                 {% if value is mapping %}
-                                    <ul>{{ loop(value.items()) }}</ul>
-                                {% elif value is string and value|length > 0 %}
-                                    {{ value }}
+                                    <li><b>{{ key }}:</b>
+                                        <ul style="list-style-type:none;">
+                                           {{ loop(value.items()) }}
+                                        </ul>
+                                    </li>
+                                {%- elif value is string and value|length > 0 -%}
+                                    <li><b>{{ key }}:</b> {{ value }}</li>
                                 {% elif value is sequence and value|length > 0 %}
-                                    <ul>
+                                    <li><b>{{ key }}:</b> <ul style="list-style:disc;">
                                     {% for item in value %}
-                                        <li>
                                         {% if item is mapping %}
-                                            {{ outer_loop(item.items()) }}
-                                        {% elif item|string|length > 0 %}
-                                            {{ item }}
-                                        {% endif %}
+                                        <li>
+                                            <ul style="list-style-type:none;">
+                                                {{ outer_loop(item.items()) }}
+                                            </ul>
                                         </li>
+                                        {% elif item|string|length > 0 %}
+                                        <li>
+                                            {{ item }}
+                                        </li>
+                                        {% endif %}
                                     {% endfor %}
-                                    </ul>
-                                {% elif value|string == "None" %}
-                                {% elif value|string|length == 0 %}
-                                {% else %}
-                                    {{ value }}
+                                    </ul></li>
+                                {%- elif value|string == "None" -%}
+                                    <li><b>{{ key }}</b></li>
+                                {%- elif value|string|length == 0 -%}
+                                    <li><b>{{ key }}:</b> (Empty)</li>
+                                {%- else -%}
+                                    <li><b>{{ key }}:</b> {{ value }}</li>
                                 {% endif %}
-                                </li>
                             {% endfor %}
                             </ul>
                         </div>
