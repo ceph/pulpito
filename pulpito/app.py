@@ -1,4 +1,4 @@
-from pecan import conf, make_app
+from pecan import make_app
 from pulpito import model
 from pulpito.filters import setup_filters
 
