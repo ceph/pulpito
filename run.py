@@ -1,6 +1,6 @@
 import os
 import cherrypy
-from cherrypy import wsgiserver
+from cheroot.wsgi import Server as WSGIServer, PathInfoDispatcher
 
 from pecan.deploy import deploy
 
@@ -32,23 +32,19 @@ def make_static_config(static_dir_name):
     return cherrypy.tree.mount(Root(), '/', config=configuration)
 
 # Assuming your app has media on diferent paths, like 'css', and 'images'
-application = wsgiserver.WSGIPathInfoDispatcher({
+application = PathInfoDispatcher({
     '/': simpleapp_wsgi_app,
     '/css': make_static_config('css'),
     '/js': make_static_config('js'),
     '/images': make_static_config('images'),
     '/fonts': make_static_config('fonts'),
-    '/favicon.ico': cherrypy.tree.mount(Root(), '/', config={
-        '/favicon.ico': {
-            'tools.staticfile.on': True,
-            'tools.staticfile.filename': os.path.join(public_path, 'images', 'favicon.ico'),
-        },
-    }),
-    }
-)
+    '/favicon.ico': make_static_config('images'),  
+})
 
-server = wsgiserver.CherryPyWSGIServer((prod.server['host'], int(prod.server['port'])), application,
-server_name='simpleapp')
+server = WSGIServer(
+    (prod.server['host'], int(prod.server['port'])),
+    application
+)
 
 try:
     server.start()
