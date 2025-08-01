@@ -101,13 +101,25 @@ def set_job_time_info(job):
         else:
             updated = datetime.strptime(job['updated'], timestamp_fmt)
             job['runtime'] = remove_delta_msecs(updated - started)
-    if job.get('duration') and job.get('runtime'):
-        duration = timedelta(seconds=job['duration'])
-        job['duration'] = str(duration)
-        wait_time = remove_delta_msecs(job['runtime'] - duration)
-        job['wait_time'] = wait_time
+    # The duration has to be reported by teuthology internal.timer task
+    # when unwinding, however, there are other task are starting before
+    # the timer, so if one of them fails, the duration will not appear
+    # in summary.yaml and won't be reported to paddles.
+    # From other side, the 'runtime' which is calculated above using
+    # 'started' and 'updated' timestamp, but it can also happen that
+    # the 'started' timestamp is not reported, correspondingly we
+    # cannot calculate 'runtime' and 'wait_time'.
+    duration = job.get('duration')
+    runtime = job.get('runtime')
+    if duration:
+        duration_delta = timedelta(seconds=duration)
+        job['duration'] = str(duration_delta)
+
+    if duration and runtime:
+        duration_delta = timedelta(seconds=duration)
+        job['wait_time'] = remove_delta_msecs(runtime - duration_delta)
     elif job.get("status") == 'waiting':
-        job['wait_time'] = job.get('runtime')
+        job['wait_time'] = runtime
 
 
 def remove_none_strings(obj):
