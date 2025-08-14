@@ -93,9 +93,7 @@
           <tr class="tablesorter-childRow job_fail_extra">
             <td colspan="14" class="hiddenRow"><div class="collapse" id="{{ job.job_id }}">
               Failure Reason:
-              <p class="code-text">
-                {{ job.failure_reason|e }}
-              </p>
+              <p class="code-text">{{ job.failure_reason|e }}</p>
             </div></td>
           </tr>
         {% endif %}

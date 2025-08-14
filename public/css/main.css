@@ -50,6 +50,7 @@ table.link-bare td a:hover {
     font-family: 'UbuntuMono';
     background-color: #eee;
     padding-left: 25px;
+    white-space: pre-line;
 }
 
 /* Progress meter */
