@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pulpito
+  namespace: pulpito
+  labels:
+    app: pulpito
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pulpito
+  template:
+    metadata:
+      labels:
+        app: pulpito
+    spec:
+      containers:
+        - name: pulpito
+          image: image-registry.openshift-image-registry.svc:5000/pulpito/pulpito:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8081
+          env:
+            - name: PULPITO_SERVER_HOST
+              value: "0.0.0.0"
+            - name: PULPITO_SERVER_PORT
+              value: "8081"
+            - name: PULPITO_PADDLES_ADDRESS
+              value: "http://paddles.paddles.svc.cluster.local:8080"
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
+          readinessProbe:
+            tcpSocket:
+              port: 8081
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: 8081
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: "1"
+              memory: 1Gi

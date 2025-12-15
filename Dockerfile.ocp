@@ -1,0 +1,22 @@
+FROM registry.access.redhat.com/ubi9/python-311
+
+WORKDIR /opt/pulpito
+ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 PIP_NO_CACHE_DIR=1
+
+USER 0
+
+COPY requirements.txt .
+RUN python -m pip install -U pip setuptools wheel \
+ && python -m pip install -r requirements.txt
+
+COPY . /opt/pulpito
+
+RUN cp /opt/pulpito/config.py.in /opt/pulpito/prod.py
+
+# optional: if you still want install; OK as root
+RUN python -m pip install . || true
+
+RUN chgrp -R 0 /opt/pulpito && chmod -R g=u /opt/pulpito
+
+EXPOSE 8081
+CMD ["python", "run.py"]
