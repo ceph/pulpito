@@ -1,0 +1,19 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: pulpito-binary
+  namespace: pulpito
+spec:
+  runPolicy: Serial
+  source:
+    type: Binary
+    binary: {}
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile.ocp
+  output:
+    to:
+      kind: ImageStreamTag
+      name: pulpito:latest
+  triggers: []
