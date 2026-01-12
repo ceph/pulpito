@@ -41,6 +41,10 @@
           <td data-title="Links">
             {% if job.log_href and job.status != 'queued' %}
               <a href="{{ job.log_href }}" target="_blank"><img src="/images/log.png" width="24px"></a>
+              <a href="{{ job.log_href | replace('teuthology.log', 'ansible.log') }}"
+                 target="_blank">
+                <img src="/images/ansible.png" width="24px">
+              </a>
             {% endif %}
             {% if job.sentry_event %}
               <a href="{{ job.sentry_event }}" target="_blank"><img src="/images/sentry.png" width="24px"></a>
