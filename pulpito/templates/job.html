@@ -119,9 +119,7 @@
               {% endif %}
               {% if job.failure_reason %}
                 <h4> Failure Reason:</h4>
-                <p class="code-text">
-                    {{ job.failure_reason|e }}
-                </p>
+                <p class="code-text">{{ job.failure_reason|e }}</p>
               {% endif %}
             </div>
             <div class="panel-group" id="detail-panel">
