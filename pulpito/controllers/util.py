@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-from pulpito.filters import utc_stamp_to_local
 
 timestamp_fmt = '%Y-%m-%d %H:%M:%S'
 
