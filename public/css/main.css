@@ -338,3 +338,50 @@ div[class="tooltip-inner"] {
   background: transparent;
   float: right;
 }
+
+/* Scrollable dropdown menus */
+.dropdown-menu-scrollable {
+  max-height: 50vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Search container inside dropdown */
+.dropdown-search-container {
+  padding: 5px 10px;
+}
+
+.dropdown-search-container .navbar-form {
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown-search-container .input-group {
+  width: 100%;
+}
+
+.dropdown-search-container .input-group-addon {
+  background-color: #fff;
+  border-right: none;
+}
+
+.dropdown-search-container input.typeahead {
+  border-left: none;
+  box-shadow: none;
+}
+
+.dropdown-search-container input.typeahead:focus {
+  border-color: #ccc;
+  box-shadow: none;
+}
+
+/* Loading indicator in dropdowns */
+.dropdown-loading {
+  padding: 10px 20px;
+  color: #999;
+  text-align: center;
+}
+
+.dropdown-loading .fa-spinner {
+  margin-right: 5px;
+}
