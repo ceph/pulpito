@@ -11,7 +11,12 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h1 class="panel-title">
-                            <a data-toggle="collapse" data-parent="detail-panel" href="#collapseOne">{{ run.name }}</a>
+                            <a data-toggle="collapse" data-parent="detail-panel" href="#collapseOne">
+                              <!-- Make this easy to doubleclick select and copy without newlines. -->
+                              <table style="display: inline-table; margin: 0; border-collapse: collapse;">
+                                <tr><td>{{ run.name }}</td></tr>
+                              </table>
+                            </a>
                         </h1>
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse">
