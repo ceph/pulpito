@@ -9,7 +9,7 @@ spec:
     type: Git
     git:
       uri: https://github.com/ceph/pulpito.git
-      ref: dg-ocp
+      ref: main
   strategy:
     type: Docker
     dockerStrategy:
