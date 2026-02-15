@@ -60,6 +60,8 @@ function set_machine_types() {
 
 function populate_machine_type_menus(machine_types) {
     var run_filter_list = $('#menu-machine-type').parent().find('ul');
+    // Remove loading indicator
+    run_filter_list.find('.dropdown-loading').remove();
     if (run_filter_list.children().length == 0) {
         var items = [];
         $.each(machine_types, function(i) {
@@ -97,6 +99,8 @@ function set_suites() {
 
 function populate_suite_menus(suite_names) {
     var suite_list = $('#menu-suites').parent().find('ul');
+    // Remove loading indicator
+    suite_list.find('.dropdown-loading').remove();
     if (suite_list.children().length == 0) {
             var items = [];
             $.each(suite_names, function(i) {
@@ -279,6 +283,10 @@ $( document ).ready(function() {
         name: 'branches',
         prefetch: '/_paddles/branches/',
         ttl: 30000,
+    }).on('typeahead:loading', function() {
+        $(this).closest('.input-group').find('.input-group-addon').html('<i class="fa fa-spinner fa-spin"></i>');
+    }).on('typeahead:loaded', function() {
+        $(this).closest('.input-group').find('.input-group-addon').html('<i class="fa fa-search"></i>');
     });
 
     $('#search-branches').keypress(function(e) {

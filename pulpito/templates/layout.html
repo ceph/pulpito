@@ -53,29 +53,35 @@
                     <a href="#" class="dropdown-toggle" id="menu-branches" data-toggle="dropdown">By Branch
                         <b class="caret"></b>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu dropdown-menu-scrollable">
+                        <li class="dropdown-search-container">
+                            <form class="navbar-form">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                    <input id="search-branches" class='typeahead form-control' type="text" placeholder='search branches...'>
+                                </div>
+                            </form>
+                        </li>
+                        <li class="divider"></li>
                         {% for branch in ['main', 'tentacle', 'squid', 'reef'] %}
                         <li><a onclick="stack_filter('branch', '{{ branch }}')" href="#">{{ branch }}</a></li>
                         {% endfor %}
-                        <li>
-                            <form class="navbar-form">
-                                <input id="search-branches" class='typeahead' type="text" placeholder='search...'>
-                            </form>
-                        </li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" id="menu-suites" data-toggle="dropdown">By Suite
                         <b class="caret"></b>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu dropdown-menu-scrollable">
+                        <li class="dropdown-loading"><i class="fa fa-spinner fa-spin"></i> Loading...</li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" id="menu-machine-type" data-toggle="dropdown">By Machine Type
                         <b class="caret"></b>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu dropdown-menu-scrollable">
+                        <li class="dropdown-loading"><i class="fa fa-spinner fa-spin"></i> Loading...</li>
                     </ul>
                 </li>
             </ul>
