@@ -4,6 +4,9 @@
   <div class="col-lg-12">
     <div class="page-header">
       <h1 class="panel-title">{{ run.name }}</h1>
+      <h2>
+        <a href="http://qa-proxy.ceph.com/teuthology/{{ run.name }}/scrape.log"> See scrape.log?</a>
+      </h2>
     </div>
     <div class="btn-group">
       {% set results = run.results %}
