@@ -1,3 +1,8 @@
+function replace_origin() {
+    let url = new URL(window.location.href);
+    window.location.assign(url.toString().replace(url.origin, 'https://pulpito-ng.ceph.com/'));
+}
+
 function set_filters(filters) {
     window.filters = filters;
 }

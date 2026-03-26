@@ -338,3 +338,17 @@ div[class="tooltip-inner"] {
   background: transparent;
   float: right;
 }
+
+
+.navbar-header {
+  display: flex;
+  flex-direction: column;
+}
+
+#ng-link {
+  cursor: pointer;
+  font-size: 8pt;
+  color: pink;
+  vertical-align:top;
+  align-self:flex-end;
+}
