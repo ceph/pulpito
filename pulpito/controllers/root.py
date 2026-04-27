@@ -139,9 +139,12 @@ class RunController(object):
         if 'scheduled' in run:
             run['scheduled_day'] = run['scheduled'].split()[0]
 
-        if 'jobs' in run:
-            for job in run['jobs']:
-                prettify_job(job)
+        FIELDS = 'job_id,status,description,failure_reason,duration,machine_type,os_type,os_version,log_href,name,posted,started,updated,last_in_suite,targets'
+        jobs_url = urljoin(base_url, '/runs/%s/jobs/?fields=%s' % (self.name, FIELDS))
+        run['jobs'] = requests.get(jobs_url).json()
+
+        for job in run.get('jobs', []):
+            prettify_job(job)
 
         prettify_run(run)
         self.run = run
