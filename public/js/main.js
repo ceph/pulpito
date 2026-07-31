@@ -114,6 +114,23 @@ function populate_suite_menus(suite_names) {
 }
 
 $( document ).ready(function() {
+    // paddles serializes timestamps as "YYYY-MM-DD HH:MM:SS[.ffffff]".
+    // The built-in shortDate parser mangles the fractional seconds
+    // (its format() turns the "." into "/"), making e.g. the nodes
+    // page's Locked Since column unsortable, so parse them ourselves.
+    $.tablesorter.addParser({
+        id: "paddlesDate",
+        is: function(s) {
+            return /^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}/.test(s);
+        },
+        format: function(s) {
+            var m = s ? s.match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2}):(\d{2})(?:\.(\d+))?/) : null;
+            if (!m) { return s; }
+            return Date.UTC(m[1], m[2] - 1, m[3], m[4], m[5], m[6],
+                            m[7] ? Math.round(parseFloat("0." + m[7]) * 1000) : 0);
+        },
+        type: "numeric"
+    });
     $("table")
         .tablesorter({
             selectorHeaders: "> thead th"
